@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="76dp">
+
+        <TextView
+            android:text="Display information of the current quadrat"
+            android:layout_width="wrap_content"
+            android:textSize="17sp"
+            android:gravity="center"
+            android:layout_height="70dp"
+            android:id="@+id/textView12" />
+
+        <CheckBox
+            android:text="GPS"
+            android:layout_width="wrap_content"
+            android:layout_height="67dp"
+            android:id="@+id/checkBox" />
+
+    </LinearLayout>
+
+    <EditText
+        android:text="Display all current trees here"
+        android:layout_width="match_parent"
+        android:layout_height="389dp"
+        android:inputType="textMultiLine"
+        android:textSize="37sp"
+        android:gravity="center"
+        android:ems="10"
+        android:id="@+id/editText" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:text="Summary"
+            android:layout_width="191dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/button"
+            android:layout_weight="1" />
+
+        <Button
+            android:text="Add Tree"
+            android:layout_width="185dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/button4"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+</LinearLayout>
