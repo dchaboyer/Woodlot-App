@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--XML file for the stand summary screen. Uses android libraries to declare widgets-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+        <TextView
+            android:text="Stand Overview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.05"
+            android:textSize="40sp"
+            android:gravity="center"
+            android:id="@+id/title" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.05"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:id="@+id/species" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.05"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:id="@+id/age" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.05"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:id="@+id/height" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:text="Type Notes Here"
+            android:textSize="30sp"
+            android:ems="10"
+            android:id="@+id/editNotes"
+            android:layout_weight="0.1" />
+
+        <Button
+            android:text="Edit Info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:onClick="sendMessage"
+            android:id="@+id/button"
+            android:layout_weight="0.1" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight = "0.55">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/scrollLayout"
+                android:orientation="vertical" />
+        </ScrollView>
+
+</LinearLayout>

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--XML file for the stand info input screen. Uses android libraries to declare widgets-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -80,6 +81,7 @@
             android:id="@+id/cancelButton"
             android:textSize="30sp"
             android:gravity="center"
+            android:onClick="sendOldValues"
             android:layout_weight="1" />
 
         <Button
@@ -89,6 +91,7 @@
             android:id="@+id/acceptButton"
             android:textSize="30sp"
             android:gravity="center"
+            android:onClick="sendMessage"
             android:layout_weight="1" />
     </LinearLayout>
 
