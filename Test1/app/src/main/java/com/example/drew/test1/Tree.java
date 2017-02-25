@@ -1,6 +1,5 @@
+package com.example.drew.test1;
 import java.util.List;
-
-import javax.management.InvalidAttributeValueException;
 
 import java.util.LinkedList;
 /**
@@ -15,9 +14,7 @@ import java.util.LinkedList;
  *	DBH = Diameter at Breast Height  (!)API
  */
 
-public class Tree implements Observable<TreeObserver>{
-	
-	private List<TreeObserver> observers;
+public class Tree{
 	
 	private int dbh;
 	private Species species;
@@ -25,45 +22,12 @@ public class Tree implements Observable<TreeObserver>{
 	private MaterialType materialType;
 	
 	public Tree(int dbh, Species species){
-		this.observers = new LinkedList<TreeObserver>();
 		
 		this.dbh = dbh;
 		this.species = species;
 		this.storageFactor = null;
 		this.materialType = null;
 	}
-	
-	//OBSERVERS//--------------------------------------
-	
-	@Override
-	public void addObserver(TreeObserver observer) {
-		this.observers.add(observer);
-		this.notifyAssignment(observer);
-	}
-
-	@Override
-	public void removeObserver(TreeObserver observer) {
-		this.observers.remove(observer);
-	}
-	
-		// helpers
-	
-		/**
-		 * Tell an added observer it was just assigned to this Tree.
-		 * @param newObserver
-		 */
-		public void notifyAssignment(TreeObserver newObserver){
-			newObserver.newTree(this);
-		}
-		
-		public void notifyDbhChange(){
-			for (TreeObserver observer : this.observers){
-				observer.dbhChanged(this.dbh);
-			}
-		}
-		
-		//*TODO: remaining
-	
 	//SET//--------------------------------------------
 	
 	public void setDbh(int dbh){
