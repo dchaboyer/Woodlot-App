@@ -78,11 +78,11 @@ public class Quadrat{
 
 	private double calculateDwm(){
 
+		AbpCalculator calculator = new AbpCalculator();
 		double dwm = 0.0;
 
 		for (Tree tree: this.trees){
-			AbpEquation equation = tree.getSpecies().equation();
-			dwm += equation.evaluate(tree.getDbh());
+			dwm += calculator.calculateAbp(tree);
 		}
 
 		return dwm;
