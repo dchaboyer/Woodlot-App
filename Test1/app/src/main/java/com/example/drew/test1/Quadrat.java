@@ -42,10 +42,6 @@ public class Quadrat{
 
 	//GET//--------------------------------------------
 
-	public double getDwm(){
-		return this.calculateDwm();
-	}
-
 	public boolean getCompletionStatus(){
 		return this.complete;
 	}
@@ -72,19 +68,5 @@ public class Quadrat{
 
 	public void removeTree(Tree tree){
 		this.trees.remove(tree);
-	}
-
-	//HELPERS//----------------------------------------
-
-	private double calculateDwm(){
-
-		AbpCalculator calculator = new AbpCalculator();
-		double dwm = 0.0;
-
-		for (Tree tree: this.trees){
-			dwm += calculator.calculateAbp(tree);
-		}
-
-		return dwm;
 	}
 }

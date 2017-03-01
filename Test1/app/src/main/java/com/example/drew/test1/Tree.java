@@ -16,12 +16,12 @@ import java.util.LinkedList;
 
 public class Tree{
 	
-	private int dbh;
+	private double dbh;
 	private Species species;
 	private Integer storageFactor;
 	private MaterialType materialType;
 	
-	public Tree(int dbh, Species species){
+	public Tree(double dbh, Species species){
 		
 		this.dbh = dbh;
 		this.species = species;
@@ -30,7 +30,7 @@ public class Tree{
 	}
 	//SET//--------------------------------------------
 	
-	public void setDbh(int dbh){
+	public void setDbh(double dbh){
 		this.dbh = dbh;
 	}
 	
@@ -50,7 +50,7 @@ public class Tree{
 	
 	//GET//--------------------------------------------
 	
-	public int getDbh(){
+	public double getDbh(){
 		return this.dbh;
 	}
 	

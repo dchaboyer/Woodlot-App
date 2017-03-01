@@ -20,7 +20,7 @@ public class GenericAbpe implements AbpEquation{
     }
 
     @Override
-    public double evaluate(int dbh) {
+    public double calculate(double dbh) {
         return Math.pow(10, a*Math.log10(dbh) - b);
     }
 }

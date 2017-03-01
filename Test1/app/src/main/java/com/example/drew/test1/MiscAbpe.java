@@ -22,7 +22,7 @@ public class MiscAbpe implements AbpEquation{
      * returns ln(W) where w = dry weight in kg
      */
     @Override
-    public double evaluate(int dbh) {
+    public double calculate(double dbh) {
         return Math.exp(a + b*Math.log(dbh));
     }
 

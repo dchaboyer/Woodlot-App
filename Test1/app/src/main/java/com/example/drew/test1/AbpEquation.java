@@ -10,6 +10,6 @@ package com.example.drew.test1;
 
 public interface AbpEquation {
 
-    public double evaluate(int dbh);
+    public double calculate(double dbh);
 
 }

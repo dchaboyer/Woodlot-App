@@ -25,7 +25,8 @@ public class AbpCalculator {
 
     //HELPERS//-------------------------------------------
     /**
-     * Gets the appropriate equation for a given Species
+     * Gets the appropriate equation for a given species.
+     * Returns null if species not recognized.
      * @param species
      * @return
      */

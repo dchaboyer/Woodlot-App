@@ -3,7 +3,7 @@ package com.example.drew.test1;
 import android.app.Application;
 
 /**
- * WOODLOT APPLICATION
+ * WOODLOT CARBON CONTENT CALCULATOR APPLICATION
  *
  * Holds core data of the application.
  *
@@ -11,7 +11,7 @@ import android.app.Application;
  * Created by Jen on 25/02/2017.
  */
 
-public class WoodlotApp extends Application{
+public class WCCCApp extends Application{
 
     private DataBase database;
 
