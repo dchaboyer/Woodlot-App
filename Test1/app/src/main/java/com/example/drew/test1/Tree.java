@@ -18,7 +18,7 @@ public class Tree{
 	
 	private double dbh;
 	private Species species;
-	private Integer storageFactor;
+	private StorageFactor storageFactor;
 	private MaterialType materialType;
 	
 	public Tree(double dbh, Species species){
@@ -38,9 +38,7 @@ public class Tree{
 		this.species = species;
 	}
 	
-	public void setStorageFactor(Integer storageFactor) throws InvalidAttributeValueException{
-		if (storageFactor < 1 || storageFactor > 3)
-			throw new InvalidAttributeValueException("Storage factor " + storageFactor + " is invalid. Valid storage factors are 1, 2, 3 only.");
+	public void setStorageFactor(StorageFactor storageFactor){
 		this.storageFactor = storageFactor;
 	}
 	
@@ -58,7 +56,7 @@ public class Tree{
 		return this.species;
 	}
 	
-	public Integer getStorageFactor(){
+	public StorageFactor getStorageFactor(){
 		return this.storageFactor;
 	}
 	
