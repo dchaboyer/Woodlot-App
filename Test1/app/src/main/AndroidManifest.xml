@@ -15,6 +15,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".StandOverview"></activity>
+        <activity android:name=".QuadratScreen"></activity>
+        <activity android:name=".TreeLayout"></activity>
     </application>
 
 </manifest>
