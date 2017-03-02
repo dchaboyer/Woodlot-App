@@ -1,6 +1,5 @@
+package com.example.drew.test1;
 import java.util.List;
-
-import javax.management.InvalidAttributeValueException;
 
 import java.util.LinkedList;
 /**
@@ -15,58 +14,23 @@ import java.util.LinkedList;
  *	DBH = Diameter at Breast Height  (!)API
  */
 
-public class Tree implements Observable<TreeObserver>{
+public class Tree{
 	
-	private List<TreeObserver> observers;
-	
-	private int dbh;
+	private double dbh;
 	private Species species;
-	private Integer storageFactor;
+	private StorageFactor storageFactor;
 	private MaterialType materialType;
 	
-	public Tree(int dbh, Species species){
-		this.observers = new LinkedList<TreeObserver>();
+	public Tree(double dbh, Species species){
 		
 		this.dbh = dbh;
 		this.species = species;
 		this.storageFactor = null;
 		this.materialType = null;
 	}
-	
-	//OBSERVERS//--------------------------------------
-	
-	@Override
-	public void addObserver(TreeObserver observer) {
-		this.observers.add(observer);
-		this.notifyAssignment(observer);
-	}
-
-	@Override
-	public void removeObserver(TreeObserver observer) {
-		this.observers.remove(observer);
-	}
-	
-		// helpers
-	
-		/**
-		 * Tell an added observer it was just assigned to this Tree.
-		 * @param newObserver
-		 */
-		public void notifyAssignment(TreeObserver newObserver){
-			newObserver.newTree(this);
-		}
-		
-		public void notifyDbhChange(){
-			for (TreeObserver observer : this.observers){
-				observer.dbhChanged(this.dbh);
-			}
-		}
-		
-		//*TODO: remaining
-	
 	//SET//--------------------------------------------
 	
-	public void setDbh(int dbh){
+	public void setDbh(double dbh){
 		this.dbh = dbh;
 	}
 	
@@ -74,9 +38,7 @@ public class Tree implements Observable<TreeObserver>{
 		this.species = species;
 	}
 	
-	public void setStorageFactor(Integer storageFactor) throws InvalidAttributeValueException{
-		if (storageFactor < 1 || storageFactor > 3)
-			throw new InvalidAttributeValueException("Storage factor " + storageFactor + " is invalid. Valid storage factors are 1, 2, 3 only.");
+	public void setStorageFactor(StorageFactor storageFactor){
 		this.storageFactor = storageFactor;
 	}
 	
@@ -86,7 +48,7 @@ public class Tree implements Observable<TreeObserver>{
 	
 	//GET//--------------------------------------------
 	
-	public int getDbh(){
+	public double getDbh(){
 		return this.dbh;
 	}
 	
@@ -94,7 +56,7 @@ public class Tree implements Observable<TreeObserver>{
 		return this.species;
 	}
 	
-	public Integer getStorageFactor(){
+	public StorageFactor getStorageFactor(){
 		return this.storageFactor;
 	}
 	
