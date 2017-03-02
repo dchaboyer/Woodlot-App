@@ -72,6 +72,13 @@ public class StandOverview extends AppCompatActivity
             currButton.setText("Quadrat " + i + " (Functionality coming soon)");
             currButton.setTextSize(40);
             layout.addView(currButton);
+            currButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent(StandOverview.this, QuadratScreen.class);
+                    startActivity(intent);
+                }
+            });
+
             quadratButtons[i] = currButton;
         }
     }

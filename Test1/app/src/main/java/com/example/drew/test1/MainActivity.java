@@ -118,11 +118,11 @@ public class MainActivity extends AppCompatActivity
      * @param id
      */
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
-    {
-        String item = parent.getItemAtPosition(position).toString();
-        currSpecies = item;
-    }
+public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+{
+    String item = parent.getItemAtPosition(position).toString();
+    currSpecies = item;
+}
 
     /**
      * Required method for interface purposes. when a user selects nothing from
