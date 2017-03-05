@@ -1,7 +1,7 @@
 /**
  * @author Jonathan Whitaker, Mathieu Belzile-Ha, Drew Chaboyer
  * COMP 4721
- * 12/2/17
+ * 5/3/17
  *
  * This is the Java code for the data entry screen for stands. It is
  * called MainActivity because Android requires one file to have this name.
@@ -16,6 +16,7 @@ package com.example.drew.test1;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
@@ -24,78 +25,67 @@ import android.widget.EditText;
 import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
+import android.text.TextWatcher;
+import android.text.Editable;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements AdapterView.OnItemSelectedListener
 {
-    public final static String EXTRA_AGE = "com.example.drew.test1.AGE";
-    public final static String EXTRA_HEIGHT = "com.example.drew.test1.HEIGHT";
-    public final static String EXTRA_SPECIES = "com.example.drew.test1.SPECIES";
-    public final static String EXTRA_NOTES = "com.example.drew.test1.NOTES";
 
+    //widget objects
     protected Spinner spinner;
     protected EditText ageEdit;
     protected EditText heightEdit;
     protected Button cancelButton;
     protected Button acceptButton;
-    protected String currAge;
-    protected String currHeight;
+
+    //variables to store the inputed values
+    protected int currAge;
+    protected double currHeight;
     protected String currSpecies;
-    protected String oldAge = null;
-    protected String oldHeight = null;
-    protected String oldSpecies = null;
-    protected String notes = null;
 
     /**
-     * Begins automatically anytime a user pulls of the stand data entry
-     * screen. It saves the old values for the stand, in case the user chooses to
-     * cancel any changes.
-     *
-     * The rest of the method specifies the widgets.
-     * @param savedInstanceState
+     * Begins automatically anytime a user pulls up the stand data entry
+     * screen. It specifies the starting text for all widgets.
+     * @param savedInstanceState (a class that is part of the android library)
      */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent intent = getIntent();
-        if(intent != null)
-        {
-            oldAge = intent.getStringExtra(EXTRA_AGE);
-            oldHeight = intent.getStringExtra(EXTRA_HEIGHT);
-            oldSpecies = intent.getStringExtra(EXTRA_SPECIES);
-            notes = intent.getStringExtra(EXTRA_NOTES);
-        }
+
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
         spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(this);
 
         List<String> categories = new ArrayList<String>();
-        categories.add("American Beech");
-        categories.add("Balsam Fur");
-        categories.add("Black Cherry");
-        categories.add("Black Spruce");
-        categories.add("Eastern Hemlock");
-        categories.add("Eastern Larch");
-        categories.add("Eastern White Cedar");
-        categories.add("Generic Hard Wood");
-        categories.add("Generic Soft Wood");
-        categories.add("Grey Birch");
-        categories.add("Iron Wood");
-        categories.add("Jack Pine");
-        categories.add("Large Toothed Aspen");
-        categories.add("Red Maple");
-        categories.add("Red Oak");
-        categories.add("Red Pine");
-        categories.add("Red Spruce");
-        categories.add("Sugar Maple");
-        categories.add("Trembling Aspen");
-        categories.add("White Ash");
-        categories.add("White Birch");
-        categories.add("White Pine");
-        categories.add("White Spruce");
-        categories.add("Yellow Birch");
+        categories.add(Species.AMERICAN_BEECH.getName());
+        categories.add(Species.BALSAM_FIR.getName());
+        categories.add(Species.BLACK_CHERRY.getName());
+        categories.add(Species.BLACK_SPRUCE.getName());
+        categories.add(Species.EASTERN_HEMLOCK.getName());
+        categories.add(Species.EASTERN_LARCH.getName());
+        categories.add(Species.EASTERN_WHITE_CEDAR.getName());
+        categories.add(Species.GENERIC_HARD_WOOD.getName());
+        categories.add(Species.GENERIC_SOFT_WOOD.getName());
+        categories.add(Species.GREY_BIRCH.getName());
+        categories.add(Species.IRON_WOOD.getName());
+        categories.add(Species.JACK_PINE.getName());
+        categories.add(Species.LARGE_TOOTHED_ASPEN.getName());
+        categories.add(Species.RED_MAPLE.getName());
+        categories.add(Species.RED_OAK.getName());
+        categories.add(Species.RED_PINE.getName());
+        categories.add(Species.RED_SPRUCE.getName());
+        categories.add(Species.SUGAR_MAPLE.getName());
+        categories.add(Species.TREMBLING_ASPEN.getName());
+        categories.add(Species.WHITE_ASH.getName());
+        categories.add(Species.WHITE_BIRCH.getName());
+        categories.add(Species.WHITE_PINE.getName());
+        categories.add(Species.WHITE_SPRUCE.getName());
+        categories.add(Species.YELLOW_BIRCH.getName());
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
                                                 R.layout.spinner_layout, categories);
@@ -106,6 +96,14 @@ public class MainActivity extends AppCompatActivity
         heightEdit = (EditText) findViewById(R.id.editHeight);
         cancelButton = (Button) findViewById(R.id.cancelButton);
         acceptButton = (Button) findViewById(R.id.acceptButton);
+
+        Stand currStand = ((WCCCApp) this.getApplication()).getDataBase().getWoodlot(0).getStand(0);
+        Integer oldAge = currStand.getAge();
+        ageEdit.setText(oldAge.toString());
+        Double oldHeight = currStand.getHeight();
+        heightEdit.setText(oldHeight.toString());
+
+        addListeners();
     }
 
     /**
@@ -118,11 +116,11 @@ public class MainActivity extends AppCompatActivity
      * @param id
      */
     @Override
-public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
-{
-    String item = parent.getItemAtPosition(position).toString();
-    currSpecies = item;
-}
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+    {
+        String item = parent.getItemAtPosition(position).toString();
+        currSpecies = item;
+    }
 
     /**
      * Required method for interface purposes. when a user selects nothing from
@@ -134,42 +132,73 @@ public void onItemSelected(AdapterView<?> parent, View view, int position, long 
     }
 
     /**
+     * Adds listeners to the age and height widgets. Since these fields are required,
+     * when they are blank the program disables the "accept" button.
+     */
+    public void addListeners()
+    {
+        ageEdit.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                boolean isEmpty = ageEdit.getText().toString().isEmpty();
+                acceptButton.setEnabled(!isEmpty);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after){}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+        });
+
+        heightEdit.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void afterTextChanged(Editable s) {
+                boolean isEmpty = heightEdit.getText().toString().isEmpty();
+                acceptButton.setEnabled(!isEmpty);
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+        });
+    }
+
+    /**
      * Called when a user presses accept. Starts the stand summary screen,
      * and saves the inputed values.
-     * @param view
+     * @param view (for method requirement purposes)
      */
     public void sendMessage(View view)
     {
         Intent intent = new Intent(this, StandOverview.class);
-        String ageString = ageEdit.getText().toString();
-        if(!ageString.equals(""))
-        {
-            currAge = ageString;
-        }
+
         String heightString = heightEdit.getText().toString();
-        if(!heightString.equals(""))
-        {
-            currHeight = heightString;
-        }
-        intent.putExtra(EXTRA_AGE, currAge);
-        intent.putExtra(EXTRA_HEIGHT, currHeight);
-        intent.putExtra(EXTRA_SPECIES, currSpecies);
-        intent.putExtra(EXTRA_NOTES, notes);
+        currHeight = Double.parseDouble(heightString);
+
+        String ageString = ageEdit.getText().toString();
+        currAge = Integer.parseInt(ageString);
+
+        Species tempSpecies = InputParser.parseSpecies(currSpecies);
+
+        Stand currStand = ((WCCCApp) this.getApplication()).getDataBase().getWoodlot(0).getStand(0);
+        currStand.setAge(currAge);
+        currStand.setHeight(currHeight);
+        currStand.setSpecies(tempSpecies);
         startActivity(intent);
     }
 
     /**
      * Called when a user presses cancel. Starts the stand summary
      * screen and saves the old values
-     * @param view
+     * @param view (for method requirement purposes)
      */
     public void sendOldValues(View view)
     {
         Intent intent = new Intent(this, StandOverview.class);
-        intent.putExtra(EXTRA_AGE, oldAge);
-        intent.putExtra(EXTRA_HEIGHT, oldHeight);
-        intent.putExtra(EXTRA_SPECIES, oldSpecies);
-        intent.putExtra(EXTRA_NOTES, notes);
         startActivity(intent);
     }
 }

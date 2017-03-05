@@ -28,6 +28,14 @@ public class Tree{
 		this.storageFactor = null;
 		this.materialType = null;
 	}
+
+	public Tree(double dbh, Species species, StorageFactor storageFactor, MaterialType materialType){
+
+		this.dbh = dbh;
+		this.species = species;
+		this.storageFactor = storageFactor;
+		this.materialType = materialType;
+	}
 	//SET//--------------------------------------------
 	
 	public void setDbh(double dbh){

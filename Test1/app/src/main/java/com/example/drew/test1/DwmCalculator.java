@@ -27,6 +27,15 @@ public class DwmCalculator {
         return dwm;
     }
 
+    public static double calculateDwmStand(Stand stand) {
+        double dwm = 0.0;
+
+        for (Quadrat quadrat: stand.getQuadrats()) {
+            dwm += calculateDwm(quadrat);
+        }
+        return dwm;
+    }
+
     //HELPERS//-------------------------------------------
 
     /**

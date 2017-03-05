@@ -1,7 +1,6 @@
 package com.example.drew.test1;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 /**
  * QUADRAT
@@ -17,6 +16,7 @@ public class Quadrat{
 
 	private List<Tree> trees;
 	private boolean complete;
+	private Integer currTree;
 
 	private Coordinate coordinate;
 
@@ -24,6 +24,7 @@ public class Quadrat{
 		this.complete = false;
 		this.trees = new ArrayList<Tree>();
 		this.coordinate = null;
+		this.currTree = null;
 	}
 
 	//SET//--------------------------------------------
@@ -51,13 +52,17 @@ public class Quadrat{
 	}
 
 	public List<Tree> getTrees(){
-		LinkedList<Tree> output = new LinkedList<Tree>();
+		ArrayList<Tree> output = new ArrayList<Tree>();
 
 		for (Tree tree : this.trees){
 			output.add(tree);
 		}
 
 		return output;
+	}
+
+	public Tree getTree(int index){
+		return this.trees.get(index);
 	}
 
 	//TREE//-------------------------------------------
@@ -68,5 +73,13 @@ public class Quadrat{
 
 	public void removeTree(Tree tree){
 		this.trees.remove(tree);
+	}
+
+	public int getCurrTree() {
+		return currTree;
+	}
+
+	public void setCurrTree(int newTree) {
+		currTree = newTree;
 	}
 }

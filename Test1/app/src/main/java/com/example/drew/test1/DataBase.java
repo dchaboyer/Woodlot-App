@@ -1,21 +1,19 @@
 package com.example.drew.test1;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
+ * DATABASE
  * @author mbelzileha
  *
  */
 
 public class DataBase {
 
-    private List<Woodlot> woodlots;
+    private ArrayList<Woodlot> woodlots;
 
     public DataBase(){
-        this.woodlots = new LinkedList<Woodlot>();
+        this.woodlots = new ArrayList<Woodlot>();
     }
-
-    //WOODLOT//-------------------------------------------
 
     public void addWoodlot(Woodlot woodlot){
         this.woodlots.add(woodlot);
@@ -23,5 +21,9 @@ public class DataBase {
 
     public void removeWoodlot(Woodlot woodlot){
         this.woodlots.remove(woodlot);
+    }
+
+    public Woodlot getWoodlot(int index){
+        return woodlots.get(index);
     }
 }

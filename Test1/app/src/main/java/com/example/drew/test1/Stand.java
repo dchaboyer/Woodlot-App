@@ -1,6 +1,6 @@
 package com.example.drew.test1;
 import java.util.List;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 /**
  * STAND
@@ -13,18 +13,22 @@ import java.util.LinkedList;
 
 public class Stand {
 
-    private List<Quadrat> quadrats;
+    private ArrayList<Quadrat> quadrats;
 
     private Species species;
     private int age;
     private double height;
+    private String notes;
+    private Integer currQuadrat;
 
     public Stand(Species species, int age, double height){
-        this.quadrats = new LinkedList<Quadrat>();
+        this.quadrats = new ArrayList<Quadrat>();
 
         this.species = species;
         this.age = age;
         this.height = height;
+        this.notes = null;
+        this.currQuadrat = null;
     }
 
     //QUADRAT//----------------------------------------
@@ -66,13 +70,33 @@ public class Stand {
     }
 
     public List<Quadrat> getQuadrats(){
-        LinkedList<Quadrat> output = new LinkedList<Quadrat>();
+        ArrayList<Quadrat> output = new ArrayList<Quadrat>();
 
         for (Quadrat quadrat: this.quadrats){
             output.add(quadrat);
         }
 
         return output;
+    }
+
+    public Quadrat getQuadrat(int index){
+        return this.quadrats.get(index);
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String newNotes) {
+        notes = newNotes;
+    }
+
+    public int getCurrQuadrat() {
+        return currQuadrat;
+    }
+
+    public void setCurrQuadrat(int newQuadrat) {
+        currQuadrat = newQuadrat;
     }
 }
 

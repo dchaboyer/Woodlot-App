@@ -1,5 +1,5 @@
 package com.example.drew.test1;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,10 +10,10 @@ import java.util.List;
 public class Woodlot {
 
 
-    private List<Stand> stands;
+    private ArrayList<Stand> stands;
 
     public Woodlot(){
-        this.stands = new LinkedList<Stand>();
+        this.stands = new ArrayList<Stand>();
     }
 
     //STAND//------------------------------------------
@@ -29,13 +29,17 @@ public class Woodlot {
     //GET//--------------------------------------------
 
     public List<Stand> getStands(){
-        LinkedList<Stand> output = new LinkedList<Stand>();
+        ArrayList<Stand> output = new ArrayList<Stand>();
 
         for (Stand stand: this.stands){
             output.add(stand);
         }
 
         return output;
+    }
+
+    public Stand getStand(int index){
+        return this.stands.get(index);
     }
 
 }
