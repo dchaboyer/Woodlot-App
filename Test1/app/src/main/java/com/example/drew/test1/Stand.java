@@ -16,14 +16,16 @@ public class Stand {
     private ArrayList<Quadrat> quadrats;
 
     private Species species;
+    private Double area;
     private Integer age;
     private Double height;
     private String notes;
 
-    public Stand(Species species, int age, double height, int numQuadrats){
+    public Stand(Species species, Double area, int age, double height, int numQuadrats){
         this.quadrats = new ArrayList<Quadrat>();
         this.species = species;
         this.age = age;
+        this.area = area;
         this.height = height;
         this.notes = null;
         for(int i = 0; i < numQuadrats; i++) {
@@ -38,6 +40,7 @@ public class Stand {
         this.age = null;
         this.height = null;
         this.notes = null;
+        this.area = null;
     }
 
     //QUADRAT//----------------------------------------

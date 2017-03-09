@@ -46,6 +46,8 @@ public class StandInput extends AppCompatActivity
     protected double currHeight;
     protected String currSpecies;
 
+    boolean isEdit;
+
     /**
      * Begins automatically anytime a user pulls up the stand data entry
      * screen. It specifies the starting text for all widgets.
@@ -57,7 +59,7 @@ public class StandInput extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.stand_input);
         Intent intent = getIntent();
-        boolean isEdit = intent.getBooleanExtra(QuadratScreen.EXTRA_ISEDIT, false);
+        isEdit = intent.getBooleanExtra(QuadratScreen.EXTRA_ISEDIT, false);
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
@@ -228,7 +230,11 @@ public class StandInput extends AppCompatActivity
      */
     public void sendOldValues(View view)
     {
-        Intent intent = new Intent(this, StandOverview.class);
+        Intent intent;
+        if(isEdit)
+            intent = new Intent(this, StandOverview.class);
+        else
+            intent = new Intent(this, StandList.class);
         startActivity(intent);
     }
 
