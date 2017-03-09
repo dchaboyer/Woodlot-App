@@ -29,9 +29,9 @@ public class DataBaseBuilder {
      *
      * Constructs a DataBase for the sake of debuging until the UI is fully operational.
      */
-    public void buildDebug(){
+   /** public void buildDebug(){
         this.database = new DataBase();
-        Woodlot woodlot1 = new Woodlot();
+        Woodlot woodlot1 = new Woodlot("Test", 5);
         Stand stand1 = new Stand(DEBUG_STAND_DEFAULT_SPECIES,
                                     DEBUG_STAND_DEFAULT_AGE,
                                     DEBUG_STAND_DEFAULT_HEIGHT);
@@ -58,5 +58,5 @@ public class DataBaseBuilder {
         stand1.addQuadrat(quadrat10);
         woodlot1.addStand(stand1);
         this.database.addWoodlot(woodlot1);
-    }
+    } */
 }

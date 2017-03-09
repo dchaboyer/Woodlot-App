@@ -16,19 +16,28 @@ public class Stand {
     private ArrayList<Quadrat> quadrats;
 
     private Species species;
-    private int age;
-    private double height;
+    private Integer age;
+    private Double height;
     private String notes;
-    private Integer currQuadrat;
 
-    public Stand(Species species, int age, double height){
+    public Stand(Species species, int age, double height, int numQuadrats){
         this.quadrats = new ArrayList<Quadrat>();
-
         this.species = species;
         this.age = age;
         this.height = height;
         this.notes = null;
-        this.currQuadrat = null;
+        for(int i = 0; i < numQuadrats; i++) {
+            quadrats.add(new Quadrat());
+        }
+    }
+
+    public Stand()
+    {
+        this.quadrats = new ArrayList<Quadrat>();
+        this.species = null;
+        this.age = null;
+        this.height = null;
+        this.notes = null;
     }
 
     //QUADRAT//----------------------------------------
@@ -91,12 +100,27 @@ public class Stand {
         notes = newNotes;
     }
 
-    public int getCurrQuadrat() {
-        return currQuadrat;
+    public int setNumQuadrats(int numQuadrats)
+    {
+        if(numQuadrats < 1)
+            return -1;
+        if(numQuadrats > quadrats.size()) {
+            for(int i = quadrats.size(); i < numQuadrats; i++) {
+                quadrats.add(new Quadrat());
+            }
+        }
+        else if(numQuadrats < quadrats.size())
+        {
+            while (numQuadrats < quadrats.size()) {
+                quadrats.remove(quadrats.size() - 1);
+            }
+        }
+        return 1;
     }
 
-    public void setCurrQuadrat(int newQuadrat) {
-        currQuadrat = newQuadrat;
+    public int getNumQuadrats() {
+        return quadrats.size();
     }
+
 }
 

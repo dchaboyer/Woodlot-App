@@ -16,7 +16,6 @@ public class Quadrat{
 
 	private List<Tree> trees;
 	private boolean complete;
-	private Integer currTree;
 
 	private Coordinate coordinate;
 
@@ -24,7 +23,6 @@ public class Quadrat{
 		this.complete = false;
 		this.trees = new ArrayList<Tree>();
 		this.coordinate = null;
-		this.currTree = null;
 	}
 
 	//SET//--------------------------------------------
@@ -75,11 +73,4 @@ public class Quadrat{
 		this.trees.remove(tree);
 	}
 
-	public int getCurrTree() {
-		return currTree;
-	}
-
-	public void setCurrTree(int newTree) {
-		currTree = newTree;
-	}
 }

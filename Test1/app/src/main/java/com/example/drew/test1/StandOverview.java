@@ -60,7 +60,10 @@ public class StandOverview extends AppCompatActivity
         notesWidget = (EditText) findViewById(R.id.editNotes);
         dwmWidget = (TextView) findViewById(R.id.dwmView);
 
-        final Stand currStand = ((WCCCApp) this.getApplication()).getDataBase().getWoodlot(0).getStand(0);
+        final DataBase database = ((WCCCApp) this.getApplication()).getDataBase();
+        int currWoodlot = database.getCurrWoodlot();
+        int standIndex = database.getCurrStand();
+        final Stand currStand = database.getWoodlot(currWoodlot).getStand(standIndex);
 
         Integer currAge = currStand.getAge();
         age = currAge.toString();
@@ -101,7 +104,7 @@ public class StandOverview extends AppCompatActivity
             currButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     saveNotes();
-                    currStand.setCurrQuadrat(index);
+                    database.setCurrQuadrat(index-1);
                     Intent intent = new Intent(StandOverview.this, QuadratScreen.class);
                     startActivity(intent);
                 }
@@ -119,7 +122,14 @@ public class StandOverview extends AppCompatActivity
     public void sendMessage(View view)
     {
         saveNotes();
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, StandInput.class);
+        intent.putExtra(QuadratScreen.EXTRA_ISEDIT, true);
+        startActivity(intent);
+    }
+
+    public void sendBack(View view)
+    {
+        Intent intent = new Intent(this, StandList.class);
         startActivity(intent);
     }
 
@@ -128,7 +138,10 @@ public class StandOverview extends AppCompatActivity
      */
     private void saveNotes()
     {
-        Stand currStand = ((WCCCApp) this.getApplication()).getDataBase().getWoodlot(0).getStand(0);
+        DataBase database = ((WCCCApp) this.getApplication()).getDataBase();
+        int currWoodlot = database.getCurrWoodlot();
+        int standIndex = database.getCurrStand();
+        Stand currStand = ((WCCCApp) this.getApplication()).getDataBase().getWoodlot(currWoodlot).getStand(standIndex);
         currStand.setNotes(notesWidget.getText().toString());
     }
 

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <!--displays the title-->
+    <TextView
+        android:text="Woodlot Input Screen"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:textSize="40sp"
+        android:id="@+id/woodlotInputTitle"
+        android:gravity="center"
+        android:layout_weight="0.15" />
+
+    <!--displays a prompt for the name-->
+    <TextView
+        android:text="Enter the Woodlot's name below"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:id="@+id/woodlotName"
+        android:layout_weight="0.1" />
+
+    <!--space to enter the name-->
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="Name"
+        android:inputType="text"
+        android:id="@+id/woodlotNameEntry"
+        android:gravity="center"
+        android:textSize="40sp"
+        android:layout_weight="0.2" />
+
+    <!--displays a prompt for the number of stands-->
+    <TextView
+        android:text="Enter the number of stands below"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:id="@+id/woodlotStandNum"
+        android:layout_weight="0.1" />
+
+    <!--space to enter the number of stands-->
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="1"
+        android:inputType="number"
+        android:id="@+id/woodlotStandInput"
+        android:textSize="40sp"
+        android:gravity="center"
+        android:layout_weight="0.2" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.25"
+        android:weightSum="1">
+
+        <!-- a button that cancels the data entry, restoring old values-->
+        <Button
+            android:text="Cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/woodlotCancel"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:onClick="cancelEntry"
+            android:layout_weight="0.5" />
+
+        <!-- a button that saves the inputed values-->
+        <Button
+            android:text="Accept"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/woodlotAccept"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:onClick="acceptEntry"
+            android:layout_weight="0.5" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -22,9 +22,11 @@ public class WCCCApp extends Application{
         super.onCreate();
         DataBaseBuilder dataBaseBuilder = new DataBaseBuilder();
 
-        /*DEBUG*/ dataBaseBuilder.buildDebug();   /*DEBUG*/
+      //  /*DEBUG*/ dataBaseBuilder.buildDebug();   /*DEBUG*/
 
-        this.database = dataBaseBuilder.getResult();
+       // this.database = dataBaseBuilder.getResult();
+        database = new DataBase();
+
     }
 
     //GET//--------------------------------------------

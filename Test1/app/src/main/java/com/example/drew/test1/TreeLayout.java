@@ -63,9 +63,9 @@ public class TreeLayout extends AppCompatActivity
         Intent intent = getIntent();
         isEdit = intent.getBooleanExtra(QuadratScreen.EXTRA_ISEDIT, false);
 
-        Stand currStand = ((WCCCApp) this.getApplication()).getDataBase().getWoodlot(0).getStand(0);
-        quadratNum = currStand.getCurrQuadrat();
-        System.out.println(quadratNum);
+        DataBase database = ((WCCCApp) this.getApplication()).getDataBase();
+        quadratNum = database.getCurrQuadrat();
+
         speciesSpinner = (Spinner) findViewById(R.id.speciesSpinner2);
         dbhEdit = (EditText) findViewById(R.id.dbhEdit);
         factorSpinner = (Spinner) findViewById(R.id.factorSpinner);
@@ -200,12 +200,17 @@ public class TreeLayout extends AppCompatActivity
 
         String heightString = dbhEdit.getText().toString();
         double tempHeight = Double.parseDouble(heightString);
-        Quadrat currQuadrat = ((WCCCApp) this.getApplication()).getDataBase().getWoodlot(0).getStand(0).getQuadrat(quadratNum-1);
+
+        DataBase database = ((WCCCApp) this.getApplication()).getDataBase();
+        int currWoodlot = database.getCurrWoodlot();
+        int standIndex = database.getCurrStand();
+
+        Quadrat currQuadrat = database.getWoodlot(currWoodlot).getStand(standIndex).getQuadrat(quadratNum);
 
         if(isEdit)
         {
-            int treeNum = currQuadrat.getCurrTree();
-            tree = currQuadrat.getTree(treeNum-1);
+            int treeNum = database.getCurrTree();
+            tree = currQuadrat.getTree(treeNum);
             tree.setSpecies(tempSpecies);
             tree.setDbh(tempHeight);
             tree.setStorageFactor(tempFactor);

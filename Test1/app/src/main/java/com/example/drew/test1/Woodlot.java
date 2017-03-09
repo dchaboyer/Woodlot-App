@@ -11,9 +11,15 @@ public class Woodlot {
 
 
     private ArrayList<Stand> stands;
+    private String name;
 
-    public Woodlot(){
+    public Woodlot(String name, int numStands)
+    {
         this.stands = new ArrayList<Stand>();
+        for(int i = 0; i < numStands; i++) {
+            stands.add(new Stand());
+        }
+        this.name = name;
     }
 
     //STAND//------------------------------------------
@@ -28,18 +34,40 @@ public class Woodlot {
 
     //GET//--------------------------------------------
 
-    public List<Stand> getStands(){
-        ArrayList<Stand> output = new ArrayList<Stand>();
-
-        for (Stand stand: this.stands){
-            output.add(stand);
-        }
-
-        return output;
+    public ArrayList<Stand> getStands(){
+        return stands;
     }
 
     public Stand getStand(int index){
         return this.stands.get(index);
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String newName)
+    {
+        name = newName;
+    }
+
+    public int getNumStands() {
+        return stands.size();
+    }
+
+    public int setNumStands(int numStands) {
+        if(numStands < 1)
+            return -1;
+        if(numStands > stands.size()) {
+            for(int i = stands.size(); i < numStands; i++) {
+                stands.add(new Stand());
+            }
+        }
+        else if(numStands < stands.size()) {
+            while(numStands < stands.size()) {
+                stands.remove(stands.size() - 1);
+            }
+        }
+        return 1;
+    }
 }
