@@ -19,6 +19,9 @@
         <activity android:name=".StandOverview"></activity>
         <activity android:name=".QuadratScreen"></activity>
         <activity android:name=".TreeLayout"></activity>
+        <activity android:name=".WoodlotInput"></activity>
+        <activity android:name=".StandList"></activity>
+        <activity android:name=".StandInput"></activity>
     </application>
 
 </manifest>
