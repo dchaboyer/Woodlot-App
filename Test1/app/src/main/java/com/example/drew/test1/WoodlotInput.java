@@ -47,8 +47,7 @@ public class WoodlotInput extends AppCompatActivity
         acceptButton = (Button) findViewById(R.id.woodlotAccept);
 
         if(isEdit) {
-            int woodlotNum = ((WCCCApp) this.getApplication()).getDataBase().getCurrWoodlot();
-            Woodlot currWoodlot = ((WCCCApp) this.getApplication()).getDataBase().getWoodlot(woodlotNum);
+            Woodlot currWoodlot = WCCCProgram.getCurrWoodlot();
             nameEdit.setText(currWoodlot.getName());
             Integer oldNumStands = currWoodlot.getStands().size();
             numStandsEdit.setText(oldNumStands.toString());
@@ -108,14 +107,13 @@ public class WoodlotInput extends AppCompatActivity
 
         if(isEdit)
         {
-            int woodlotNum = ((WCCCApp) this.getApplication()).getDataBase().getCurrWoodlot();
-            Woodlot currWoodlot = ((WCCCApp) this.getApplication()).getDataBase().getWoodlot(woodlotNum);
+            Woodlot currWoodlot = WCCCProgram.getCurrWoodlot();
             currWoodlot.setName(name);
             currWoodlot.setNumStands(numStands);
         }
         else
         {
-            DataBase database = ((WCCCApp) this.getApplication()).getDataBase();
+            DataBase database = WCCCProgram.getRoot();
             database.addWoodlot(new Woodlot(name, numStands));
         }
         Intent intent = new Intent(this, MainActivity.class);

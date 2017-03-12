@@ -47,11 +47,7 @@ public class QuadratScreen extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quadratscreen);
-        final DataBase database = ((WCCCApp) this.getApplication()).getDataBase();
-        int currWoodlot = database.getCurrWoodlot();
-        int standIndex = database.getCurrStand();
-        int quadratNum = database.getCurrQuadrat();
-        final Quadrat currQuadrat = database.getWoodlot(currWoodlot).getStand(standIndex).getQuadrat(quadratNum);
+        Quadrat currQuadrat = WCCCProgram.getCurrQuadrat();
         currTreeNum = currQuadrat.getTrees().size();
 
         //This next block dynamically creates the tree buttons.
@@ -74,7 +70,7 @@ public class QuadratScreen extends AppCompatActivity
             currButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    database.setCurrTree(index-1);
+                    WCCCProgram.setCurrTree(index-1);
                     Intent intent = new Intent(QuadratScreen.this, TreeLayout.class);
                     intent.putExtra(EXTRA_ISEDIT, true);
                     startActivity(intent);

@@ -43,15 +43,15 @@ public class MainActivity extends AppCompatActivity
 
         addButton = (Button) findViewById(R.id.addWoodlot);
 
-        final DataBase database = ((WCCCApp) this.getApplication()).getDataBase();
-        int numWoodlots = database.getNumWoodlots();
+        int numWoodlots = WCCCProgram.getRoot().getNumWoodlots();
         LinearLayout layout = (LinearLayout) findViewById(R.id.woodlotList);
         for(int i = 0; i < numWoodlots; i++)
         {
             final Button currButton = new Button(this);
             final int index = i;
 
-            String name = database.getWoodlot(i).getName();
+            Woodlot woodlot = WCCCProgram.getRoot().getWoodlot(i);
+            String name = woodlot.getName();
 
             currButton.setText(name);
             currButton.setTextSize(40);
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity
             currButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    database.setCurrWoodlot(index);
+                    WCCCProgram.setCurrWoodlot(index);
                     Intent intent = new Intent(MainActivity.this, StandList.class);
                     startActivity(intent);
                 }

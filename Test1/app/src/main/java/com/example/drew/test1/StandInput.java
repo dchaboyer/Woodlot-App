@@ -103,10 +103,7 @@ public class StandInput extends AppCompatActivity
         acceptButton = (Button) findViewById(R.id.acceptButton);
         quadratEdit = (EditText) findViewById(R.id.numQuadratsEdit);
 
-        DataBase database = ((WCCCApp) this.getApplication()).getDataBase();
-        int currWoodlot = database.getCurrWoodlot();
-        int standIndex = database.getCurrStand();
-        Stand currStand = ((WCCCApp) this.getApplication()).getDataBase().getWoodlot(currWoodlot).getStand(standIndex);
+        Stand currStand = WCCCProgram.getCurrStand();
         if(isEdit) {
             Integer oldAge = currStand.getAge();
             ageEdit.setText(oldAge.toString());
@@ -212,10 +209,7 @@ public class StandInput extends AppCompatActivity
         String numQuadratString = quadratEdit.getText().toString();
         currNumQuadrats = Integer.parseInt(numQuadratString);
 
-        final DataBase database = ((WCCCApp) this.getApplication()).getDataBase();
-        int currWoodlot = database.getCurrWoodlot();
-        int standIndex = database.getCurrStand();
-        Stand currStand = ((WCCCApp) this.getApplication()).getDataBase().getWoodlot(currWoodlot).getStand(standIndex);
+        Stand currStand = WCCCProgram.getCurrStand();
         currStand.setAge(currAge);
         currStand.setHeight(currHeight);
         currStand.setSpecies(tempSpecies);

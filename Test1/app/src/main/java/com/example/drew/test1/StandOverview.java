@@ -60,10 +60,7 @@ public class StandOverview extends AppCompatActivity
         notesWidget = (EditText) findViewById(R.id.editNotes);
         dwmWidget = (TextView) findViewById(R.id.dwmView);
 
-        final DataBase database = ((WCCCApp) this.getApplication()).getDataBase();
-        int currWoodlot = database.getCurrWoodlot();
-        int standIndex = database.getCurrStand();
-        final Stand currStand = database.getWoodlot(currWoodlot).getStand(standIndex);
+        final Stand currStand = WCCCProgram.getCurrStand();
 
         Integer currAge = currStand.getAge();
         age = currAge.toString();
@@ -104,7 +101,7 @@ public class StandOverview extends AppCompatActivity
             currButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     saveNotes();
-                    database.setCurrQuadrat(index-1);
+                    WCCCProgram.setCurrQuadrat(index-1);
                     Intent intent = new Intent(StandOverview.this, QuadratScreen.class);
                     startActivity(intent);
                 }
@@ -138,10 +135,7 @@ public class StandOverview extends AppCompatActivity
      */
     private void saveNotes()
     {
-        DataBase database = ((WCCCApp) this.getApplication()).getDataBase();
-        int currWoodlot = database.getCurrWoodlot();
-        int standIndex = database.getCurrStand();
-        Stand currStand = ((WCCCApp) this.getApplication()).getDataBase().getWoodlot(currWoodlot).getStand(standIndex);
+        Stand currStand = WCCCProgram.getCurrStand();
         currStand.setNotes(notesWidget.getText().toString());
     }
 

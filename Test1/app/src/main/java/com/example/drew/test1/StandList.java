@@ -28,9 +28,7 @@ public class StandList extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.stand_list);
 
-        final DataBase database = ((WCCCApp) this.getApplication()).getDataBase();
-        int woodlotIndex = database.getCurrWoodlot();
-        final Woodlot currWoodlot =  database.getWoodlot(woodlotIndex);
+        final Woodlot currWoodlot =  WCCCProgram.getCurrWoodlot();
 
         //This next block dynamically creates the quadrat buttons.
         LinearLayout layout = (LinearLayout) findViewById(R.id.standList);
@@ -44,7 +42,7 @@ public class StandList extends AppCompatActivity
             currButton.setTextSize(40);
             currButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    database.setCurrStand(index-1);
+                    WCCCProgram.setCurrStand(index-1);
                     if(currWoodlot.getStand(index-1).getSpecies() == null) {
                         Intent intent = new Intent(StandList.this, StandInput.class);
                         intent.putExtra(QuadratScreen.EXTRA_ISEDIT, false);
