@@ -97,8 +97,7 @@ public class QuadratScreen extends AppCompatActivity
      */
     public void sendMessage2(View view)
     {
-        Intent intent = new Intent(this, StandOverview.class);
-        intent.putExtra(EXTRA_ISEDIT, false);
+        Intent intent = new Intent(this, StandSummary.class);
         startActivity(intent);
     }
 }

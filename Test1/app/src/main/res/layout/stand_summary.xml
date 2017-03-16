@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
+        android:weightSum="1">
+
+        <!-- displays the current dwm-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="30sp"
+            android:gravity="left|center_vertical"
+            android:id="@+id/dwmView" />
+    </LinearLayout>
+
+    <!--displays the selected species-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:textSize="30sp"
+        android:gravity="left"
+        android:id="@+id/species" />
+
+    <!--displays the inputed age-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:textSize="30sp"
+        android:gravity="left"
+        android:id="@+id/age" />
+
+    <!--displays the inputed height-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:textSize="30sp"
+        android:gravity="left"
+        android:id="@+id/height" />
+
+    <!--a space to write notes-->
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:inputType="textMultiLine"
+        android:text="Type Notes Here"
+        android:textSize="30sp"
+        android:ems="10"
+        android:id="@+id/editNotes"
+        android:layout_weight="0.15" />
+
+    <!--a button that returns to the stand input screen-->
+    <Button
+        android:text="Edit Stand Info"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:onClick="sendEdit"
+        android:id="@+id/standSummaryEdit"
+        android:layout_weight="0.2" />
+
+    <Button
+        android:text="Quadrat List"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:onClick="sendList"
+        android:id="@+id/standSummaryQuadratList"
+        android:layout_weight="0.2" />
+
+
+</LinearLayout>
