@@ -6,6 +6,8 @@ package com.example.drew.test1;
 
 public class WCCCProgram {
 
+    private static final String SOURCE_FILE = "wccc.data";
+
     private static final DataBase DATA_BASE = new DataBase();
     private static final int INDEX_UNDEFINED = -1;
 

@@ -15,12 +15,22 @@ import java.util.LinkedList;
  */
 
 public class Tree{
-	
+
+	private final double DOUBLE_UNDEFINED = -1.0; //VALUE FOR UNDEFINED DOUBLE
+
 	private double dbh;
 	private Species species;
 	private StorageFactor storageFactor;
 	private MaterialType materialType;
-	
+
+	public Tree(){
+
+		this.dbh = DOUBLE_UNDEFINED;
+		this.species = null;
+		this.storageFactor = null;
+		this.materialType = null;
+	}
+
 	public Tree(double dbh, Species species){
 		
 		this.dbh = dbh;

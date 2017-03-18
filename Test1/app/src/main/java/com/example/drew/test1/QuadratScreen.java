@@ -42,10 +42,18 @@ public class QuadratScreen extends AppCompatActivity
      * the tree buttons.
      * @param savedInstanceState (a class that is part of the android library)
      */
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        //DEBUG
+        QuadratPointer quadratPointer = new QuadratPointer(this, null);
+        for (Tree tree: quadratPointer.getTreeSummaries()){
+            System.out.println(tree.getDbh() + " : " + tree.getSpecies());
+        }//DEBUG
+
         setContentView(R.layout.quadratscreen);
         Quadrat currQuadrat = WCCCProgram.getCurrQuadrat();
         currTreeNum = currQuadrat.getTrees().size();
