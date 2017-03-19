@@ -1,6 +1,16 @@
+/**
+ * @author Jonathan Whitaker, Mathieu Belzile-Ha, Drew Chaboyer
+ * COMP 4721
+ * 5/3/17
+ *
+ * This is the java code for the list of stands screen. It provides
+ * a scrolling list of all the stands in a specific woodlot, a button
+ * to edit the info about a woodlot, and a button to return to the list
+ * of woodlots.
+ */
+
 package com.example.drew.test1;
 
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
@@ -13,12 +23,11 @@ public class StandList extends AppCompatActivity
 {
 
 
-    //list of all the quadrat buttons
+    //list of all the stand buttons
     protected ArrayList<Button> standButtons = new ArrayList<Button>();
 
     /**
-     * Begins automatically when this screen is opened. First saves the values
-     * passed to it by the input screen. It then adds the functionality to
+     * Begins automatically when this screen is opened. It adds the functionality to
      * the widgets declared in the xml code.
      * @param savedInstanceState (a class that is part of the android library)
      */
@@ -30,7 +39,7 @@ public class StandList extends AppCompatActivity
 
         final Woodlot currWoodlot =  WCCCProgram.getCurrWoodlot();
 
-        //This next block dynamically creates the quadrat buttons.
+        //This next block dynamically creates the stand buttons.
         LinearLayout layout = (LinearLayout) findViewById(R.id.standList);
         int numStands = currWoodlot.getNumStands();
 
@@ -61,7 +70,7 @@ public class StandList extends AppCompatActivity
     }
 
     /**
-     * Called when the user hits the edit info button. Starts the stand input screen,
+     * Called when the user hits the edit info button. Starts the woodlot input screen,
      * passing along the current values.
      * @param view (only to satisfy method requirements)
      */
@@ -73,7 +82,8 @@ public class StandList extends AppCompatActivity
     }
 
     /**
-     * Saves the notes to the application.
+     * Called when the user hits the Back button, returns the user to the
+     * list of woodlots.
      */
     public void sendBack(View view)
     {

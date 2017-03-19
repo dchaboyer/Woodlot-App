@@ -1,7 +1,16 @@
 package com.example.drew.test1;
 
 /**
- * Created by Drew on 3/6/2017.
+ * @author Jonathan Whitaker, Mathieu Belzile-Ha, Drew Chaboyer
+ * COMP 4721
+ * 5/3/17
+ *
+ * This is the Java code for the data entry screen for woodlots.
+ *
+ * This code adds the desired functionality to the widgets, allowing someone
+ * to specify a woodlot's name and number of quadrats.
+ * From here when a user clicks either the cancel or accept button they are returned
+ * to the list of woodlots.
  */
 
 import android.support.v7.app.AppCompatActivity;
@@ -23,11 +32,12 @@ public class WoodlotInput extends AppCompatActivity
     protected Button cancelButton;
     protected Button acceptButton;
 
+    //true if editting information, false if creating new stand
     protected boolean isEdit;
 
     /**
-     * Begins automatically anytime a user pulls up the stand data entry
-     * screen. It specifies the starting text for all widgets.
+     * Begins automatically anytime a user pulls up this screen.
+     * It adds the desired functionality to the widgets
      * @param savedInstanceState (a class that is part of the android library)
      */
     @Override
@@ -46,7 +56,8 @@ public class WoodlotInput extends AppCompatActivity
         cancelButton = (Button) findViewById(R.id.woodlotCancel);
         acceptButton = (Button) findViewById(R.id.woodlotAccept);
 
-        if(isEdit) {
+        if(isEdit)
+        {
             Woodlot currWoodlot = WCCCProgram.getCurrWoodlot();
             nameEdit.setText(currWoodlot.getName());
             Integer oldNumStands = currWoodlot.getStands().size();
@@ -56,7 +67,7 @@ public class WoodlotInput extends AppCompatActivity
     }
 
     /**
-     * Adds listeners to the age and height widgets. Since these fields are required,
+     * Adds listeners to the name and stand number widgets. Since these fields are required,
      * when they are blank the program disables the "accept" button.
      */
     public void addListeners()
@@ -64,14 +75,14 @@ public class WoodlotInput extends AppCompatActivity
         nameEdit.addTextChangedListener(new TextWatcher()
         {
             @Override
-            public void afterTextChanged(Editable arg0) {
+            public void afterTextChanged(Editable arg0)
+            {
                 boolean isEmpty = nameEdit.getText().toString().isEmpty();
                 acceptButton.setEnabled(!isEmpty);
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after){
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after){}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
@@ -80,12 +91,12 @@ public class WoodlotInput extends AppCompatActivity
         numStandsEdit.addTextChangedListener(new TextWatcher()
         {
             @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(Editable s)
+            {
                 acceptButton.setEnabled(checkNumber());
             }
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
@@ -93,7 +104,7 @@ public class WoodlotInput extends AppCompatActivity
     }
 
     /**
-     * Called when a user presses accept. Starts the stand summary screen,
+     * Called when a user presses accept. Starts the woodlot list screen,
      * and saves the inputed values.
      * @param view (for method requirement purposes)
      */
@@ -121,8 +132,8 @@ public class WoodlotInput extends AppCompatActivity
     }
 
     /**
-     * Called when a user presses cancel. Starts the stand summary
-     * screen and saves the old values
+     * Called when a user presses cancel. Starts the woodlot list
+     * screen, and does not save the values
      * @param view (for method requirement purposes)
      */
     public void cancelEntry(View view)
@@ -131,11 +142,16 @@ public class WoodlotInput extends AppCompatActivity
         startActivity(intent);
     }
 
-    private boolean checkNumber() {
+    /**
+     * @return whether a number is not null, and positive
+     */
+    private boolean checkNumber()
+    {
         boolean isEmpty = numStandsEdit.getText().toString().isEmpty();
         boolean isPositive = false;
-        if(!isEmpty)
+        if(!isEmpty) {
             isPositive = Integer.parseInt(numStandsEdit.getText().toString()) >= 1;
+        }
         return !isEmpty && isPositive;
     }
 }

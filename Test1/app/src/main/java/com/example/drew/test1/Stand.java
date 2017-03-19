@@ -67,37 +67,7 @@ public class Stand {
         this.height = height;
     }
 
-    //GET//--------------------------------------------
-
-    public Species getSpecies(){
-        return this.species;
-    }
-
-    public int getAge(){
-        return this.age;
-    }
-
-    public double getHeight(){
-        return this.height;
-    }
-
-    public List<Quadrat> getQuadrats(){
-        ArrayList<Quadrat> output = new ArrayList<Quadrat>();
-
-        for (Quadrat quadrat: this.quadrats){
-            output.add(quadrat);
-        }
-
-        return output;
-    }
-
-    public Quadrat getQuadrat(int index){
-        return this.quadrats.get(index);
-    }
-
-    public String getNotes() {
-        return notes;
-    }
+    public void setArea(double area) {this.area = area;}
 
     public void setNotes(String newNotes) {
         notes = newNotes;
@@ -121,8 +91,52 @@ public class Stand {
         return 1;
     }
 
+    //GET//--------------------------------------------
+
+    public Species getSpecies(){
+        return this.species;
+    }
+
+    public int getAge(){
+        return this.age;
+    }
+
+    public double getHeight(){
+        return this.height;
+    }
+
+    public double getArea() {return this.area;}
+
+    public List<Quadrat> getQuadrats(){
+        ArrayList<Quadrat> output = new ArrayList<Quadrat>();
+
+        for (Quadrat quadrat: this.quadrats){
+            output.add(quadrat);
+        }
+
+        return output;
+    }
+
+    public Quadrat getQuadrat(int index){
+        return this.quadrats.get(index);
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
     public int getNumQuadrats() {
         return quadrats.size();
+    }
+
+    public int getCompletedQuadrats() {
+        int numCompleted = 0;
+        for(Quadrat quadrat: quadrats) {
+            if(quadrat.getCompletionStatus()) {
+                numCompleted++;
+            }
+        }
+        return numCompleted;
     }
 
 }

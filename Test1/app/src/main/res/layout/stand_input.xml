@@ -15,13 +15,13 @@
         android:textSize="40sp"
         android:id="@+id/textView"
         android:gravity="center"
-        android:layout_weight="0.15" />
+        android:layout_weight="0.10" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.15"
+        android:layout_weight="0.13"
         android:weightSum="1">
 
         <!--displays a prompt for the species-->
@@ -46,7 +46,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.15"
+        android:layout_weight="0.13"
         android:weightSum="1">
 
     <!--displays a prompt for the average age-->
@@ -77,7 +77,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_weight="0.15"
+    android:layout_weight="0.13"
     android:weightSum="1">
 
         <!--displays a prompt for the average height-->
@@ -107,7 +107,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.15"
+        android:layout_weight="0.13"
         android:weightSum="1">
 
         <!--displays a prompt for the average height-->
@@ -128,6 +128,36 @@
             android:inputType="number"
             android:ems="10"
             android:id="@+id/numQuadratsEdit"
+            android:textSize="45sp"
+            android:gravity="center"
+            android:layout_weight="0.6" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.13"
+        android:weightSum="1">
+
+        <!--displays a prompt for the stand size-->
+        <TextView
+            android:text="Size (Sq. M):"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textSize="40sp"
+            android:gravity="right|center_vertical"
+            android:id="@+id/standSize"
+            android:layout_weight="0.4" />
+
+        <!--space to enter the stand size-->
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="1"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/standSizeEdit"
             android:textSize="45sp"
             android:gravity="center"
             android:layout_weight="0.6" />

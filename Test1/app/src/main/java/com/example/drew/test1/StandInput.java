@@ -3,14 +3,12 @@
  * COMP 4721
  * 5/3/17
  *
- * This is the Java code for the data entry screen for stands. It is
- * called MainActivity because Android requires one file to have this name.
- * The MainActivity file is the one that begins when someone opens the app.
+ * This is the Java code for the data entry screen for stands.
  *
  * This code adds the desired functionality to the widgets, allowing someone
- * to specify a stand's average age, height, and species. From here when a user
- * clicks either the cancel or accept button they are taken to the summary screen
- * for that same stand.
+ * to specify a stand's average age, height, and species, number of quadrats, and size.
+ * From here when a userclicks either the cancel or accept button they are taken to
+ * the list of quadrats for that same stand.
  */
 package com.example.drew.test1;
 
@@ -28,6 +26,7 @@ import android.content.Intent;
 import android.text.TextWatcher;
 import android.text.Editable;
 import java.util.List;
+
 public class StandInput extends AppCompatActivity
         implements AdapterView.OnItemSelectedListener
 {
@@ -37,6 +36,7 @@ public class StandInput extends AppCompatActivity
     protected EditText ageEdit;
     protected EditText heightEdit;
     protected EditText quadratEdit;
+    protected EditText sizeEdit;
     protected Button cancelButton;
     protected Button acceptButton;
 
@@ -45,7 +45,9 @@ public class StandInput extends AppCompatActivity
     protected int currNumQuadrats;
     protected double currHeight;
     protected String currSpecies;
+    protected double currSize;
 
+    //true if editting information, false if creating new stand
     boolean isEdit;
 
     /**
@@ -102,6 +104,7 @@ public class StandInput extends AppCompatActivity
         cancelButton = (Button) findViewById(R.id.cancelButton);
         acceptButton = (Button) findViewById(R.id.acceptButton);
         quadratEdit = (EditText) findViewById(R.id.numQuadratsEdit);
+        sizeEdit = (EditText) findViewById(R.id.standSizeEdit);
 
         Stand currStand = WCCCProgram.getCurrStand();
         if(isEdit) {
@@ -111,6 +114,8 @@ public class StandInput extends AppCompatActivity
             heightEdit.setText(oldHeight.toString());
             Integer numQuadrats = currStand.getNumQuadrats();
             quadratEdit.setText(numQuadrats.toString());
+            Double oldSize = currStand.getArea();
+            sizeEdit.setText(oldSize.toString());
         }
         addListeners();
     }
@@ -150,8 +155,7 @@ public class StandInput extends AppCompatActivity
         {
             @Override
             public void afterTextChanged(Editable arg0) {
-                boolean isEmpty = ageEdit.getText().toString().isEmpty();
-                acceptButton.setEnabled(!isEmpty);
+                acceptButton.setEnabled(checkNumber(ageEdit));
             }
 
             @Override
@@ -165,8 +169,7 @@ public class StandInput extends AppCompatActivity
         {
             @Override
             public void afterTextChanged(Editable s) {
-                boolean isEmpty = heightEdit.getText().toString().isEmpty();
-                acceptButton.setEnabled(!isEmpty);
+                acceptButton.setEnabled(checkNumber(heightEdit));
             }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -179,7 +182,20 @@ public class StandInput extends AppCompatActivity
         {
             @Override
             public void afterTextChanged(Editable s) {
-                acceptButton.setEnabled(checkNumber());
+                acceptButton.setEnabled(checkNumber(quadratEdit));
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+        });
+
+        sizeEdit.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void afterTextChanged(Editable s) {
+                acceptButton.setEnabled(checkNumber(sizeEdit));
             }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -209,17 +225,21 @@ public class StandInput extends AppCompatActivity
         String numQuadratString = quadratEdit.getText().toString();
         currNumQuadrats = Integer.parseInt(numQuadratString);
 
+        String sizeString = sizeEdit.getText().toString();
+        currSize = Double.parseDouble(sizeString);
+
         Stand currStand = WCCCProgram.getCurrStand();
         currStand.setAge(currAge);
         currStand.setHeight(currHeight);
         currStand.setSpecies(tempSpecies);
         currStand.setNumQuadrats(currNumQuadrats);
+        currStand.setArea(currSize);
         startActivity(intent);
     }
 
     /**
      * Called when a user presses cancel. Starts the stand summary
-     * screen and saves the old values
+     * screen and does not alter the old values
      * @param view (for method requirement purposes)
      */
     public void sendOldValues(View view)
@@ -232,11 +252,16 @@ public class StandInput extends AppCompatActivity
         startActivity(intent);
     }
 
-    private boolean checkNumber() {
-        boolean isEmpty = quadratEdit.getText().toString().isEmpty();
+    /**
+     * Checks that the inputed number is both not null, and positive
+     * @param textField
+     * @return
+     */
+    private boolean checkNumber(EditText textField) {
+        boolean isEmpty = textField.getText().toString().isEmpty();
         boolean isPositive = false;
         if(!isEmpty)
-            isPositive = Integer.parseInt(quadratEdit.getText().toString()) >= 1;
+            isPositive = Double.parseDouble(textField.getText().toString()) >= 1;
         return !isEmpty && isPositive;
     }
 }

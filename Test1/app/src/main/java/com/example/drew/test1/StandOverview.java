@@ -3,10 +3,9 @@
  * COMP 4721
  * 5/3/17
  *
- * This is the java code for the stand summary screen. It displays the values
- * inputed on the input screen. It also provides an area to record notes, a button
- * to return to the input screen (for editing purposes), and a scroll menu
- * for buttons that will link to all the quadrats in a particular stand.
+ * This is the java code for the list of quadrats screen. It displays a button
+ * to go to the stand summary, and a scroll menu for buttons that will
+ * link to all the quadrats in a particular stand.
  */
 package com.example.drew.test1;
 
@@ -28,9 +27,8 @@ public class StandOverview extends AppCompatActivity
     protected int numQuadrats;
 
     /**
-     * Begins automatically when this screen is opened. First saves the values
-     * passed to it by the input screen. It then adds the functionality to
-     * the widgets declared in the xml code.
+     * Begins automatically when this screen is opened. It
+     * adds the functionality to the widgets declared in the xml code.
      * @param savedInstanceState (a class that is part of the android library)
      */
     @Override
@@ -65,8 +63,7 @@ public class StandOverview extends AppCompatActivity
     }
 
     /**
-     * Called when the user hits the edit info button. Starts the stand input screen,
-     * passing along the current values.
+     * Called when the user hits the edit info button. Starts the stand summary screen.
      * @param view (only to satisfy method requirements)
      */
     public void sendSummary(View view)
@@ -75,6 +72,10 @@ public class StandOverview extends AppCompatActivity
         startActivity(intent);
     }
 
+    /**
+     * Called when the user hits the back button. Starts the stand list screen.
+     * @param view (only to satisfy method requirements)
+     */
     public void sendList(View view)
     {
         Intent intent = new Intent(this, StandList.class);

@@ -10,6 +10,8 @@ import java.util.List;
 
 public class DwmCalculator {
 
+    public static final double QUADRAT_AREA = 400;
+
     //CALCULATIONS//--------------------------------------
 
     /**
@@ -29,10 +31,13 @@ public class DwmCalculator {
 
     public static double calculateDwmStand(Stand stand) {
         double dwm = 0.0;
-
         for (Quadrat quadrat: stand.getQuadrats()) {
             dwm += calculateDwm(quadrat);
         }
+        int quadratsCompleted = stand.getCompletedQuadrats();
+        double sampledSize = quadratsCompleted * QUADRAT_AREA;
+        double standSize = stand.getArea();
+        dwm = dwm * (standSize/sampledSize);
         return dwm;
     }
 
@@ -49,4 +54,6 @@ public class DwmCalculator {
 
         return abpEquation.calculate(dbh);
     }
+
+
 }
