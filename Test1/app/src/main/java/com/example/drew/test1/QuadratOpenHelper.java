@@ -7,8 +7,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
 import android.database.Cursor;
 
-//TODO: BETTER MAKE ERRORS N STUFF
-
 /**
  * Created by Mathieu Belzile-Ha on 14/03/2017.
  *
@@ -52,14 +50,7 @@ public class QuadratOpenHelper extends SQLiteOpenHelper{
     }
 
     //MUTATORS// -----------------------------------------------------
-    public void addTree(TreeImage tree, int quadratId) throws QuadratNotFoundException{
-        try{
-            existenceCheck(quadratId);
-        } catch (QuadratNotFoundException e){
-            e.printStackTrace();
-            throw e;
-        }
-
+    public void addTree(TreeImage tree, int quadratId){
         SQLiteDatabase database = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -85,14 +76,7 @@ public class QuadratOpenHelper extends SQLiteOpenHelper{
         database.close();
     }
 
-    public void setCoordinates(Coordinate coordinates, int quadratId) throws QuadratNotFoundException{
-        try{
-            existenceCheck(quadratId);
-        } catch (QuadratNotFoundException e){
-            e.printStackTrace();
-            throw e;
-        }
-
+    public void setCoordinates(Coordinate coordinates, int quadratId){
         String updateCommand = "UPDATE "+ SQLiteConstants.QUADRAT_TABLE_NAME + " SET " +
                 SQLiteConstants.QUADRAT_X_COORDINATE_KEY + "=" + coordinates.getX() + ", " +
                 SQLiteConstants.QUADRAT_Y_COORDINATE_KEY + "=" + coordinates.getY() +
@@ -104,40 +88,24 @@ public class QuadratOpenHelper extends SQLiteOpenHelper{
 
     //ACCESSORS// ------------------------------------------------------
     public List<TreeImage> getTrees(int quadratId)  throws QuadratNotFoundException{
-        try{
-            existenceCheck(quadratId);
-        } catch (QuadratNotFoundException e){
-            e.printStackTrace();
-            throw e;
-        }
-
-        List<TreeImage> trees = new LinkedList<TreeImage>();
         String selectQuery = "SELECT * FROM " + SQLiteConstants.TREE_TABLE_NAME +
                 " WHERE " + SQLiteConstants.TREE_QUADRAT_ID_KEY + "=" + quadratId + ";";
 
         SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
 
+        List<TreeImage> trees = new LinkedList<TreeImage>();
+
         while(cursor.moveToNext()){
             TreeImage tree = extractTreeImage(cursor);
-
-            if (tree != null){
-                trees.add(tree);
-            }
+            trees.add(tree);
         }
 
         cursor.close();
         return trees;
     }
 
-    public TreeImage getTree(int relativeID, int quadratId) throws QuadratNotFoundException, TableIndexOutOfBoundsException{
-        try{
-            existenceCheck(quadratId);
-        } catch (QuadratNotFoundException e){
-            e.printStackTrace();
-            throw e;
-        }
-
+    public TreeImage getTree(int relativeID, int quadratId){
         String selectQuery = "SELECT * FROM " + SQLiteConstants.TREE_TABLE_NAME +
                 " WHERE " + SQLiteConstants.TREE_QUADRAT_ID_KEY + "=" + quadratId +
                 " ORDER BY " + SQLiteConstants.KEY_PRIMARY +
@@ -146,76 +114,30 @@ public class QuadratOpenHelper extends SQLiteOpenHelper{
         SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
 
-        if (cursor.getCount() == 0){
-            throw new TableIndexOutOfBoundsException();
-        }
-
         cursor.moveToFirst();
+        TreeImage tree = extractTreeImage(cursor);
 
-        try {
-            TreeImage tree = extractTreeImage(cursor);
-            return tree;
-        } catch(InvalidTableFormatException e){
-            e.printStackTrace();
-            throw e;
-        }
+        cursor.close();
+        return tree;
     }
 
-    public Coordinate getCoordinates(int quadratId) throws QuadratNotFoundException{
-        try{
-            existenceCheck(quadratId);
-        } catch (QuadratNotFoundException e){
-            e.printStackTrace();
-            throw e;
-        }
+    public Coordinate getCoordinates(int quadratId){
         String selectQuery = "SELECT * FROM " + SQLiteConstants.QUADRAT_TABLE_NAME +
                 " WHERE " + SQLiteConstants.KEY_PRIMARY + "=" + quadratId + ";";
 
         SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
 
-        if (cursor.moveToFirst()) {
-            if (cursor.getType(1) == SQLiteConstants.FIELD_TYPE_FLOAT
-                    && cursor.getType(2) == SQLiteConstants.FIELD_TYPE_FLOAT) {
-                double x = cursor.getDouble(1);
-                double y = cursor.getDouble(2);
+        cursor.moveToFirst();
 
-                return new Coordinate(x,y);
-            }
-        }
+        double x = cursor.getDouble(SQLiteConstants.QUADRAT_X_COORDINATE_COLUMN);
+        double y = cursor.getDouble(SQLiteConstants.QUADRAT_Y_COORDINATE_COLUMN);
 
-        return null;
+        cursor.close();
+        return new Coordinate(x,y);
     }
 
     //HELPERS// ------------------------------------------------------
-
-    /**
-     * Asserts if a given quadrat exists or not
-     * @return
-     */
-    public boolean exists(int quadratId){
-        String selectQuery = "SELECT EXISTS(SELECT * FROM " + SQLiteConstants.QUADRAT_TABLE_NAME +
-                " WHERE " + SQLiteConstants.KEY_PRIMARY + "=" + quadratId + " LIMIT 1);";
-
-        SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor = database.rawQuery(selectQuery, null);
-
-        cursor.moveToFirst();
-        return cursor.getInt(0) == 1;
-    }
-
-    /**
-     * Helper method that throws a QuadratNotFoundException if the quadrat
-     * indicated by quadratId does not exist
-     * @param quadratId
-     * @throws QuadratNotFoundException
-     */
-    private void existenceCheck(int quadratId) throws QuadratNotFoundException{
-        if(!exists(quadratId)){
-            throw new QuadratNotFoundException();
-        }
-    }
-
     @Override
     public void onOpen(SQLiteDatabase db) {
         super.onOpen(db);
@@ -225,33 +147,11 @@ public class QuadratOpenHelper extends SQLiteOpenHelper{
     }
 
     /**
-     * Helper method to validate tree cursor
-     * @param treeCursor
-     * @return treeCursor is safe to be read as a tree cursor
-     */
-    private boolean validTreeCursor(Cursor treeCursor){
-        if (treeCursor.getColumnCount() != SQLiteConstants.TREE_NUM_COLUMNS){
-            return false;
-        }
-        return (treeCursor.getType(SQLiteConstants.TREE_PRIMARY_KEY_COLUMN) == SQLiteConstants.TREE_PRIMARY_KEY_TYPE
-                && treeCursor.getType(SQLiteConstants.TREE_DBH_COLUMN) == SQLiteConstants.TREE_DBH_TYPE
-                && treeCursor.getType(SQLiteConstants.TREE_SPECIES_COLUMN) == SQLiteConstants.TREE_SPECIES_TYPE
-                && treeCursor.getType(SQLiteConstants.TREE_STORAGE_FACTOR_COLUMN) == SQLiteConstants.TREE_STORAGE_FACTOR_TYPE
-                && treeCursor.getType(SQLiteConstants.TREE_MATERIAL_TYPE_COLUMN) == SQLiteConstants.TREE_MATERIAL_TYPE_TYPE
-                && treeCursor.getType(SQLiteConstants.TREE_QUADRAT_ID_COLUMN) == SQLiteConstants.TREE_QUADRAT_ID_TYPE);
-    }
-
-    /**
      * Helper method that extracts TreeImage at current tree cursor position.
      * @param treeCursor
      * @return treeInfo
      */
-    private TreeImage extractTreeImage(Cursor treeCursor)throws InvalidTableFormatException {
-
-        if(!validTreeCursor(treeCursor)){
-            throw new InvalidTableFormatException();
-        }
-
+    private TreeImage extractTreeImage(Cursor treeCursor){
         int id = treeCursor.getInt(SQLiteConstants.TREE_PRIMARY_KEY_COLUMN); //TODO: refactoring so all tree parsing is handled by another class
         double dbh = treeCursor.getDouble(SQLiteConstants.TREE_DBH_COLUMN);
         Species species = InputParser.parseSpecies(treeCursor.getString(SQLiteConstants.TREE_SPECIES_COLUMN));
@@ -260,19 +160,5 @@ public class QuadratOpenHelper extends SQLiteOpenHelper{
         int quadratId = treeCursor.getInt(SQLiteConstants.TREE_QUADRAT_ID_COLUMN);
 
         return new TreeImage(dbh, species, storageFactor, materialType, id, quadratId);
-    }
-
-    /**
-     * Helper method to validate quadrat cursor
-     * @param quadratCursor
-     * @return quadratCursor is safe to be read as a quadrat cursor
-     */
-    private boolean validQuadratCursor(Cursor quadratCursor){
-        if (quadratCursor.getColumnCount() != SQLiteConstants.QUADRAT_NUM_COLUMNS){
-            return false;
-        }
-        return (quadratCursor.getType(SQLiteConstants.QUADRAT_PRIMARY_KEY_COLUMN) == SQLiteConstants.QUADRAT_PRIMARY_KEY_TYPE
-                && quadratCursor.getType(SQLiteConstants.QUADRAT_X_COORDINATE_COLUMN) == SQLiteConstants.QUADRAT_X_COORDINATE_TYPE
-                && quadratCursor.getType(SQLiteConstants.QUADRAT_Y_COORDINATE_COLUMN) == SQLiteConstants.QUADRAT_Y_COORDINATE_TYPE);
     }
 }

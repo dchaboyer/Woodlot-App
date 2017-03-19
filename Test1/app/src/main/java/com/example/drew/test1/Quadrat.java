@@ -1,6 +1,8 @@
 package com.example.drew.test1;
 import android.content.Context;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.LinkedList;
 
@@ -16,13 +18,13 @@ import java.util.LinkedList;
 //TODO: modify the exceptions to send a DATACORRUPT exception chained with exceptions like invalidTableFormat and stuff
 
 public class Quadrat{
-
+/*
 	private boolean open; //Indicates if the quadrat open helper has been initialized yet or not.
 	private int id; //ID in database table
 	private Context context; //Android app context
 	private QuadratOpenHelper quadratOpenHelper; //Tool by which to access Quadrat data (Open for testing)
 
-	public Quadrat(Context context, int id){
+	public Quadrat(){
 		this.id = id;
 		this.context = context;
 		this.setOpen(false);
@@ -101,9 +103,19 @@ public class Quadrat{
 	private boolean isOpen(){
 		return this.open;
 	}
-
+*/
 	////////////....../////////////////////ARCHIVE//////////////////////////////////////////////////
-	/*
+
+	private boolean complete;
+	private Coordinate coordinate;
+	private ArrayList<Tree> trees;
+
+	public Quadrat(){
+		this.complete = false;
+		this.coordinate = null;
+		this.trees = new ArrayList<Tree>();
+	}
+
 	//SET//--------------------------------------------
 	public void setComplete(){
 		this.complete = true;
@@ -148,5 +160,5 @@ public class Quadrat{
 	public void removeTree(Tree tree){
 		this.trees.remove(tree);
 	}
-	*/
+
 }

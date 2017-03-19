@@ -40,9 +40,6 @@ public class QuadratOpenHelperTest {
         debugger.addQuadrat(testCoord);
 
         QuadratOpenHelper quadratOpenHelper = new QuadratOpenHelper(appContext);
-
-        assertTrue(quadratOpenHelper.exists(1));
-        assertFalse(quadratOpenHelper.exists(2));
     }
 
     @Test
@@ -58,13 +55,6 @@ public class QuadratOpenHelperTest {
         QuadratOpenHelper quadratOpenHelper = new QuadratOpenHelper(appContext);
         Coordinate coord = quadratOpenHelper.getCoordinates(1);
         assertTrue(coord.equals(testCoord));
-
-        try{
-            quadratOpenHelper.getCoordinates(51);
-        } catch(QuadratNotFoundException e){
-            return;
-        }
-        fail();
     }
 
     @Test
@@ -81,13 +71,6 @@ public class QuadratOpenHelperTest {
         QuadratOpenHelper quadratOpenHelper = new QuadratOpenHelper(appContext);
         quadratOpenHelper.setCoordinates(newCoord,1);
         assertTrue(quadratOpenHelper.getCoordinates(1).equals(newCoord));
-
-        try{
-            quadratOpenHelper.setCoordinates(newCoord, 51);
-        } catch(QuadratNotFoundException e){
-            return;
-        }
-        fail();
     }
 
     @Test
@@ -129,13 +112,6 @@ public class QuadratOpenHelperTest {
         assertTrue(treeImageDebugger.same(quadrat1Trees.get(1), treeImage1_b, 3, 1));
         assertTrue(treeImageDebugger.same(quadrat2Trees.get(0), treeImage2_a, 1, 2));
         assertTrue(treeImageDebugger.same(quadrat2Trees.get(1), treeImage2_b, 4, 2));
-
-        try{
-            quadratOpenHelper.getTrees(51);
-        } catch(QuadratNotFoundException e){
-            return;
-        }
-        fail();
     }
 
     @Test
@@ -167,26 +143,6 @@ public class QuadratOpenHelperTest {
         assertTrue(treeImageDebugger.same(quadratOpenHelper.getTree(1,1), quadrat1Trees.get(1)));
         assertTrue(treeImageDebugger.same(quadratOpenHelper.getTree(0,2), quadrat2Trees.get(0)));
         assertTrue(treeImageDebugger.same(quadratOpenHelper.getTree(1,2), quadrat2Trees.get(1)));
-
-        try {
-            quadratOpenHelper.getTree(52, 2);
-        } catch(TableIndexOutOfBoundsException e1){
-            /*
-            treeDebugger.alterTable();
-            try {
-                quadratOpenHelper.getTree(0,1);
-            } catch(InvalidTableFormatException e2){
-                return;
-            }
-            fail();*/ //TODO: automated testing for this exception throw
-            try{
-                quadratOpenHelper.getTree(0, 51);
-            } catch(QuadratNotFoundException e){
-                return;
-            }
-            fail();
-        }
-        fail();
     }
 
     @Test
@@ -232,12 +188,5 @@ public class QuadratOpenHelperTest {
         assertTrue(treeImageDebugger.same(quadratOpenHelper.getTree(1,1), treeImage1_b, 3, 1));
         assertTrue(treeImageDebugger.same(quadratOpenHelper.getTree(0,2), treeImage2_a, 2, 2));
         assertTrue(treeImageDebugger.same(quadratOpenHelper.getTree(1,2), treeImage2_b, 4, 2));
-
-        try{
-            quadratOpenHelper.addTree(treeImage2_a, 51);
-        } catch(QuadratNotFoundException e){
-            return;
-        }
-        fail();
     }
 }
