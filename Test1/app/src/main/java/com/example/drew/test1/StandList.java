@@ -52,8 +52,9 @@ public class StandList extends AppCompatActivity
             currButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     WCCCProgram.setCurrStand(index-1);
-                    if(currWoodlot.getStand(index-1).getSpecies() == null) {
-                        Intent intent = new Intent(StandList.this, StandInput.class);
+                    Double area = currWoodlot.getStand(index-1).getArea();
+                    if(area == null) {
+                        Intent intent = new Intent(StandList.this, StandSpecies.class);
                         intent.putExtra(QuadratScreen.EXTRA_ISEDIT, false);
                         startActivity(intent);
                     }

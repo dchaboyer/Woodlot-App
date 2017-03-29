@@ -24,11 +24,12 @@ public class StandSummary extends AppCompatActivity
 
     public static final double CI_INTERVAL = 1.96;
     public static final double ERROR_THRESHOLD = 0.10;
+    public static final String NOT_APPLICABLE = "N/A";
 
     // Widget objects
     protected TextView ageWidget;
     protected TextView heightWidget;
-    protected TextView speciesWidget;
+    protected TextView speciesWidget1, speciesWidget2, speciesWidget3, speciesWidget4, speciesWidget5;
     protected TextView dwmWidget;
     protected TextView sizeWidget;
     protected TextView rangeWidget;
@@ -39,7 +40,7 @@ public class StandSummary extends AppCompatActivity
     // variables to store current information
     protected String age;
     protected String height;
-    protected String species;
+    protected String species1, species2, species3, species4, species5;
     protected String notes;
     protected String size;
 
@@ -58,23 +59,47 @@ public class StandSummary extends AppCompatActivity
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         ageWidget = (TextView) findViewById(R.id.age);
         heightWidget = (TextView) findViewById(R.id.height);
-        speciesWidget = (TextView) findViewById(R.id.species);
         notesWidget = (EditText) findViewById(R.id.editNotes);
         dwmWidget = (TextView) findViewById(R.id.dwmView);
         sizeWidget = (TextView) findViewById(R.id.standSummarySize);
         rangeWidget = (TextView) findViewById(R.id.dwmRange);
         errorWidget = (TextView) findViewById(R.id.errorEstimate);
         statusWidget = (TextView) findViewById(R.id.errorStatus);
+        speciesWidget1 = (TextView) findViewById(R.id.summarySpecies1);
+        speciesWidget2 = (TextView) findViewById(R.id.summarySpecies2);
+        speciesWidget3 = (TextView) findViewById(R.id.summarySpecies3);
+        speciesWidget4 = (TextView) findViewById(R.id.summarySpecies4);
+        speciesWidget5 = (TextView) findViewById(R.id.summarySpecies5);
         final Stand currStand = WCCCProgram.getCurrStand();
 
         Integer currAge = currStand.getAge();
         age = currAge.toString();
         Double currHeight = currStand.getHeight();
         height = currHeight.toString();
-        Species currSpecies = currStand.getSpecies();
-        species = currSpecies.getName();
         Double currSize = currStand.getArea();
         size = currSize.toString();
+        Species currSpecies = currStand.getSpecies(1);
+        species1 = currSpecies.getName();
+        currSpecies = currStand.getSpecies(2);
+        if(currSpecies != null)
+            species2 = currSpecies.getName();
+        else
+            species2 = NOT_APPLICABLE;
+        currSpecies = currStand.getSpecies(3);
+        if(currSpecies != null)
+            species3 = currSpecies.getName();
+        else
+            species3 = NOT_APPLICABLE;
+        currSpecies = currStand.getSpecies(4);
+        if(currSpecies != null)
+            species4 = currSpecies.getName();
+        else
+            species4 = NOT_APPLICABLE;
+        currSpecies = currStand.getSpecies(5);
+        if(currSpecies != null)
+            species5 = currSpecies.getName();
+        else
+            species5 = NOT_APPLICABLE;
 
         Double dwm = DwmCalculator.calculateDwmStand(currStand);
         String rangeDisplay, errorDisplay, statusDisplay;
@@ -103,20 +128,27 @@ public class StandSummary extends AppCompatActivity
         }
         String ageDisplay = "Age: ".concat(age);
         String heightDisplay = "Height: ".concat(height);
-        String speciesDisplay = "Species: ".concat(species);
         String dwmString = Long.toString(Math.round(dwm));
         String dwmDisplay = "DWM Estimate: ".concat(dwmString);
-
         String sizeDisplay = "Size: ".concat(size);
+        String speciesDisplay1 = "Species 1: ".concat(species1);
+        String speciesDisplay2 = "Species 2: ".concat(species2);
+        String speciesDisplay3 = "Species 3: ".concat(species3);
+        String speciesDisplay4 = "Species 4: ".concat(species4);
+        String speciesDisplay5 = "Species 5: ".concat(species5);
 
         ageWidget.setText(ageDisplay);
         heightWidget.setText(heightDisplay);
-        speciesWidget.setText(speciesDisplay);
         dwmWidget.setText(dwmDisplay);
         rangeWidget.setText(rangeDisplay);
         sizeWidget.setText(sizeDisplay);
         errorWidget.setText(errorDisplay);
         statusWidget.setText(statusDisplay);
+        speciesWidget1.setText(speciesDisplay1);
+        speciesWidget2.setText(speciesDisplay2);
+        speciesWidget3.setText(speciesDisplay3);
+        speciesWidget4.setText(speciesDisplay4);
+        speciesWidget5.setText(speciesDisplay5);
         notes = currStand.getNotes();
 
         if(notes != null)
@@ -133,7 +165,7 @@ public class StandSummary extends AppCompatActivity
     public void sendEdit(View view)
     {
         saveNotes();
-        Intent intent = new Intent(this, StandInput.class);
+        Intent intent = new Intent(this, StandSpecies.class);
         intent.putExtra(QuadratScreen.EXTRA_ISEDIT, true);
         startActivity(intent);
     }

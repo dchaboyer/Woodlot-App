@@ -11,6 +11,7 @@ import java.util.List;
 public class DwmCalculator {
 
     public static final double QUADRAT_AREA = 400;
+    public static final int METERS_IN_HECTARE = 10000;
 
     //CALCULATIONS//--------------------------------------
 
@@ -36,7 +37,7 @@ public class DwmCalculator {
         }
         int quadratsCompleted = stand.getCompletedQuadrats();
         double sampledSize = quadratsCompleted * QUADRAT_AREA;
-        double standSize = stand.getArea();
+        double standSize = stand.getArea() * METERS_IN_HECTARE;
         dwm = dwm * (standSize/sampledSize);
         return dwm;
     }

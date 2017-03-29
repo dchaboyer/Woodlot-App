@@ -63,6 +63,7 @@ public class WoodlotInput extends AppCompatActivity
             Integer oldNumStands = currWoodlot.getStands().size();
             numStandsEdit.setText(oldNumStands.toString());
         }
+        acceptButton.setEnabled(false);
         addListeners();
     }
 
@@ -77,8 +78,7 @@ public class WoodlotInput extends AppCompatActivity
             @Override
             public void afterTextChanged(Editable arg0)
             {
-                boolean isEmpty = nameEdit.getText().toString().isEmpty();
-                acceptButton.setEnabled(!isEmpty);
+                setAcceptEnabled();
             }
 
             @Override
@@ -93,7 +93,7 @@ public class WoodlotInput extends AppCompatActivity
             @Override
             public void afterTextChanged(Editable s)
             {
-                acceptButton.setEnabled(checkNumber());
+                setAcceptEnabled();
             }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -114,21 +114,20 @@ public class WoodlotInput extends AppCompatActivity
         String name = nameEdit.getText().toString();
 
         String numStandsString = numStandsEdit.getText().toString();
+
         int numStands = Integer.parseInt(numStandsString);
 
-        if(isEdit)
-        {
+        if (isEdit) {
             Woodlot currWoodlot = WCCCProgram.getCurrWoodlot();
             currWoodlot.setName(name);
             currWoodlot.setNumStands(numStands);
-        }
-        else
-        {
+        } else {
             DataBase database = WCCCProgram.getRoot();
             database.addWoodlot(new Woodlot(name, numStands));
         }
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+
     }
 
     /**
@@ -142,16 +141,13 @@ public class WoodlotInput extends AppCompatActivity
         startActivity(intent);
     }
 
-    /**
-     * @return whether a number is not null, and positive
-     */
-    private boolean checkNumber()
+    private void setAcceptEnabled()
     {
-        boolean isEmpty = numStandsEdit.getText().toString().isEmpty();
-        boolean isPositive = false;
-        if(!isEmpty) {
-            isPositive = Integer.parseInt(numStandsEdit.getText().toString()) >= 1;
-        }
-        return !isEmpty && isPositive;
+        boolean isNameEmpty = nameEdit.getText().toString().isEmpty();
+        boolean isNumEmpty = numStandsEdit.getText().toString().isEmpty();
+        if(isNameEmpty || isNumEmpty)
+            acceptButton.setEnabled(false);
+        else
+            acceptButton.setEnabled(true);
     }
 }

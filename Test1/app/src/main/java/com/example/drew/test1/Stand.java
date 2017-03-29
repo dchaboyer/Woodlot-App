@@ -13,17 +13,21 @@ import java.util.ArrayList;
 
 public class Stand {
 
+
     private ArrayList<Quadrat> quadrats;
 
-    private Species species;
+    private Species species1;
+    private Species species2;
+    private Species species3;
+    private Species species4;
+    private Species species5;
     private Double area;
     private Integer age;
     private Double height;
     private String notes;
 
-    public Stand(Species species, Double area, int age, double height, int numQuadrats){
+    public Stand(Double area, int age, double height, int numQuadrats){
         this.quadrats = new ArrayList<Quadrat>();
-        this.species = species;
         this.age = age;
         this.area = area;
         this.height = height;
@@ -36,7 +40,6 @@ public class Stand {
     public Stand()
     {
         this.quadrats = new ArrayList<Quadrat>();
-        this.species = null;
         this.age = null;
         this.height = null;
         this.notes = null;
@@ -55,8 +58,24 @@ public class Stand {
 
     //SET//--------------------------------------------
 
-    public void setSpecies(Species species){
-        this.species = species;
+    public void setSpecies(Species species, int rank){
+        switch(rank){
+            case 1:
+                this.species1 = species;
+                break;
+            case 2:
+                this.species2 = species;
+                break;
+            case 3:
+                this.species3 = species;
+                break;
+            case 4:
+                this.species4 = species;
+                break;
+            case 5:
+                this.species5 = species;
+                break;
+        }
     }
 
     public void setAge(int age){
@@ -67,7 +86,51 @@ public class Stand {
         this.height = height;
     }
 
-    public void setArea(double area) {this.area = area;}
+    //GET//--------------------------------------------
+
+    public Species getSpecies(int rank){
+        switch(rank){
+            case 1:
+                return this.species1;
+            case 2:
+                return this.species2;
+            case 3:
+                return this.species3;
+            case 4:
+                return this.species4;
+            case 5:
+                return this.species5;
+            default:
+                return null;
+
+        }
+    }
+
+    public int getAge(){
+        return this.age;
+    }
+
+    public double getHeight(){
+        return this.height;
+    }
+
+    public List<Quadrat> getQuadrats(){
+        ArrayList<Quadrat> output = new ArrayList<Quadrat>();
+
+        for (Quadrat quadrat: this.quadrats){
+            output.add(quadrat);
+        }
+
+        return output;
+    }
+
+    public Quadrat getQuadrat(int index){
+        return this.quadrats.get(index);
+    }
+
+    public String getNotes() {
+        return notes;
+    }
 
     public void setNotes(String newNotes) {
         notes = newNotes;
@@ -91,42 +154,16 @@ public class Stand {
         return 1;
     }
 
-    //GET//--------------------------------------------
-
-    public Species getSpecies(){
-        return this.species;
-    }
-
-    public int getAge(){
-        return this.age;
-    }
-
-    public double getHeight(){
-        return this.height;
-    }
-
-    public double getArea() {return this.area;}
-
-    public List<Quadrat> getQuadrats(){
-        ArrayList<Quadrat> output = new ArrayList<Quadrat>();
-
-        for (Quadrat quadrat: this.quadrats){
-            output.add(quadrat);
-        }
-
-        return output;
-    }
-
-    public Quadrat getQuadrat(int index){
-        return this.quadrats.get(index);
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
     public int getNumQuadrats() {
         return quadrats.size();
+    }
+
+    public Double getArea() {
+        return area;
+    }
+
+    public void setArea(double newArea) {
+        area = newArea;
     }
 
     public int getCompletedQuadrats() {
@@ -138,6 +175,5 @@ public class Stand {
         }
         return numCompleted;
     }
-
 }
 

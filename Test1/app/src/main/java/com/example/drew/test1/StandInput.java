@@ -15,24 +15,17 @@ package com.example.drew.test1;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.Spinner;
-import android.widget.ArrayAdapter;
-import java.util.ArrayList;
 import android.widget.EditText;
 import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
 import android.text.TextWatcher;
 import android.text.Editable;
-import java.util.List;
 
 public class StandInput extends AppCompatActivity
-        implements AdapterView.OnItemSelectedListener
 {
 
     //widget objects
-    protected Spinner spinner;
     protected EditText ageEdit;
     protected EditText heightEdit;
     protected EditText quadratEdit;
@@ -44,7 +37,6 @@ public class StandInput extends AppCompatActivity
     protected int currAge;
     protected int currNumQuadrats;
     protected double currHeight;
-    protected String currSpecies;
     protected double currSize;
 
     //true if editting information, false if creating new stand
@@ -65,40 +57,6 @@ public class StandInput extends AppCompatActivity
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        spinner = (Spinner) findViewById(R.id.spinner);
-        spinner.setOnItemSelectedListener(this);
-
-        List<String> categories = new ArrayList<String>();
-        categories.add(Species.AMERICAN_BEECH.getName());
-        categories.add(Species.BALSAM_FIR.getName());
-        categories.add(Species.BLACK_CHERRY.getName());
-        categories.add(Species.BLACK_SPRUCE.getName());
-        categories.add(Species.EASTERN_HEMLOCK.getName());
-        categories.add(Species.EASTERN_LARCH.getName());
-        categories.add(Species.EASTERN_WHITE_CEDAR.getName());
-        categories.add(Species.GENERIC_HARD_WOOD.getName());
-        categories.add(Species.GENERIC_SOFT_WOOD.getName());
-        categories.add(Species.GREY_BIRCH.getName());
-        categories.add(Species.IRON_WOOD.getName());
-        categories.add(Species.JACK_PINE.getName());
-        categories.add(Species.LARGE_TOOTHED_ASPEN.getName());
-        categories.add(Species.RED_MAPLE.getName());
-        categories.add(Species.RED_OAK.getName());
-        categories.add(Species.RED_PINE.getName());
-        categories.add(Species.RED_SPRUCE.getName());
-        categories.add(Species.SUGAR_MAPLE.getName());
-        categories.add(Species.TREMBLING_ASPEN.getName());
-        categories.add(Species.WHITE_ASH.getName());
-        categories.add(Species.WHITE_BIRCH.getName());
-        categories.add(Species.WHITE_PINE.getName());
-        categories.add(Species.WHITE_SPRUCE.getName());
-        categories.add(Species.YELLOW_BIRCH.getName());
-
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                R.layout.spinner_layout, categories);
-        dataAdapter.setDropDownViewResource(R.layout.spinner_layout);
-        spinner.setAdapter(dataAdapter);
-
         ageEdit = (EditText) findViewById(R.id.editAge);
         heightEdit = (EditText) findViewById(R.id.editHeight);
         cancelButton = (Button) findViewById(R.id.cancelButton);
@@ -117,32 +75,9 @@ public class StandInput extends AppCompatActivity
             Double oldSize = currStand.getArea();
             sizeEdit.setText(oldSize.toString());
         }
+        else
+            acceptButton.setEnabled(false);
         addListeners();
-    }
-
-    /**
-     * Called when a user selects an option from the drop down menu. Stores the selected
-     * option in the variable currSpecies.
-     * value
-     * @param parent
-     * @param view
-     * @param position
-     * @param id
-     */
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
-    {
-        String item = parent.getItemAtPosition(position).toString();
-        currSpecies = item;
-    }
-
-    /**
-     * Required method for interface purposes. when a user selects nothing from
-     * the drop down menu, nothing happens.
-     * @param arg0
-     */
-    public void onNothingSelected(AdapterView<?> arg0)
-    {
     }
 
     /**
@@ -155,7 +90,7 @@ public class StandInput extends AppCompatActivity
         {
             @Override
             public void afterTextChanged(Editable arg0) {
-                acceptButton.setEnabled(checkNumber(ageEdit));
+                setAcceptStatus();
             }
 
             @Override
@@ -169,7 +104,7 @@ public class StandInput extends AppCompatActivity
         {
             @Override
             public void afterTextChanged(Editable s) {
-                acceptButton.setEnabled(checkNumber(heightEdit));
+                setAcceptStatus();
             }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -182,7 +117,7 @@ public class StandInput extends AppCompatActivity
         {
             @Override
             public void afterTextChanged(Editable s) {
-                acceptButton.setEnabled(checkNumber(quadratEdit));
+                setAcceptStatus();
             }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -195,7 +130,7 @@ public class StandInput extends AppCompatActivity
         {
             @Override
             public void afterTextChanged(Editable s) {
-                acceptButton.setEnabled(checkNumber(sizeEdit));
+                setAcceptStatus();
             }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -220,8 +155,6 @@ public class StandInput extends AppCompatActivity
         String ageString = ageEdit.getText().toString();
         currAge = Integer.parseInt(ageString);
 
-        Species tempSpecies = InputParser.parseSpecies(currSpecies);
-
         String numQuadratString = quadratEdit.getText().toString();
         currNumQuadrats = Integer.parseInt(numQuadratString);
 
@@ -231,7 +164,6 @@ public class StandInput extends AppCompatActivity
         Stand currStand = WCCCProgram.getCurrStand();
         currStand.setAge(currAge);
         currStand.setHeight(currHeight);
-        currStand.setSpecies(tempSpecies);
         currStand.setNumQuadrats(currNumQuadrats);
         currStand.setArea(currSize);
         startActivity(intent);
@@ -261,7 +193,15 @@ public class StandInput extends AppCompatActivity
         boolean isEmpty = textField.getText().toString().isEmpty();
         boolean isPositive = false;
         if(!isEmpty)
-            isPositive = Double.parseDouble(textField.getText().toString()) >= 1;
+            isPositive = Double.parseDouble(textField.getText().toString()) > 0;
         return !isEmpty && isPositive;
+    }
+
+    private void setAcceptStatus() {
+        if(checkNumber(ageEdit) && checkNumber(heightEdit) && checkNumber(sizeEdit) && checkNumber(quadratEdit))
+            acceptButton.setEnabled(true);
+        else
+            acceptButton.setEnabled(false);
+
     }
 }

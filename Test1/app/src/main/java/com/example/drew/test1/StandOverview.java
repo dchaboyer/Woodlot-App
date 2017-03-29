@@ -21,7 +21,7 @@ public class StandOverview extends AppCompatActivity
 {
 
     //list of all the quadrat buttons
-    protected ArrayList<IndexedButton> quadratButtons = new ArrayList<IndexedButton>();
+    protected ArrayList<Button> quadratButtons = new ArrayList<Button>();
 
     // variables to store current information
     protected int numQuadrats;
@@ -49,7 +49,6 @@ public class StandOverview extends AppCompatActivity
             final int index = i;
             currButton.setText("Quadrat " + i);
             currButton.setTextSize(40);
-            final IndexedButton currIndexedButton = new IndexedButton(currButton, index);
             currButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     WCCCProgram.setCurrQuadrat(index-1);
@@ -57,7 +56,7 @@ public class StandOverview extends AppCompatActivity
                     startActivity(intent);
                 }
             });
-            quadratButtons.add(currIndexedButton);
+            quadratButtons.add(currButton);
             layout.addView(currButton);
         }
     }

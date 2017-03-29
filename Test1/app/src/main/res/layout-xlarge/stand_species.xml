@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--XML file for the stand info input screen. Uses android libraries to declare widgets-->
-<!--layout that holds all of the objects-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,136 +7,144 @@
 
     <!--displays the title-->
     <TextView
-        android:text="Enter The Other Stand Info"
+        android:text="Enter This Stand's Species"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:textSize="40sp"
-        android:id="@+id/textView"
+        android:id="@+id/standSpeciesTitle"
         android:gravity="center"
-        android:layout_weight="0.10" />
+        android:layout_weight="0.1" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.15"
+        android:layout_weight="0.12"
         android:weightSum="1">
 
-    <!--displays a prompt for the average age-->
+        <!--displays a prompt for the species-->
         <TextView
-            android:text="Average Age:"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:textSize="40sp"
-            android:layout_weight="0.4"
-            android:gravity="right|center_vertical"
-            android:id="@+id/textView2" />
-
-        <!--space to enter the average age-->
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/editAge"
-            android:gravity="center"
-            android:textSize="45sp"
-            android:layout_weight="0.6" />
-
-    </LinearLayout>
-
-    <LinearLayout
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_weight="0.15"
-    android:weightSum="1">
-
-        <!--displays a prompt for the average height-->
-        <TextView
-            android:text="Average Height:"
+            android:text="1st Species:"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:textSize="40sp"
             android:gravity="right|center_vertical"
-            android:id="@+id/textView3"
+            android:id="@+id/speciesPrompt1"
             android:layout_weight="0.4" />
 
-        <!--space to enter the average height-->
-        <EditText
+        <!--species dropdown menu-->
+        <Spinner
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:inputType="numberDecimal"
-            android:ems="10"
-            android:id="@+id/editHeight"
-            android:textSize="45sp"
-            android:gravity="center"
-            android:layout_weight="0.6" />
+            android:layout_weight="0.6"
+            android:id="@+id/speciesInput1" />
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.15"
+        android:layout_weight="0.12"
         android:weightSum="1">
 
-        <!--displays a prompt for the number of quadrats-->
+        <!--displays a prompt for the species-->
         <TextView
-            android:text="# of Quadrats:"
+            android:text="2nd Species:"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:textSize="40sp"
             android:gravity="right|center_vertical"
-            android:id="@+id/numQuadratsView"
+            android:id="@+id/speciesPrompt2"
             android:layout_weight="0.4" />
 
-        <!--space to enter the number of quadrats-->
-        <EditText
+        <!--species dropdown menu-->
+        <Spinner
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/numQuadratsEdit"
-            android:textSize="45sp"
-            android:gravity="center"
-            android:layout_weight="0.6" />
+            android:layout_weight="0.6"
+            android:id="@+id/speciesInput2" />
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.15"
+        android:layout_weight="0.12"
         android:weightSum="1">
 
-        <!--displays a prompt for the stand size-->
+        <!--displays a prompt for the species-->
         <TextView
-            android:text="Size (Hectares):"
+            android:text="3rd Species:"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:textSize="40sp"
             android:gravity="right|center_vertical"
-            android:id="@+id/standSize"
+            android:id="@+id/speciesPrompt3"
             android:layout_weight="0.4" />
 
-        <!--space to enter the stand size-->
-        <EditText
+        <!--species dropdown menu-->
+        <Spinner
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:inputType="numberDecimal"
-            android:ems="10"
-            android:id="@+id/standSizeEdit"
-            android:textSize="45sp"
-            android:gravity="center"
-            android:layout_weight="0.6" />
+            android:layout_weight="0.6"
+            android:id="@+id/speciesInput3" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.12"
+        android:weightSum="1">
+
+        <!--displays a prompt for the species-->
+        <TextView
+            android:text="4th Species:"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textSize="40sp"
+            android:gravity="right|center_vertical"
+            android:id="@+id/speciesPrompt4"
+            android:layout_weight="0.4" />
+
+        <!--species dropdown menu-->
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.6"
+            android:id="@+id/speciesInput4" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.12"
+        android:weightSum="1">
+
+        <!--displays a prompt for the species-->
+        <TextView
+            android:text="5th Species:"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textSize="40sp"
+            android:gravity="right|center_vertical"
+            android:id="@+id/speciesPrompt5"
+            android:layout_weight="0.4" />
+
+        <!--species dropdown menu-->
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.6"
+            android:id="@+id/speciesInput5" />
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.3"
+        android:layout_weight="0.2"
         android:weightSum="1">
 
         <!-- a button that cancels the data entry, restoring old values-->
@@ -146,7 +152,7 @@
             android:text="Cancel"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:id="@+id/cancelButton"
+            android:id="@+id/speciesCancelButton"
             android:textSize="30sp"
             android:gravity="center"
             android:onClick="sendOldValues"
@@ -154,15 +160,13 @@
 
         <!-- a button that saves the inputed values-->
         <Button
-            android:text="Accept"
+            android:text="Next"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:id="@+id/acceptButton"
+            android:id="@+id/speciesAcceptButton"
             android:textSize="30sp"
             android:gravity="center"
             android:onClick="sendMessage"
             android:layout_weight="0.5" />
     </LinearLayout>
-
 </LinearLayout>
-
