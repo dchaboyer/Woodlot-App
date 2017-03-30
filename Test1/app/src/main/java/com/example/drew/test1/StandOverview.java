@@ -66,7 +66,7 @@ public class StandOverview extends AppCompatActivity
         age = currAge.toString();
         Double currHeight = currStand.getHeight();
         height = currHeight.toString();
-        Species currSpecies = currStand.getSpecies();
+        Species currSpecies = currStand.getSpecies(1);
         species = currSpecies.getName();
 
         double dwm = DwmCalculator.calculateDwmStand(currStand);

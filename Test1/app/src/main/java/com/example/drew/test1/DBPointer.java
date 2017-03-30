@@ -8,15 +8,15 @@ import android.database.Cursor;
 
 public abstract class DBPointer {
 
-    private DatabaseOpenHelper dbHelper;
+    private XDatabaseOpenHelper dbHelper;
     private DBAddress address;
 
     public DBPointer(Context context, DBAddress address){
-        this.dbHelper = new DatabaseOpenHelper(context);
+        this.dbHelper = new XDatabaseOpenHelper(context);
         this.address = address;
     }
 
-    protected DatabaseOpenHelper getDbHelper(){
+    protected XDatabaseOpenHelper getDbHelper(){
         return this.dbHelper;
     }
 

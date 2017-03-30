@@ -213,8 +213,8 @@ public class TreeLayout extends AppCompatActivity
             tree = new Tree(tempHeight, tempSpecies, tempFactor, tempMaterial);
             currQuadrat.addTree(tree);
 
-            DatabaseOpenHelper db = new DatabaseOpenHelper(this); //DEBUG
-            //db.addTree(tree);
+            XDatabaseOpenHelper db = new XDatabaseOpenHelper(this); //DEBUG
+            //db.addTreeToQuadrat(tree);
         }
 
         Intent intent = new Intent(this, QuadratScreen.class);

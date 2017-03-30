@@ -17,6 +17,24 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 public class DebuggerTest {
 
+
+    @Test
+    public void testStandDebugger() {
+        double area = 3.4;
+        int age = 5;
+        double height = 7.18;
+        Context appContext = InstrumentationRegistry.getTargetContext();
+
+        StandTableDebugger standTableDebugger = new StandTableDebugger(appContext);
+        standTableDebugger.reset();
+
+        assertTrue(standTableDebugger.dumpTable().isEmpty());
+
+        standTableDebugger.addStand(area, age, height);
+
+
+    }
+
     @Test
     public void testQuadratDebugger(){
         Coordinate testCoord = new Coordinate(1.3,8.41);

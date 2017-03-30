@@ -3,54 +3,29 @@ import java.util.LinkedList;
 import java.util.List;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
 import android.database.Cursor;
 
 /**
  * Created by Mathieu Belzile-Ha on 14/03/2017.
  *
- * TREE OPEN HELPER
+ * QUADRAT OPEN HELPER
  *
  * CLASS WITH PURPOSE TO FACILITATE NAVIGATION OF QUADRAT TABLE.
  *
  */
 
-public class QuadratOpenHelper extends SQLiteOpenHelper{
+//add compelted bool val
+/**
+public class QuadratOpenHelper extends DataBaseOpenHelper {
 
     //CONSTRUCTOR// -------------------------------------------------------
     QuadratOpenHelper(Context context){
-        super(context, SQLiteConstants.DATABASE_NAME, null, SQLiteConstants.DATABASE_VERSION);
-    }
-
-    //OPENHELPER// --------------------------------------------------------
-    /**
-     * Method called whenever the database is created.
-     * Initializes the four important tables.
-     * @param database
-     */
-    @Override
-    public void onCreate(SQLiteDatabase database){
-        database.execSQL(SQLiteConstants.TREE_TABLE_CREATE);
-        database.execSQL(SQLiteConstants.QUADRAT_TABLE_CREATE);
-    }
-
-    /**
-     * Method called on database upgrade.
-     * Right now, just drops current tables and creates new ones.
-     * @param database
-     * @param oldVersion
-     * @param newVersion
-     */
-    @Override
-    public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion){
-        database.execSQL("DROP TABLE IF EXISTS " + SQLiteConstants.TREE_TABLE_NAME);
-        database.execSQL("DROP TABLE IF EXISTS " + SQLiteConstants.QUADRAT_TABLE_NAME);
-        onCreate(database);
+        super(context);
     }
 
     //MUTATORS// -----------------------------------------------------
-    public void addTree(TreeImage tree, int quadratId){
+    public void addTreeToQuadrat(TreeImage tree, int quadratId){
         SQLiteDatabase database = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -76,7 +51,7 @@ public class QuadratOpenHelper extends SQLiteOpenHelper{
         database.close();
     }
 
-    public void setCoordinates(Coordinate coordinates, int quadratId){
+    public void setQuadratCoordinates(Coordinate coordinates, int quadratId){
         String updateCommand = "UPDATE "+ SQLiteConstants.QUADRAT_TABLE_NAME + " SET " +
                 SQLiteConstants.QUADRAT_X_COORDINATE_KEY + "=" + coordinates.getX() + ", " +
                 SQLiteConstants.QUADRAT_Y_COORDINATE_KEY + "=" + coordinates.getY() +
@@ -87,7 +62,7 @@ public class QuadratOpenHelper extends SQLiteOpenHelper{
     }
 
     //ACCESSORS// ------------------------------------------------------
-    public List<TreeImage> getTrees(int quadratId)  throws QuadratNotFoundException{
+    public List<TreeImage> getTreeImagesFromQuadrat(int quadratId){
         String selectQuery = "SELECT * FROM " + SQLiteConstants.TREE_TABLE_NAME +
                 " WHERE " + SQLiteConstants.TREE_QUADRAT_ID_KEY + "=" + quadratId + ";";
 
@@ -121,7 +96,7 @@ public class QuadratOpenHelper extends SQLiteOpenHelper{
         return tree;
     }
 
-    public Coordinate getCoordinates(int quadratId){
+    public Coordinate getQuadratCoordinates(int quadratId){
         String selectQuery = "SELECT * FROM " + SQLiteConstants.QUADRAT_TABLE_NAME +
                 " WHERE " + SQLiteConstants.KEY_PRIMARY + "=" + quadratId + ";";
 
@@ -150,7 +125,7 @@ public class QuadratOpenHelper extends SQLiteOpenHelper{
      * Helper method that extracts TreeImage at current tree cursor position.
      * @param treeCursor
      * @return treeInfo
-     */
+     *//**
     private TreeImage extractTreeImage(Cursor treeCursor){
         int id = treeCursor.getInt(SQLiteConstants.TREE_PRIMARY_KEY_COLUMN); //TODO: refactoring so all tree parsing is handled by another class
         double dbh = treeCursor.getDouble(SQLiteConstants.TREE_DBH_COLUMN);
@@ -161,4 +136,4 @@ public class QuadratOpenHelper extends SQLiteOpenHelper{
 
         return new TreeImage(dbh, species, storageFactor, materialType, id, quadratId);
     }
-}
+}*/

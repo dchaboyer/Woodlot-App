@@ -39,7 +39,7 @@ public class QuadratOpenHelperTest {
         debugger.reset();
         debugger.addQuadrat(testCoord);
 
-        QuadratOpenHelper quadratOpenHelper = new QuadratOpenHelper(appContext);
+        DataBaseOpenHelper dataBaseOpenHelper = new DataBaseOpenHelper(appContext);
     }
 
     @Test
@@ -52,8 +52,8 @@ public class QuadratOpenHelperTest {
         editor.reset();
         editor.addQuadrat(testCoord);
 
-        QuadratOpenHelper quadratOpenHelper = new QuadratOpenHelper(appContext);
-        Coordinate coord = quadratOpenHelper.getCoordinates(1);
+        DataBaseOpenHelper dataBaseOpenHelper = new DataBaseOpenHelper(appContext);
+        Coordinate coord = dataBaseOpenHelper.getQuadratCoordinates(1);
         assertTrue(coord.equals(testCoord));
     }
 
@@ -68,9 +68,9 @@ public class QuadratOpenHelperTest {
         editor.reset();
         editor.addQuadrat(origCoord);
 
-        QuadratOpenHelper quadratOpenHelper = new QuadratOpenHelper(appContext);
-        quadratOpenHelper.setCoordinates(newCoord,1);
-        assertTrue(quadratOpenHelper.getCoordinates(1).equals(newCoord));
+        DataBaseOpenHelper dataBaseOpenHelper = new DataBaseOpenHelper(appContext);
+        dataBaseOpenHelper.setQuadratCoordinates(newCoord,1);
+        assertTrue(dataBaseOpenHelper.getQuadratCoordinates(1).equals(newCoord));
     }
 
     @Test
@@ -88,25 +88,25 @@ public class QuadratOpenHelperTest {
         quadratDebugger.addQuadrat(testCoord1);
         quadratDebugger.addQuadrat(testCoord2);
 
-        QuadratOpenHelper quadratOpenHelper = new QuadratOpenHelper(appContext);
+        DataBaseOpenHelper quadratOpenHelper = new DataBaseOpenHelper(appContext);
 
-        assertTrue(quadratOpenHelper.getTrees(1).size() == 0);
-        assertTrue(quadratOpenHelper.getTrees(2).size() == 0);
+        assertTrue(quadratOpenHelper.getTreeImagesFromQuadrat(1).size() == 0);
+        assertTrue(quadratOpenHelper.getTreeImagesFromQuadrat(2).size() == 0);
         treeDebugger.addTree(treeImage2_a, 2);
-        assertTrue(quadratOpenHelper.getTrees(1).size() == 0);
-        assertTrue(quadratOpenHelper.getTrees(2).size() == 1);
+        assertTrue(quadratOpenHelper.getTreeImagesFromQuadrat(1).size() == 0);
+        assertTrue(quadratOpenHelper.getTreeImagesFromQuadrat(2).size() == 1);
         treeDebugger.addTree(treeImage1_a, 1);
-        assertTrue(quadratOpenHelper.getTrees(1).size() == 1);
-        assertTrue(quadratOpenHelper.getTrees(2).size() == 1);
+        assertTrue(quadratOpenHelper.getTreeImagesFromQuadrat(1).size() == 1);
+        assertTrue(quadratOpenHelper.getTreeImagesFromQuadrat(2).size() == 1);
         treeDebugger.addTree(treeImage1_b, 1);
-        assertTrue(quadratOpenHelper.getTrees(1).size() == 2);
-        assertTrue(quadratOpenHelper.getTrees(2).size() == 1);
+        assertTrue(quadratOpenHelper.getTreeImagesFromQuadrat(1).size() == 2);
+        assertTrue(quadratOpenHelper.getTreeImagesFromQuadrat(2).size() == 1);
         treeDebugger.addTree(treeImage2_b, 2);
-        assertTrue(quadratOpenHelper.getTrees(1).size() == 2);
-        assertTrue(quadratOpenHelper.getTrees(2).size() == 2);
+        assertTrue(quadratOpenHelper.getTreeImagesFromQuadrat(1).size() == 2);
+        assertTrue(quadratOpenHelper.getTreeImagesFromQuadrat(2).size() == 2);
 
-        List<TreeImage> quadrat1Trees = quadratOpenHelper.getTrees(1);
-        List<TreeImage> quadrat2Trees = quadratOpenHelper.getTrees(2);
+        List<TreeImage> quadrat1Trees = quadratOpenHelper.getTreeImagesFromQuadrat(1);
+        List<TreeImage> quadrat2Trees = quadratOpenHelper.getTreeImagesFromQuadrat(2);
 
         assertTrue(treeImageDebugger.same(quadrat1Trees.get(0), treeImage1_a, 2, 1));
         assertTrue(treeImageDebugger.same(quadrat1Trees.get(1), treeImage1_b, 3, 1));
@@ -129,20 +129,20 @@ public class QuadratOpenHelperTest {
         quadratDebugger.addQuadrat(testCoord1);
         quadratDebugger.addQuadrat(testCoord2);
 
-        QuadratOpenHelper quadratOpenHelper = new QuadratOpenHelper(appContext);
+        DataBaseOpenHelper dataBaseOpenHelper = new DataBaseOpenHelper(appContext);
 
         treeDebugger.addTree(treeImage2_a, 2);
         treeDebugger.addTree(treeImage1_a, 1);
         treeDebugger.addTree(treeImage1_b, 1);
         treeDebugger.addTree(treeImage2_b, 2);
 
-        List<TreeImage> quadrat1Trees = quadratOpenHelper.getTrees(1);
-        List<TreeImage> quadrat2Trees = quadratOpenHelper.getTrees(2);
+        List<TreeImage> quadrat1Trees = dataBaseOpenHelper.getTreeImagesFromQuadrat(1);
+        List<TreeImage> quadrat2Trees = dataBaseOpenHelper.getTreeImagesFromQuadrat(2);
 
-        assertTrue(treeImageDebugger.same(quadratOpenHelper.getTree(0,1), quadrat1Trees.get(0)));
-        assertTrue(treeImageDebugger.same(quadratOpenHelper.getTree(1,1), quadrat1Trees.get(1)));
-        assertTrue(treeImageDebugger.same(quadratOpenHelper.getTree(0,2), quadrat2Trees.get(0)));
-        assertTrue(treeImageDebugger.same(quadratOpenHelper.getTree(1,2), quadrat2Trees.get(1)));
+        assertTrue(treeImageDebugger.same(dataBaseOpenHelper.getTreeImageFromQuadrat(0,1), quadrat1Trees.get(0)));
+        assertTrue(treeImageDebugger.same(dataBaseOpenHelper.getTreeImageFromQuadrat(1,1), quadrat1Trees.get(1)));
+        assertTrue(treeImageDebugger.same(dataBaseOpenHelper.getTreeImageFromQuadrat(0,2), quadrat2Trees.get(0)));
+        assertTrue(treeImageDebugger.same(dataBaseOpenHelper.getTreeImageFromQuadrat(1,2), quadrat2Trees.get(1)));
     }
 
     @Test
@@ -160,33 +160,33 @@ public class QuadratOpenHelperTest {
         quadratDebugger.addQuadrat(testCoord1);
         quadratDebugger.addQuadrat(testCoord2);
 
-        QuadratOpenHelper quadratOpenHelper = new QuadratOpenHelper(appContext);
+        DataBaseOpenHelper dataBaseOpenHelper = new DataBaseOpenHelper(appContext);
 
         assertTrue(treeDebugger.getTrees().size() == 0);
 
-        quadratOpenHelper.addTree(treeImage1_a,1);
+        dataBaseOpenHelper.addTreeToQuadrat(treeImage1_a,1);
         assertTrue(treeDebugger.getTrees().size() == 1
-                && quadratOpenHelper.getTrees(1).size() == 1
-                && quadratOpenHelper.getTrees(2).size() == 0);
+                && dataBaseOpenHelper.getTreeImagesFromQuadrat(1).size() == 1
+                && dataBaseOpenHelper.getTreeImagesFromQuadrat(2).size() == 0);
 
-        quadratOpenHelper.addTree(treeImage2_a,2);
+        dataBaseOpenHelper.addTreeToQuadrat(treeImage2_a,2);
         assertTrue(treeDebugger.getTrees().size() == 2
-                && quadratOpenHelper.getTrees(1).size() == 1
-                && quadratOpenHelper.getTrees(2).size() == 1);
+                && dataBaseOpenHelper.getTreeImagesFromQuadrat(1).size() == 1
+                && dataBaseOpenHelper.getTreeImagesFromQuadrat(2).size() == 1);
 
-        quadratOpenHelper.addTree(treeImage1_b, 1);
+        dataBaseOpenHelper.addTreeToQuadrat(treeImage1_b, 1);
         assertTrue(treeDebugger.getTrees().size() == 3
-                && quadratOpenHelper.getTrees(1).size() == 2
-                && quadratOpenHelper.getTrees(2).size() == 1);
+                && dataBaseOpenHelper.getTreeImagesFromQuadrat(1).size() == 2
+                && dataBaseOpenHelper.getTreeImagesFromQuadrat(2).size() == 1);
 
-        quadratOpenHelper.addTree(treeImage2_b, 2);
+        dataBaseOpenHelper.addTreeToQuadrat(treeImage2_b, 2);
         assertTrue(treeDebugger.getTrees().size() == 4
-                && quadratOpenHelper.getTrees(1).size() == 2
-                && quadratOpenHelper.getTrees(2).size() == 2);
+                && dataBaseOpenHelper.getTreeImagesFromQuadrat(1).size() == 2
+                && dataBaseOpenHelper.getTreeImagesFromQuadrat(2).size() == 2);
 
-        assertTrue(treeImageDebugger.same(quadratOpenHelper.getTree(0,1), treeImage1_a, 1, 1));
-        assertTrue(treeImageDebugger.same(quadratOpenHelper.getTree(1,1), treeImage1_b, 3, 1));
-        assertTrue(treeImageDebugger.same(quadratOpenHelper.getTree(0,2), treeImage2_a, 2, 2));
-        assertTrue(treeImageDebugger.same(quadratOpenHelper.getTree(1,2), treeImage2_b, 4, 2));
+        assertTrue(treeImageDebugger.same(dataBaseOpenHelper.getTreeImageFromQuadrat(0,1), treeImage1_a, 1, 1));
+        assertTrue(treeImageDebugger.same(dataBaseOpenHelper.getTreeImageFromQuadrat(1,1), treeImage1_b, 3, 1));
+        assertTrue(treeImageDebugger.same(dataBaseOpenHelper.getTreeImageFromQuadrat(0,2), treeImage2_a, 2, 2));
+        assertTrue(treeImageDebugger.same(dataBaseOpenHelper.getTreeImageFromQuadrat(1,2), treeImage2_b, 4, 2));
     }
 }

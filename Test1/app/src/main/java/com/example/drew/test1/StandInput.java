@@ -212,7 +212,7 @@ public class StandInput extends AppCompatActivity
         Stand currStand = WCCCProgram.getCurrStand();
         currStand.setAge(currAge);
         currStand.setHeight(currHeight);
-        currStand.setSpecies(tempSpecies);
+        currStand.setSpecies(tempSpecies,1);
         currStand.setNumQuadrats(currNumQuadrats);
         startActivity(intent);
     }

@@ -99,6 +99,8 @@ public class TreeTableDebugger extends SQLiteOpenHelper{
         cursor.close();
         return trees;
     }
+
+    //HELPERS// ------------------------------------------------------
     @Override
     public void onOpen(SQLiteDatabase db) {
         super.onOpen(db);

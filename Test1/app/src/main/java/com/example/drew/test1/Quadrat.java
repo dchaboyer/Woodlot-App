@@ -32,20 +32,20 @@ public class Quadrat{
 
 	//MUTATORS// -----------------------------------------------------------------------------------
 
-	public void setCoordinates(Coordinate coordinates) throws QuadratNotFoundException{
+	public void setQuadratCoordinates(Coordinate coordinates) throws QuadratNotFoundException{
 		onAction();
 		try {
-			this.quadratOpenHelper.setCoordinates(coordinates, this.id);
+			this.quadratOpenHelper.setQuadratCoordinates(coordinates, this.id);
 		} catch(QuadratNotFoundException e){
 			e.printStackTrace();
 			throw e;
 		}
 	}
 
-	public void addTree(TreeImage treeImage) throws QuadratNotFoundException{
+	public void addTreeToQuadrat(TreeImage treeImage) throws QuadratNotFoundException{
 		onAction();
 		try {
-			this.quadratOpenHelper.addTree(treeImage, this.id);
+			this.quadratOpenHelper.addTreeToQuadrat(treeImage, this.id);
 		} catch(QuadratNotFoundException e){
 			e.printStackTrace();
 			throw e;
@@ -54,27 +54,27 @@ public class Quadrat{
 
 	//ACCESSORS// ----------------------------------------------------------------------------------
 
-	public Coordinate getCoordinates() throws QuadratNotFoundException{
+	public Coordinate getQuadratCoordinates() throws QuadratNotFoundException{
 		onAction();
 		try {
-			return this.quadratOpenHelper.getCoordinates(this.id); //TODO: check if possible to throw somethign unexpected
+			return this.quadratOpenHelper.getQuadratCoordinates(this.id); //TODO: check if possible to throw somethign unexpected
 		} catch(QuadratNotFoundException e){
 			e.printStackTrace();
 			throw e;
 		}
 	}
 
-	public List<TreeImage> getTreeImages() throws QuadratNotFoundException{ //TODO: make so that just gets Trees
+	public List<TreeImage> getTreeImagesFromQuadrat() throws QuadratNotFoundException{ //TODO: make so that just gets Trees
 		onAction();
 		try {
-			return this.quadratOpenHelper.getTrees(this.id);
+			return this.quadratOpenHelper.getTreeImagesFromQuadrat(this.id);
 		} catch(QuadratNotFoundException e){
 			e.printStackTrace();
 			throw e;
 		}
 	}
 
-	public TreeImage getTreeImage(int index) throws QuadratNotFoundException, TableIndexOutOfBoundsException{ //TODO: have a non-sql exception that chains with the out of bounds one
+	public TreeImage getTreeImageFromQuadrat(int index) throws QuadratNotFoundException, TableIndexOutOfBoundsException{ //TODO: have a non-sql exception that chains with the out of bounds one
 		onAction();
 		try {
 			return this.quadratOpenHelper.getTree(index, this.id);
