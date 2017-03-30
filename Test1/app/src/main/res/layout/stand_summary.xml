@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.05"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:text="Stand Summary"
         android:gravity="center"
         android:id="@+id/standSummaryTitle" />
@@ -26,7 +26,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:gravity="left|center_vertical"
             android:id="@+id/dwmView" />
 
@@ -35,7 +35,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:gravity="left|center_vertical"
             android:id="@+id/dwmRange" />
     </LinearLayout>
@@ -52,7 +52,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:gravity="left|center_vertical"
             android:id="@+id/errorEstimate" />
 
@@ -61,7 +61,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:gravity="left|center_vertical"
             android:id="@+id/errorStatus" />
     </LinearLayout>
@@ -78,7 +78,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:gravity="left|center_vertical"
             android:id="@+id/height" />
 
@@ -87,7 +87,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:gravity="left|center_vertical"
             android:id="@+id/standSummarySize" />
 
@@ -105,7 +105,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:gravity="left|center_vertical"
             android:id="@+id/summarySpecies1" />
 
@@ -114,7 +114,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:gravity="left|center_vertical"
             android:id="@+id/summarySpecies2" />
     </LinearLayout>
@@ -131,7 +131,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:gravity="left|center_vertical"
             android:id="@+id/summarySpecies3" />
 
@@ -140,7 +140,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:gravity="left|center_vertical"
             android:id="@+id/summarySpecies4" />
 
@@ -158,7 +158,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:gravity="left|center_vertical"
             android:id="@+id/summarySpecies5" />
 
@@ -167,7 +167,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:gravity="left|center_vertical"
             android:id="@+id/age" />
 
@@ -179,7 +179,7 @@
         android:layout_height="0dp"
         android:inputType="textMultiLine"
         android:text="Type Notes Here"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:ems="10"
         android:id="@+id/editNotes"
         android:layout_weight="0.15" />
@@ -196,7 +196,7 @@
             android:text="Edit Stand Info"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:textSize="45sp"
+            android:textSize="20sp"
             android:gravity="center"
             android:onClick="sendEdit"
             android:id="@+id/standSummaryEdit"
@@ -207,7 +207,7 @@
             android:text="Quadrat List"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:textSize="45sp"
+            android:textSize="20sp"
             android:gravity="center"
             android:onClick="sendList"
             android:id="@+id/standSummaryQuadratList"

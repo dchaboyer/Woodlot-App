@@ -12,7 +12,7 @@
         android:text="Woodlot Input Screen"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:textSize="40sp"
+        android:textSize="30sp"
         android:id="@+id/woodlotInputTitle"
         android:gravity="center"
         android:layout_weight="0.15" />
@@ -22,7 +22,7 @@
         android:text="Enter the Woodlot's name below"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:gravity="center"
         android:id="@+id/woodlotName"
         android:layout_weight="0.1" />
@@ -34,7 +34,7 @@
         android:inputType="text"
         android:id="@+id/woodlotNameEntry"
         android:gravity="center"
-        android:textSize="40sp"
+        android:textSize="30sp"
         android:layout_weight="0.2" />
 
     <!--displays a prompt for the number of stands-->
@@ -42,7 +42,7 @@
         android:text="Enter the number of stands below"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:gravity="center"
         android:id="@+id/woodlotStandNum"
         android:layout_weight="0.1" />
@@ -53,7 +53,7 @@
         android:layout_height="0dp"
         android:inputType="number"
         android:id="@+id/woodlotStandInput"
-        android:textSize="40sp"
+        android:textSize="30sp"
         android:gravity="center"
         android:layout_weight="0.2" />
 

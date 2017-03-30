@@ -12,7 +12,7 @@
         android:text="Enter The Other Stand Info"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:textSize="40sp"
+        android:textSize="25sp"
         android:id="@+id/textView"
         android:gravity="center"
         android:layout_weight="0.10" />
@@ -29,7 +29,7 @@
             android:text="Average Age:"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:textSize="40sp"
+            android:textSize="20sp"
             android:layout_weight="0.4"
             android:gravity="right|center_vertical"
             android:id="@+id/textView2" />
@@ -42,7 +42,7 @@
             android:ems="10"
             android:id="@+id/editAge"
             android:gravity="center"
-            android:textSize="45sp"
+            android:textSize="30sp"
             android:layout_weight="0.6" />
 
     </LinearLayout>
@@ -59,7 +59,7 @@
             android:text="Average Height:"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:textSize="40sp"
+            android:textSize="20sp"
             android:gravity="right|center_vertical"
             android:id="@+id/textView3"
             android:layout_weight="0.4" />
@@ -71,7 +71,7 @@
             android:inputType="numberDecimal"
             android:ems="10"
             android:id="@+id/editHeight"
-            android:textSize="45sp"
+            android:textSize="30sp"
             android:gravity="center"
             android:layout_weight="0.6" />
     </LinearLayout>
@@ -88,7 +88,7 @@
             android:text="# of Quadrats:"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:textSize="40sp"
+            android:textSize="20sp"
             android:gravity="right|center_vertical"
             android:id="@+id/numQuadratsView"
             android:layout_weight="0.4" />
@@ -100,7 +100,7 @@
             android:inputType="number"
             android:ems="10"
             android:id="@+id/numQuadratsEdit"
-            android:textSize="45sp"
+            android:textSize="30sp"
             android:gravity="center"
             android:layout_weight="0.6" />
     </LinearLayout>
@@ -117,7 +117,7 @@
             android:text="Size (Hectares):"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:textSize="40sp"
+            android:textSize="20sp"
             android:gravity="right|center_vertical"
             android:id="@+id/standSize"
             android:layout_weight="0.4" />
@@ -129,7 +129,7 @@
             android:inputType="numberDecimal"
             android:ems="10"
             android:id="@+id/standSizeEdit"
-            android:textSize="45sp"
+            android:textSize="30sp"
             android:gravity="center"
             android:layout_weight="0.6" />
     </LinearLayout>

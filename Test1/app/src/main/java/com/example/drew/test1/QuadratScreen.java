@@ -71,7 +71,7 @@ public class QuadratScreen extends AppCompatActivity
             final int index = i;
 
             currButton.setText("Tree " + i + "   DBH: " + height + "   Species: " + species);
-            currButton.setTextSize(30);
+            currButton.setTextSize(15);
             currButton.setLayoutParams(param);
 
             currButton.setOnClickListener(new View.OnClickListener() {
