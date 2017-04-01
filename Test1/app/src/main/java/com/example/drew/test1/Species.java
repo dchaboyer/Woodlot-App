@@ -8,7 +8,7 @@ package com.example.drew.test1;
 
 public enum Species {
 
-	BALSAM_FIR("Balsam Fur", new MiscAbpe(-2.2304,2.3263)),
+	BALSAM_FIR("Balsam Fir", new MiscAbpe(-2.2304,2.3263)),
 	WHITE_SPRUCE("White Spruce", new MiscAbpe(-1.8322,2.2413)),
 	BLACK_SPRUCE("Black Spruce", new MiscAbpe(-1.3371,2.0707)),
 	RED_SPRUCE("Red Spruce", new MiscAbpe(-1.7957,2.2417)),

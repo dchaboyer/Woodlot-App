@@ -1,3 +1,4 @@
+/*
 package com.example.drew.test1;
 
 import java.util.List;
@@ -13,9 +14,11 @@ import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 
+*/
 /**
  * Created by Mathieu Belzile-Ha on 30/03/2017.
- */
+ *//*
+
 
 @RunWith(AndroidJUnit4.class)
 public class StandOpenHelperTest {
@@ -48,3 +51,4 @@ public class StandOpenHelperTest {
         quadratImage1 = new QuadratImage(1,coord1,1);
     }
 }
+*/

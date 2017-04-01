@@ -14,8 +14,8 @@ public class TreeImage {
     private Species species;
     private StorageFactor storageFactor;
     private MaterialType materialType;
-    private int id;
-    private int parentId;
+    private Integer id;
+    private Integer parentId;
 
     //CONSTRUCTORS// -------------------------------------------------------------------------------
 
@@ -35,7 +35,8 @@ public class TreeImage {
         this.species = species;
         this.storageFactor = storageFactor;
         this.materialType = materialType;
-        this.parentId = parentId;
+        this.parentId = null;
+        this.id = null;
     }
 
     //ACCESSORS// ----------------------------------------------------------------------------------
@@ -56,11 +57,11 @@ public class TreeImage {
         return materialType;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public int getParentId() {
+    public Integer getParentId() {
         return parentId;
     }
 }

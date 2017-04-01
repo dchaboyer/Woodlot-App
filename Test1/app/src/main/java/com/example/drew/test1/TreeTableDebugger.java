@@ -1,3 +1,4 @@
+/*
 package com.example.drew.test1;
 
 import android.content.ContentValues;
@@ -9,9 +10,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.LinkedList;
 import java.util.List;
 
+*/
 /**
  * Created by Mathieu Belzile-Ha on 16/03/2017.
- */
+ *//*
+
 
 public class TreeTableDebugger extends SQLiteOpenHelper{
     //CONSTRUCTOR// -------------------------------------------------------
@@ -20,23 +23,27 @@ public class TreeTableDebugger extends SQLiteOpenHelper{
     }
 
     //OPENHELPER// --------------------------------------------------------
-    /**
+    */
+/**
      * Method called whenever the database is created.
      * Initializes the four important tables.
      * @param database
-     */
+     *//*
+
     @Override
     public void onCreate(SQLiteDatabase database){
         database.execSQL(SQLiteConstants.TREE_TABLE_CREATE);
     }
 
-    /**
+    */
+/**
      * Method called on database upgrade.
      * Right now, just drops current tables and creates new ones.
      * @param database
      * @param oldVersion
      * @param newVersion
-     */
+     *//*
+
     @Override
     public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion){
         database.execSQL("DROP TABLE IF EXISTS " + SQLiteConstants.TREE_TABLE_NAME);
@@ -108,4 +115,4 @@ public class TreeTableDebugger extends SQLiteOpenHelper{
             db.execSQL(SQLiteConstants.ACTIVATE_FOREIGN_KEY_SUPPORT);
         }
     }
-}
+}*/

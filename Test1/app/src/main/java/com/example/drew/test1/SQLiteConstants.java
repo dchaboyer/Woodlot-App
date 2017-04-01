@@ -5,9 +5,10 @@ package com.example.drew.test1;
  */
 
 public class SQLiteConstants {
-
+/*
     //COMMANDS// -------------------------------------------------------------
     static final String ACTIVATE_FOREIGN_KEY_SUPPORT = "PRAGMA foreign_keys = ON;";
+    static final String DISABLE_FOREIGN_KEY_SUPPORT = "PRAGMA foreign_keys = OFF;";
 
     //TYPE CODES// ------------------------------------------------------------
     static final int FIELD_TYPE_NULL = 0;
@@ -140,6 +141,6 @@ public class SQLiteConstants {
     static final int TREE_STORAGE_FACTOR_TYPE = FIELD_TYPE_STRING;
     static final int TREE_MATERIAL_TYPE_TYPE = FIELD_TYPE_STRING;
     static final int TREE_QUADRAT_ID_TYPE = FIELD_TYPE_INTEGER;
-
+    */
     //TODO: REFACTOR TO SPLIT INTO OTHER CLASSES OR CLEARER ON ACCESS
 }

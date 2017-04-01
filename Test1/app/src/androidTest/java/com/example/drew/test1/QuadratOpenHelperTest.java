@@ -1,3 +1,4 @@
+/*
 package com.example.drew.test1;
 
 import java.util.List;
@@ -11,9 +12,11 @@ import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 
+*/
 /**
  * Created by Mathieu Belzile-Ha on 15/03/2017.
- */
+ *//*
+
 
 @RunWith(AndroidJUnit4.class)
 public class QuadratOpenHelperTest {
@@ -83,7 +86,6 @@ public class QuadratOpenHelperTest {
         TreeImageDebugger treeImageDebugger = new TreeImageDebugger();
 
         quadratDebugger.reset();
-        treeDebugger.reset();
 
         quadratDebugger.addQuadrat(testCoord1);
         quadratDebugger.addQuadrat(testCoord2);
@@ -124,7 +126,6 @@ public class QuadratOpenHelperTest {
         TreeImageDebugger treeImageDebugger = new TreeImageDebugger();
 
         quadratDebugger.reset();
-        treeDebugger.reset();
 
         quadratDebugger.addQuadrat(testCoord1);
         quadratDebugger.addQuadrat(testCoord2);
@@ -155,7 +156,6 @@ public class QuadratOpenHelperTest {
         TreeImageDebugger treeImageDebugger = new TreeImageDebugger();
 
         quadratDebugger.reset();
-        treeDebugger.reset();
 
         quadratDebugger.addQuadrat(testCoord1);
         quadratDebugger.addQuadrat(testCoord2);
@@ -190,3 +190,4 @@ public class QuadratOpenHelperTest {
         assertTrue(treeImageDebugger.same(dataBaseOpenHelper.getTreeImageFromQuadrat(1,2), treeImage2_b, 4, 2));
     }
 }
+*/

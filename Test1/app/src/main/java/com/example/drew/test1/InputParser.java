@@ -54,6 +54,10 @@ public class InputParser {
      * @return a Species object with the appropriate type.
      */
     public static Species parseSpecies(String species) {
+        if (species == null){
+            return null;
+        }
+
         switch(species) {
             case "American Beech":
                 return Species.AMERICAN_BEECH;
@@ -101,8 +105,10 @@ public class InputParser {
                 return Species.WHITE_PINE;
             case "White Spruce":
                 return Species.WHITE_SPRUCE;
-            default:
+            case "Yellow Birch":
                 return Species.YELLOW_BIRCH;
+            default:
+                throw new InvalidSpeciesException("Unrecognized Species: " + species);
         }
     }
 }

@@ -9,18 +9,26 @@ import java.util.List;
 
 public class QuadratImage {
 
-    private int id;
+    private Integer id;
     private Coordinate coordinate;
     private List<TreeImage> trees;
-    private int parentId;
+    private Integer parentId;
+
+    public QuadratImage(Coordinate coordinate) {
+        this.id = null;
+        this.coordinate = coordinate;
+        this.trees = new LinkedList<TreeImage>();
+        this.parentId = null;
+    }
 
     public QuadratImage(int id, Coordinate coordinate, int parentId) {
         this.id = id;
         this.coordinate = coordinate;
+        this.trees = new LinkedList<TreeImage>();
         this.parentId = parentId;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -49,7 +57,7 @@ public class QuadratImage {
         return treesOut;
     }
 
-    public int getParentId() {
+    public Integer getParentId() {
         return parentId;
     }
 
