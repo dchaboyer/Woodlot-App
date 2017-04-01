@@ -13,6 +13,7 @@
  */
 package com.example.drew.test1;
 
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.LinearLayout;
@@ -53,7 +54,13 @@ public class MainActivity extends AppCompatActivity
             String name = woodlot.getName();
 
             currButton.setText(name);
-            currButton.setTextSize(40);
+            if((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_XLARGE) {
+                currButton.setTextSize(45);
+            }
+            else
+            {
+                currButton.setTextSize(25);
+            }
 
             currButton.setOnClickListener(new View.OnClickListener() {
                 @Override

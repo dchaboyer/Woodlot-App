@@ -11,6 +11,7 @@ package com.example.drew.test1;
  * user to add a tree.
  */
 
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
@@ -71,7 +72,13 @@ public class QuadratScreen extends AppCompatActivity
             final int index = i;
 
             currButton.setText("Tree " + i + "   DBH: " + height + "   Species: " + species);
-            currButton.setTextSize(15);
+            if((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_XLARGE) {
+                currButton.setTextSize(30);
+            }
+            else
+            {
+                currButton.setTextSize(15);
+            }
             currButton.setLayoutParams(param);
 
             currButton.setOnClickListener(new View.OnClickListener() {

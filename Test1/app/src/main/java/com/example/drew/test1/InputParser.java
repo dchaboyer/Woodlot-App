@@ -13,6 +13,9 @@ package com.example.drew.test1;
 
 public class InputParser {
 
+    public static final boolean HARDWOOD = true;
+    public static final boolean SOFTWOOD = false;
+
     /**
      * @param storageFactor
      * @return a StorageFactor object with the appropriate type.

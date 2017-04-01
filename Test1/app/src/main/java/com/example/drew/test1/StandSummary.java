@@ -30,7 +30,7 @@ public class StandSummary extends AppCompatActivity
     protected TextView ageWidget;
     protected TextView heightWidget;
     protected TextView speciesWidget1, speciesWidget2, speciesWidget3, speciesWidget4, speciesWidget5;
-    protected TextView dwmWidget;
+    protected TextView carbonWidget;
     protected TextView sizeWidget;
     protected TextView rangeWidget;
     protected TextView errorWidget;
@@ -60,7 +60,7 @@ public class StandSummary extends AppCompatActivity
         ageWidget = (TextView) findViewById(R.id.age);
         heightWidget = (TextView) findViewById(R.id.height);
         notesWidget = (EditText) findViewById(R.id.editNotes);
-        dwmWidget = (TextView) findViewById(R.id.dwmView);
+        carbonWidget = (TextView) findViewById(R.id.dwmView);
         sizeWidget = (TextView) findViewById(R.id.standSummarySize);
         rangeWidget = (TextView) findViewById(R.id.dwmRange);
         errorWidget = (TextView) findViewById(R.id.errorEstimate);
@@ -101,15 +101,20 @@ public class StandSummary extends AppCompatActivity
         else
             species5 = NOT_APPLICABLE;
 
-        Double dwm = DwmCalculator.calculateDwmStand(currStand);
+        Double carbon = DwmCalculator.calculateCarbonStand(currStand);
         String rangeDisplay, errorDisplay, statusDisplay;
-        Double[] dwmSamples = ErrorAnalysis.getInfo(currStand);
-        if(dwmSamples.length > 1) {
-            double stdev = ErrorAnalysis.calculateStandardDeviation(dwmSamples);
-            double errorEstimate = ErrorAnalysis.calculateError(dwmSamples);
+        Double[] carbonSamples = ErrorAnalysis.getInfo(currStand);
+        if(currStand.getQuadrats().size() == carbonSamples.length) {
+            rangeDisplay = "Range: Estimate is Exact";
+            statusDisplay = "Status: Stand Complete";
+            errorDisplay = "Error: No Error";
+        }
+        else if(carbonSamples.length > 1) {
+            double stdev = ErrorAnalysis.calculateStandardDeviation(carbonSamples);
+            double errorEstimate = ErrorAnalysis.calculateError(carbonSamples);
             errorEstimate = ErrorAnalysis.round3Places(errorEstimate);
-            double lowerBound = dwm - (stdev * CI_INTERVAL);
-            double upperBound = dwm + (stdev * CI_INTERVAL);
+            double lowerBound = carbon - (stdev * CI_INTERVAL);
+            double upperBound = carbon + (stdev * CI_INTERVAL);
             String lowerString = Long.toString(Math.round(lowerBound));
             String upperString = Long.toString(Math.round(upperBound));
             boolean acceptableError = ErrorAnalysis.errorIsBelowThreshhold(errorEstimate, ERROR_THRESHOLD);
@@ -128,8 +133,8 @@ public class StandSummary extends AppCompatActivity
         }
         String ageDisplay = "Age: ".concat(age);
         String heightDisplay = "Height: ".concat(height);
-        String dwmString = Long.toString(Math.round(dwm));
-        String dwmDisplay = "DWM Estimate: ".concat(dwmString);
+        String carbonString = Long.toString(Math.round(carbon));
+        String carbonDisplay = "Carbon Estimate (KG): ".concat(carbonString);
         String sizeDisplay = "Size: ".concat(size);
         String speciesDisplay1 = "Species 1: ".concat(species1);
         String speciesDisplay2 = "Species 2: ".concat(species2);
@@ -139,7 +144,7 @@ public class StandSummary extends AppCompatActivity
 
         ageWidget.setText(ageDisplay);
         heightWidget.setText(heightDisplay);
-        dwmWidget.setText(dwmDisplay);
+        carbonWidget.setText(carbonDisplay);
         rangeWidget.setText(rangeDisplay);
         sizeWidget.setText(sizeDisplay);
         errorWidget.setText(errorDisplay);
