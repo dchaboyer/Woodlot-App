@@ -24,6 +24,8 @@ import android.content.Intent;
 public class MainActivity extends AppCompatActivity
 {
 
+    private boolean open = false;
+
     //button widget
     protected Button addButton;
 
@@ -38,6 +40,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        if (!open){
+            WCCCProgram.initialize(this.getApplication());
+            this.open = true;
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -50,7 +57,7 @@ public class MainActivity extends AppCompatActivity
             final Button currButton = new Button(this);
             final int index = i;
 
-            Woodlot woodlot = WCCCProgram.getRoot().getWoodlot(i);
+            Woodlot woodlot = WCCCProgram.getRoot().getWoodlot(i); //TODO: replace WCCProgram.getOpenHelper.getWoodlotName()
             String name = woodlot.getName();
 
             currButton.setText(name);

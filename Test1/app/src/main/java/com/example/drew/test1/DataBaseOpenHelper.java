@@ -15,10 +15,11 @@ import java.util.List;
  *
  * WCCC OPEN HELPER
  *
- * Prototypical class with default functions to be included for any class that will
- * be accessing the SQLite database.
+ * Class with role to facilitate communication with the SQLite database.
  *
  */
+
+//TODO: fix places where item info is not accessible by id, this will help clean WCCCProgram code
 
 public class DataBaseOpenHelper extends SQLiteOpenHelper{
 
@@ -441,7 +442,7 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
         execDelete(WOODLOT_TABLE_NAME, id);
     }
 
-    public int getNumWoodlotsInDataBase(int id) {
+    public int getNumWoodlotsInDataBase() {
         return execGetNumRows(WOODLOT_TABLE_NAME);
     }
 
@@ -564,6 +565,29 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
         return new Coordinate(x,y);
     }
 
+    public int getQuadratIdFromStand(int relativeId, int standId){
+        Cursor cursor = compileRelativeSelectionCursor(QUADRAT_TABLE_NAME,
+                QUADRAT_STAND_ID_KEY,
+                standId, relativeId);
+
+        cursor.moveToFirst();
+        int id = cursor.getInt(QUADRAT_PRIMARY_KEY_COLUMN);
+
+        cursor.close();
+        return id;
+    } //TODO: testing required
+
+    public String getWoodlotName(int woodlotId){
+        Cursor cursor = compileSelectionCursor(WOODLOT_TABLE_NAME,
+                KEY_PRIMARY, woodlotId);
+
+        cursor.moveToFirst();
+        String name = cursor.getString(WOODLOT_NAME_COLUMN);
+
+        cursor.close();
+        return name;
+    } //TODO: testing required
+
     public double getStandArea(int standId){
         Cursor cursor = compileSelectionCursor(STAND_TABLE_NAME,
                 KEY_PRIMARY, standId);
@@ -596,6 +620,30 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
         cursor.close();
         return height;
     }
+
+    public int getStandIdFromWoodlot(int relativeId, int woodlotId){
+        Cursor cursor = compileRelativeSelectionCursor(STAND_TABLE_NAME,
+                STAND_WOODLOT_ID_KEY,
+                woodlotId, relativeId);
+
+        cursor.moveToFirst();
+        int id = cursor.getInt(STAND_PRIMARY_KEY_COLUMN);
+
+        cursor.close();
+        return id;
+    } //TODO: testing required
+
+    public int getTreeIdFromQuadrat(int relativeId, int quadratId){
+        Cursor cursor = compileRelativeSelectionCursor(TREE_TABLE_NAME,
+                TREE_QUADRAT_ID_KEY,
+                quadratId, relativeId);
+
+        cursor.moveToFirst();
+        int id = cursor.getInt(TREE_PRIMARY_KEY_COLUMN);
+
+        cursor.close();
+        return id;
+    } //TODO: testing required
 
     public String getStandNotes(int standId){
         Cursor cursor = compileSelectionCursor(STAND_TABLE_NAME,

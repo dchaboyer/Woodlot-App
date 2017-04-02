@@ -1108,10 +1108,10 @@ public class TestDataBaseOpenHelper {
         // every level from Woodlot to Tree
 
         assertTrue(openHelper.getWoodlotImagesFromDataBase().size() == 2);
-        assertTrue(openHelper.getNumWoodlotsInDataBase(1) == 2);
+        assertTrue(openHelper.getNumWoodlotsInDataBase() == 2);
         openHelper.removeWoodlotFromDataBase(1);
         assertTrue(openHelper.getWoodlotImagesFromDataBase().size() == 1);
-        assertTrue(openHelper.getNumWoodlotsInDataBase(1) == 1);
+        assertTrue(openHelper.getNumWoodlotsInDataBase() == 1);
     }
 
         //TEST DEBUG//----------------------------------------------------------------------------------

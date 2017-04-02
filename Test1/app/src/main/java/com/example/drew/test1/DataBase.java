@@ -1,4 +1,6 @@
 package com.example.drew.test1;
+import android.database.sqlite.SQLiteOpenHelper;
+
 import java.util.ArrayList;
 
 /**
@@ -23,8 +25,8 @@ public class DataBase {
         currTree = null;
     }
 
-    public void addWoodlot(Woodlot woodlot){
-        this.woodlots.add(woodlot);
+    public void addWoodlot(WoodlotImage woodlot){
+        WCCCProgram.getOpenHelper().addWoodlotToDataBase(woodlot);
     }
 
     public void removeWoodlot(Woodlot woodlot){
@@ -33,10 +35,10 @@ public class DataBase {
 
     public Woodlot getWoodlot(int index){
         return woodlots.get(index);
-    }
+    } //X
 
     public int getNumWoodlots() {
-        return woodlots.size();
+        return WCCCProgram.getOpenHelper().getNumWoodlotsInDataBase();
     }
 
     public int getCurrWoodlot() {
