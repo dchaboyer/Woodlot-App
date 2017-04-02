@@ -139,4 +139,9 @@ public class StandImage {
         return myQuadratImages;
     }
 
+    @Override
+    public String toString(){
+        return "<" + this.id + ", " + this.area + ", " + this.age + ", " + this.height + ", " + this.commonSpecies + ">";
+    }
+
 }

@@ -44,16 +44,9 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
     //WOODLOT DATA NAMES// ---------------------------------------------------
     private static final String WOODLOT_TABLE_NAME = "WOODLOTS";
     private static final String WOODLOT_NAME_KEY = "NAME";
-
-    private static final String WOODLOT_TABLE_CREATE =
-            "CREATE TABLE IF NOT EXISTS " + WOODLOT_TABLE_NAME + " (" +
-                    KEY_PRIMARY + " INTEGER PRIMARY KEY, " +
-                    WOODLOT_NAME_KEY + " STRING);";
-
     private static final int WOODLOT_NUM_COLUMNS = 2;
     private static final int WOODLOT_PRIMARY_KEY_COLUMN = 0;
     private static final int WOODLOT_NAME_COLUMN = 1;
-
     //STAND DATA NAMES// ---------------------------------------------------
     private static final String STAND_TABLE_NAME = "STANDS";
     private static final String STAND_SPECIES_1_KEY = "SPECIES_1";
@@ -66,22 +59,6 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
     private static final String STAND_HEIGHT_KEY = "KEY";
     private static final String STAND_NOTES_KEY = "NOTES";
     private static final String STAND_WOODLOT_ID_KEY = "WOODLOT_ID";
-
-    private static final String STAND_TABLE_CREATE =
-            "CREATE TABLE IF NOT EXISTS " + STAND_TABLE_NAME + " (" +
-                    KEY_PRIMARY + " INTEGER PRIMARY KEY, " +
-                    STAND_SPECIES_1_KEY + " STRING, " +
-                    STAND_SPECIES_2_KEY + " STRING, " +
-                    STAND_SPECIES_3_KEY + " STRING, " +
-                    STAND_SPECIES_4_KEY + " STRING, " +
-                    STAND_SPECIES_5_KEY + " STRING, " +
-                    STAND_AREA_KEY + " DOUBLE, " +
-                    STAND_AGE_KEY + " INTEGER, " +
-                    STAND_HEIGHT_KEY + " DOUBLE, " +
-                    STAND_NOTES_KEY + " STRING NOT NULL DEFAULT '', " +
-                    STAND_WOODLOT_ID_KEY + " INTEGER, " +
-                    "FOREIGN KEY(" + STAND_WOODLOT_ID_KEY + ") REFERENCES " +
-                    WOODLOT_TABLE_NAME + "(" + KEY_PRIMARY + "));";
 
     private static final int STAND_NUM_COLUMNS = 11;
     private static final int STAND_PRIMARY_KEY_COLUMN = 0;
@@ -112,16 +89,6 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
     private static final String QUADRAT_X_COORDINATE_KEY= "X_COORDINATE";
     private static final String QUADRAT_Y_COORDINATE_KEY= "Y_COORDINATE";
     private static final String QUADRAT_STAND_ID_KEY = "STAND_ID";
-
-    private static final String QUADRAT_TABLE_CREATE =
-            "CREATE TABLE IF NOT EXISTS " + QUADRAT_TABLE_NAME + " (" +
-                    KEY_PRIMARY + " INTEGER PRIMARY KEY, " +
-                    QUADRAT_X_COORDINATE_KEY + " DOUBLE, " +
-                    QUADRAT_Y_COORDINATE_KEY + " DOUBLE, " +
-                    QUADRAT_STAND_ID_KEY + " INTEGER, " +
-                    "FOREIGN KEY(" + QUADRAT_STAND_ID_KEY + ") REFERENCES " +
-                    STAND_TABLE_NAME + "(" + KEY_PRIMARY + "));";
-
     private static final int QUADRAT_NUM_COLUMNS = 4;
     private static final int QUADRAT_PRIMARY_KEY_COLUMN = 0;
     private static final int QUADRAT_X_COORDINATE_COLUMN = 1;
@@ -139,16 +106,6 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
     private static final String TREE_STORAGE_FACTOR_KEY = "STORAGE_FACTOR";
     private static final String TREE_MATERIAL_TYPE_KEY = "MATERIAL_TYPE";
     private static final String TREE_QUADRAT_ID_KEY = "QUADRAT_ID";
-    private static final String TREE_TABLE_CREATE =
-            "CREATE TABLE IF NOT EXISTS " + TREE_TABLE_NAME + " (" +
-                    KEY_PRIMARY + " INTEGER PRIMARY KEY, " +
-                    TREE_DBH_KEY + " DOUBLE PRECISION, " +
-                    TREE_SPECIES_KEY + " TEXT, " +
-                    TREE_STORAGE_FACTOR_KEY + " TEXT, " +
-                    TREE_MATERIAL_TYPE_KEY + " TEXT," +
-                    TREE_QUADRAT_ID_KEY + " INTEGER, " +
-                    "FOREIGN KEY(" + TREE_QUADRAT_ID_KEY + ") REFERENCES " +
-                    QUADRAT_TABLE_NAME + "(" + KEY_PRIMARY + "));";
 
     private static final int TREE_NUM_COLUMNS = 6;
     private static final int TREE_PRIMARY_KEY_COLUMN = 0;
@@ -164,7 +121,72 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
     private static final int TREE_STORAGE_FACTOR_TYPE = FIELD_TYPE_STRING;
     private static final int TREE_MATERIAL_TYPE_TYPE = FIELD_TYPE_STRING;
     private static final int TREE_QUADRAT_ID_TYPE = FIELD_TYPE_INTEGER;
-    private static final String SQL_COMMAND_SELECT_lAST_ROW_ID = "SELECT last_insert_rowid();";
+
+    private static final String WOODLOT_TABLE_CREATE =
+            "CREATE TABLE IF NOT EXISTS " + WOODLOT_TABLE_NAME + " (" +
+                    KEY_PRIMARY + " INTEGER PRIMARY KEY, " +
+                    WOODLOT_NAME_KEY + " STRING);";
+
+    private static final String WOODLOT_ON_DELETE_TRIGGER =
+            "CREATE TRIGGER delete_stands_with_woodlot BEFORE DELETE " +
+                    "ON " + WOODLOT_TABLE_NAME + "\n" +
+                    "BEGIN\n"+
+                    "DELETE FROM " + STAND_TABLE_NAME +
+                    " WHERE " + STAND_WOODLOT_ID_KEY + " = OLD._id;" +
+                    "\nEND;";
+
+    private static final String STAND_TABLE_CREATE =
+            "CREATE TABLE IF NOT EXISTS " + STAND_TABLE_NAME + " (" +
+                    KEY_PRIMARY + " INTEGER PRIMARY KEY, " +
+                    STAND_SPECIES_1_KEY + " STRING, " +
+                    STAND_SPECIES_2_KEY + " STRING, " +
+                    STAND_SPECIES_3_KEY + " STRING, " +
+                    STAND_SPECIES_4_KEY + " STRING, " +
+                    STAND_SPECIES_5_KEY + " STRING, " +
+                    STAND_AREA_KEY + " DOUBLE, " +
+                    STAND_AGE_KEY + " INTEGER, " +
+                    STAND_HEIGHT_KEY + " DOUBLE, " +
+                    STAND_NOTES_KEY + " STRING NOT NULL DEFAULT '', " +
+                    STAND_WOODLOT_ID_KEY + " INTEGER, " +
+                    "FOREIGN KEY(" + STAND_WOODLOT_ID_KEY + ") REFERENCES " +
+                    WOODLOT_TABLE_NAME + "(" + KEY_PRIMARY + "));";
+
+    private static final String STAND_ON_DELETE_TRIGGER =
+            "CREATE TRIGGER delete_quadrats_with_stand BEFORE DELETE " +
+                    "ON " + STAND_TABLE_NAME + "\n" +
+                    "BEGIN\n"+
+                    "DELETE FROM " + QUADRAT_TABLE_NAME +
+                    " WHERE " + QUADRAT_STAND_ID_KEY + " = OLD._id;" +
+                    "\nEND;";
+
+    private static final String QUADRAT_TABLE_CREATE =
+            "CREATE TABLE IF NOT EXISTS " + QUADRAT_TABLE_NAME + " (" +
+                    KEY_PRIMARY + " INTEGER PRIMARY KEY, " +
+                    QUADRAT_X_COORDINATE_KEY + " DOUBLE, " +
+                    QUADRAT_Y_COORDINATE_KEY + " DOUBLE, " +
+                    QUADRAT_STAND_ID_KEY + " INTEGER, " +
+                    "FOREIGN KEY(" + QUADRAT_STAND_ID_KEY + ") REFERENCES " +
+                    STAND_TABLE_NAME + "(" + KEY_PRIMARY + "));";
+
+    private static final String QUADRAT_ON_DELETE_TRIGGER =
+                    "CREATE TRIGGER delete_trees_with_quadrat BEFORE DELETE " +
+                    "ON " + QUADRAT_TABLE_NAME + "\n" +
+                    "BEGIN\n"+
+                    "DELETE FROM " + TREE_TABLE_NAME +
+                    " WHERE " + TREE_QUADRAT_ID_KEY + " = OLD._id;" +
+                    "\nEND;";
+
+    private static final String TREE_TABLE_CREATE =
+            "CREATE TABLE IF NOT EXISTS " + TREE_TABLE_NAME + " (" +
+                    KEY_PRIMARY + " INTEGER PRIMARY KEY, " +
+                    TREE_DBH_KEY + " DOUBLE PRECISION, " +
+                    TREE_SPECIES_KEY + " TEXT, " +
+                    TREE_STORAGE_FACTOR_KEY + " TEXT, " +
+                    TREE_MATERIAL_TYPE_KEY + " TEXT," +
+                    TREE_QUADRAT_ID_KEY + " INTEGER, " +
+                    "FOREIGN KEY(" + TREE_QUADRAT_ID_KEY + ") REFERENCES " +
+                    QUADRAT_TABLE_NAME + "(" + KEY_PRIMARY + "));";
+
 
     //CONSTRUCTOR// -------------------------------------------------------
     DataBaseOpenHelper(Context context){
@@ -183,6 +205,9 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
         database.execSQL(STAND_TABLE_CREATE);
         database.execSQL(QUADRAT_TABLE_CREATE);
         database.execSQL(TREE_TABLE_CREATE);
+        database.execSQL(QUADRAT_ON_DELETE_TRIGGER);
+        database.execSQL(STAND_ON_DELETE_TRIGGER);
+        database.execSQL(WOODLOT_ON_DELETE_TRIGGER);
     }
 
     /**
@@ -215,8 +240,11 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
         if (woodlotImage.getId() == null) {
             woodlotId = database.insert(WOODLOT_TABLE_NAME, null, values);
         } else {
-            woodlotId = database.update(WOODLOT_TABLE_NAME, values, KEY_PRIMARY + "= ?",
+            int affectedRows = database.update(WOODLOT_TABLE_NAME, values, KEY_PRIMARY + "= ?",
                     new String[]{Integer.toString(woodlotImage.getId())});
+            if (affectedRows > 0){
+                woodlotId = woodlotImage.getId();
+            }
         }
 
         if (woodlotId < 0){
@@ -254,8 +282,11 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
             standId = database.insert(STAND_TABLE_NAME, null, values);
         } else if (exists(STAND_TABLE_NAME, KEY_PRIMARY, Integer.toString(standImage.getId()),
                 STAND_WOODLOT_ID_KEY, Long.toString(woodlotId))) {
-            standId = database.update(STAND_TABLE_NAME, values, KEY_PRIMARY + "= ?",
+            int affectedRows = database.update(STAND_TABLE_NAME, values, KEY_PRIMARY + "= ?",
                     new String[]{Integer.toString(standImage.getId())});
+            if (affectedRows > 0){
+                standId = standImage.getId();
+            }
         } else {
             standId = database.insert(STAND_TABLE_NAME, null, values);
         }
@@ -333,8 +364,11 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
             quadratId = database.insert(QUADRAT_TABLE_NAME, null, values);
         } else if (exists(QUADRAT_TABLE_NAME, KEY_PRIMARY, Integer.toString(quadratImage.getId()),
                 QUADRAT_STAND_ID_KEY, Long.toString(standId))) {
-            quadratId = database.update(QUADRAT_TABLE_NAME, values, KEY_PRIMARY + "= ?",
+            int affectedRows = database.update(QUADRAT_TABLE_NAME, values, KEY_PRIMARY + "= ?",
                     new String[]{Integer.toString(quadratImage.getId())});
+            if (affectedRows > 0){
+                quadratId = quadratImage.getId();
+            }
         } else {
             quadratId = database.insert(QUADRAT_TABLE_NAME, null, values);
         }
@@ -403,6 +437,14 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
         return woodlotImage;
     }
 
+    public void removeWoodlotFromDataBase(int id) {
+        execDelete(WOODLOT_TABLE_NAME, id);
+    }
+
+    public int getNumWoodlotsInDataBase(int id) {
+        return execGetNumRows(WOODLOT_TABLE_NAME);
+    }
+
     public List<StandImage> getStandImagesFromWoodlot(int woodlotId){
         Cursor cursor = compileSelectionCursor(STAND_TABLE_NAME,
                                                 STAND_WOODLOT_ID_KEY, woodlotId);
@@ -430,6 +472,14 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
         return standImage;
     }
 
+    public void removeStandFromWoodlot(int relativeID, int woodlotId) {
+        execRelativeDelete(STAND_TABLE_NAME, STAND_WOODLOT_ID_KEY, woodlotId, relativeID);
+    }
+
+    public int getNumStandsInWoodlot(int woodlotId) {
+        return execGetNumChildren(STAND_TABLE_NAME,STAND_WOODLOT_ID_KEY,woodlotId);
+    }
+
     public List<TreeImage> getTreeImagesFromQuadrat(int quadratId){
         Cursor cursor = compileSelectionCursor(TREE_TABLE_NAME,
                                                 TREE_QUADRAT_ID_KEY, quadratId);
@@ -455,6 +505,22 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
 
         cursor.close();
         return treeImage;
+    }
+
+    public void removeQuadratFromStand(int relativeID, int standId) {
+        execRelativeDelete(QUADRAT_TABLE_NAME, QUADRAT_STAND_ID_KEY, standId, relativeID);
+    }
+
+    public int getNumQuadratsInStand(int standId){
+        return execGetNumChildren(QUADRAT_TABLE_NAME, QUADRAT_STAND_ID_KEY, standId);
+    }
+
+    public void removeTreeFromQuadrat(int relativeID, int quadratId){
+        execRelativeDelete(TREE_TABLE_NAME, TREE_QUADRAT_ID_KEY, quadratId, relativeID);
+    }
+
+    public int getNumTreesInQuadrat(int quadratId){
+        return execGetNumChildren(TREE_TABLE_NAME, TREE_QUADRAT_ID_KEY, quadratId);
     }
 
     public QuadratImage getQuadratImageFromStand(int relativeID, int standId) {
@@ -765,6 +831,44 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
         cursor.moveToFirst();
         return cursor.getInt(0) == 1;
     }//TODO: try replacing readable by writeable (for clarity's sake)
+
+    private void execRelativeDelete(String tableName, String parentIdKey, int parentId, int childIndex){
+        String whereClause = KEY_PRIMARY + " IN (SELECT " + KEY_PRIMARY + " FROM " + tableName +
+                " WHERE " + parentIdKey + " = ? ORDER BY " + KEY_PRIMARY +
+                " LIMIT 1 OFFSET ?);";
+
+        SQLiteDatabase database = this.getReadableDatabase();
+        database.delete(tableName, whereClause, new String[]{Integer.toString(parentId),
+                Integer.toString(childIndex)});
+    }
+
+    private void execDelete(String tableName, int id){
+        String whereClause = KEY_PRIMARY + " = ?;";
+
+        SQLiteDatabase database = this.getReadableDatabase();
+        database.delete(tableName, whereClause, new String[]{Integer.toString(id)});
+    }
+
+    private int execGetNumChildren(String tableName,  String parentIdKey, int parentId){
+        String countQuery = "SELECT Count(*) FROM (SELECT * FROM " + tableName +
+                                " WHERE " + parentIdKey + "= " + parentId + ")";
+
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = database.rawQuery(countQuery, null);
+
+        cursor.moveToFirst();
+        return cursor.getInt(0);
+    }
+
+    private int execGetNumRows(String tableName){
+        String countQuery = "SELECT Count(*) FROM " + tableName + ";";
+
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = database.rawQuery(countQuery, null);
+
+        cursor.moveToFirst();
+        return cursor.getInt(0);
+    }
 
     //DEBUG//---------------------------------------------------------------------------------------
 

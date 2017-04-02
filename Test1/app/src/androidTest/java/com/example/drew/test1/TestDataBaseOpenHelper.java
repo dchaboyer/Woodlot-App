@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
  * Created by Mathieu Belzile-Ha on 30/03/2017.
  */
 
-//TODO: add remove functionality and change "add"(and change to "insert") to detect when an image has an id and then update if possible
+//TODO: add remove functionality
     //TODO: make WCCC command that gets images for things and handles updating stuff via images
 
 @RunWith(AndroidJUnit4.class)
@@ -447,6 +447,7 @@ public class TestDataBaseOpenHelper {
 
         String stand1ImageNote = "stand 1 note";
         String stand2ImageNote = "stand 2 note";
+        String stand3ImageNote = "stand 3 note";
 
         altStand1Image = addDataToStandImage(stand1Image, stand1ImageNote, randomSpecies(),
                 randomSpecies(), randomSpecies(), randomSpecies(),
@@ -454,9 +455,14 @@ public class TestDataBaseOpenHelper {
         altStand2Image = addDataToStandImage(stand2Image, stand2ImageNote, randomSpecies(),
                 randomSpecies(), randomSpecies(), randomSpecies(),
                 randomSpecies());
+        altStand3Image = addDataToStandImage(stand3Image, stand3ImageNote, randomSpecies(),
+                randomSpecies(), randomSpecies(), randomSpecies(),
+                randomSpecies());
 
         openHelper.addStandToWoodlot(altStand1Image, woodlot1Id);
         openHelper.addStandToWoodlot(altStand2Image, woodlot1Id);
+
+        openHelper.addStandToWoodlot(altStand3Image, woodlot2Id);
 
         openHelper.addQuadratToStand(populatedQuadrat1Image, stand1Id);
         openHelper.addQuadratToStand(populatedQuadrat2Image, stand2Id);
@@ -504,7 +510,9 @@ public class TestDataBaseOpenHelper {
 
         openHelper.addWoodlotToDataBase(openHelper.getWoodlotImagesFromDataBase().get(1));
         assertTrue(openHelper.getWoodlotImagesFromDataBase().size() == 2);
-        assertTrue(imageMatch(openHelper.getWoodlotImagesFromDataBase().get(0), populatedWoodlot1Image));
+        assertTrue("DSADAS " + openHelper.getWoodlotImagesFromDataBase().get(0).getName() + " : \n" +
+                        populatedWoodlot1Image.getName(),
+                imageMatch(openHelper.getWoodlotImagesFromDataBase().get(0), populatedWoodlot1Image));
         assertTrue(imageMatch(openHelper.getWoodlotImagesFromDataBase().get(1), populatedWoodlot2Image));
 
         assertTrue(fullMatch(openHelper.getWoodlotImagesFromDataBase().get(0), openHelper.getWoodlotImageFromDataBase(1)));
@@ -966,6 +974,145 @@ public class TestDataBaseOpenHelper {
         assertTrue(imageMatch(openHelper.getTreeImagesFromQuadrat(quadrat2Id).get(1),treeImage2_b));
         assertTrue(fullMatch(openHelper.getTreeImagesFromQuadrat(quadrat2Id).get(1),
                 openHelper.dumpTreeTable().get(3)));
+    }
+
+    @Test
+    public void testRemoveTree() {
+        openHelper.reset();
+        populateDataForTreeTesting();// Note: in populateDataForStandTesting():
+        // woodlot1 is added first to correspond to woodlot1Id
+        // and woodlot2 is added second to correspond to woodlot2Id
+        // Same with stand1 and stand2.
+        // Same with quadrats
+
+        assertTrue(openHelper.getTreeImagesFromQuadrat(quadrat1Id).size() == 2);
+        openHelper.removeTreeFromQuadrat(1, quadrat1Id);
+        assertTrue(openHelper.getTreeImagesFromQuadrat(quadrat1Id).size() == 1);
+        assertTrue(imageMatch(openHelper.getTreeImagesFromQuadrat(quadrat1Id).get(0),
+                                treeImage1_a));
+    }
+
+    @Test
+    public void testGetNumTrees() {
+        openHelper.reset();
+        populateDataForTreeTesting();// Note: in populateDataForStandTesting():
+        // woodlot1 is added first to correspond to woodlot1Id
+        // and woodlot2 is added second to correspond to woodlot2Id
+        // Same with stand1 and stand2.
+        // Same with quadrats
+
+        assertTrue(openHelper.getTreeImagesFromQuadrat(quadrat1Id).size() == 2);
+        assertTrue("Indicated: " + openHelper.getNumTreesInQuadrat(quadrat1Id),
+                openHelper.getNumTreesInQuadrat(quadrat1Id) == 2);
+        openHelper.removeTreeFromQuadrat(1, quadrat1Id);
+        assertTrue(openHelper.getTreeImagesFromQuadrat(quadrat1Id).size() == 1);
+        assertTrue("Indicated: " + openHelper.getNumTreesInQuadrat(quadrat1Id),
+                openHelper.getNumTreesInQuadrat(quadrat1Id) == 1);
+    }
+
+    @Test
+    public void testRemoveQuadrat() {
+        openHelper.reset();
+        populateDataForTreeTesting();// Note: in populateDataForStandTesting():
+        // woodlot1 is added first to correspond to woodlot1Id
+        // and woodlot2 is added second to correspond to woodlot2Id
+        // Same with stand1 and stand2.
+        // Same with quadrats
+        // used this populator because it allows for cascade testing since there is data at
+        // every level from Woodlot to Tree
+
+        assertTrue(openHelper.getQuadratImagesFromStand(stand1Id).size() == 1);
+        openHelper.removeQuadratFromStand(0, stand1Id);
+        assertTrue(openHelper.getTreeImagesFromQuadrat(quadrat1Id).size() == 0);
+        assertTrue(!openHelper.dumpTreeTable().isEmpty());
+    }
+
+    @Test
+    public void testGetNumQuadrats() {
+        openHelper.reset();
+        populateDataForTreeTesting();// Note: in populateDataForStandTesting():
+        // woodlot1 is added first to correspond to woodlot1Id
+        // and woodlot2 is added second to correspond to woodlot2Id
+        // Same with stand1 and stand2.
+        // Same with quadrats
+        // used this populator because it allows for cascade testing since there is data at
+        // every level from Woodlot to Tree
+
+        assertTrue(openHelper.getQuadratImagesFromStand(stand1Id).size() == 1);
+        assertTrue(openHelper.getNumQuadratsInStand(stand1Id) == 1);
+        openHelper.removeQuadratFromStand(0, stand1Id);
+        assertTrue(openHelper.getTreeImagesFromQuadrat(quadrat1Id).size() == 0);
+        assertTrue(openHelper.getNumQuadratsInStand(stand1Id) == 0);
+    }
+
+    @Test
+    public void testRemoveStand() {
+        openHelper.reset();
+        populateDataForTreeTesting();// Note: in populateDataForStandTesting():
+        // woodlot1 is added first to correspond to woodlot1Id
+        // and woodlot2 is added second to correspond to woodlot2Id
+        // Same with stand1 and stand2.
+        // Same with quadrats
+        // used this populator because it allows for cascade testing since there is data at
+        // every level from Woodlot to Tree
+
+        assertTrue(openHelper.getStandImagesFromWoodlot(woodlot1Id).size() == 2);
+        openHelper.removeStandFromWoodlot(1, woodlot1Id);
+        assertTrue(openHelper.getStandImagesFromWoodlot(woodlot1Id).size() == 1);
+        assertTrue(!openHelper.dumpQuadratTable().isEmpty());
+    }
+
+    @Test
+    public void testGetNumStands() {
+        openHelper.reset();
+        populateDataForTreeTesting();// Note: in populateDataForStandTesting():
+        // woodlot1 is added first to correspond to woodlot1Id
+        // and woodlot2 is added second to correspond to woodlot2Id
+        // Same with stand1 and stand2.
+        // Same with quadrats
+        // used this populator because it allows for cascade testing since there is data at
+        // every level from Woodlot to Tree
+
+        assertTrue(openHelper.getStandImagesFromWoodlot(woodlot1Id).size() == 2);
+        assertTrue(openHelper.getNumStandsInWoodlot(woodlot1Id) == 2);
+        openHelper.removeStandFromWoodlot(1, woodlot1Id);
+        assertTrue(openHelper.getStandImagesFromWoodlot(woodlot1Id).size() == 1);
+        assertTrue(openHelper.getNumStandsInWoodlot(woodlot1Id) == 1);
+    }
+
+    @Test
+    public void testRemoveWoodlot() {
+        openHelper.reset();
+        populateDataForTreeTesting();// Note: in populateDataForStandTesting():
+        // woodlot1 is added first to correspond to woodlot1Id
+        // and woodlot2 is added second to correspond to woodlot2Id
+        // Same with stand1 and stand2.
+        // Same with quadrats
+        // used this populator because it allows for cascade testing since there is data at
+        // every level from Woodlot to Tree
+
+        assertTrue(openHelper.getWoodlotImagesFromDataBase().size() == 2);
+        openHelper.removeWoodlotFromDataBase(1);
+        assertTrue(openHelper.getWoodlotImagesFromDataBase().size() == 1);
+        assertTrue(!openHelper.dumpStandTable().isEmpty());
+    }
+
+    @Test
+    public void testGetNumWoodlots() {
+        openHelper.reset();
+        populateDataForTreeTesting();// Note: in populateDataForStandTesting():
+        // woodlot1 is added first to correspond to woodlot1Id
+        // and woodlot2 is added second to correspond to woodlot2Id
+        // Same with stand1 and stand2.
+        // Same with quadrats
+        // used this populator because it allows for cascade testing since there is data at
+        // every level from Woodlot to Tree
+
+        assertTrue(openHelper.getWoodlotImagesFromDataBase().size() == 2);
+        assertTrue(openHelper.getNumWoodlotsInDataBase(1) == 2);
+        openHelper.removeWoodlotFromDataBase(1);
+        assertTrue(openHelper.getWoodlotImagesFromDataBase().size() == 1);
+        assertTrue(openHelper.getNumWoodlotsInDataBase(1) == 1);
     }
 
         //TEST DEBUG//----------------------------------------------------------------------------------
