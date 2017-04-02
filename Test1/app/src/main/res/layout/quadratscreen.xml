@@ -17,28 +17,11 @@
         android:gravity="center"
         android:id="@+id/title"/>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.1"
-        android:paddingLeft="20dp"
-        android:weightSum="1">
-
-        <!--Checkbox for user to mark whether they have completed quadrat measurement-->
-        <CheckBox android:id="@+id/checkbox_completed"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="30sp"
-            android:text="  Quadrat Completed"
-            android:onClick="onCheckboxClicked"/>
-    </LinearLayout>
-
     <!--a list of all the trees in the quadrat-->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight = "0.6">
+        android:layout_weight = "0.7">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -66,7 +49,7 @@
 
         <!--a button to return to the stand screen-->
         <Button
-            android:text="Back"
+            android:text="Done"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:textSize="30sp"

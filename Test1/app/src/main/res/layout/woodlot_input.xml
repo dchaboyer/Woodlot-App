@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--XML file for the woodlot info input screen. Uses android libraries to declare widgets-->
-<!--layout that holds all of the objects-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,7 +10,7 @@
         android:text="Woodlot Input Screen"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:textSize="30sp"
+        android:textSize="40sp"
         android:id="@+id/woodlotInputTitle"
         android:gravity="center"
         android:layout_weight="0.15" />
@@ -22,7 +20,7 @@
         android:text="Enter the Woodlot's name below"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:textSize="20sp"
+        android:textSize="30sp"
         android:gravity="center"
         android:id="@+id/woodlotName"
         android:layout_weight="0.1" />
@@ -31,10 +29,11 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:text="Name"
         android:inputType="text"
         android:id="@+id/woodlotNameEntry"
         android:gravity="center"
-        android:textSize="30sp"
+        android:textSize="40sp"
         android:layout_weight="0.2" />
 
     <!--displays a prompt for the number of stands-->
@@ -42,7 +41,7 @@
         android:text="Enter the number of stands below"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:textSize="20sp"
+        android:textSize="30sp"
         android:gravity="center"
         android:id="@+id/woodlotStandNum"
         android:layout_weight="0.1" />
@@ -51,9 +50,10 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:text="1"
         android:inputType="number"
         android:id="@+id/woodlotStandInput"
-        android:textSize="30sp"
+        android:textSize="40sp"
         android:gravity="center"
         android:layout_weight="0.2" />
 

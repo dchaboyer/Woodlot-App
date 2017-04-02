@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--XML file for the woodlots list screen. Uses android libraries to declare widgets-->
+<!--XML file for the stand info input screen. Uses android libraries to declare widgets-->
 <!--layout that holds all of the objects-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.1"
-        android:textSize="30sp"
+        android:textSize="40sp"
         android:gravity="center"
         android:id="@+id/woodlotTitle"/>
 

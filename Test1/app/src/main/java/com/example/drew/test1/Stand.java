@@ -13,7 +13,6 @@ import java.util.ArrayList;
 
 public class Stand {
 
-
     private ArrayList<Quadrat> quadrats;
 
     private Species species1;
@@ -158,22 +157,5 @@ public class Stand {
         return quadrats.size();
     }
 
-    public Double getArea() {
-        return area;
-    }
-
-    public void setArea(double newArea) {
-        area = newArea;
-    }
-
-    public int getCompletedQuadrats() {
-        int numCompleted = 0;
-        for(Quadrat quadrat: quadrats) {
-            if(quadrat.getCompletionStatus()) {
-                numCompleted++;
-            }
-        }
-        return numCompleted;
-    }
 }
 

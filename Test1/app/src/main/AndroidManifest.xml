@@ -21,8 +21,6 @@
         <activity android:name=".StandInput"></activity>
         <activity android:name=".QuadratScreen"></activity>
         <activity android:name=".TreeLayout"></activity>
-        <activity android:name=".StandSpecies"></activity>
-        <activity android:name=".StandSummary"></activity>
     </application>
 
 </manifest>

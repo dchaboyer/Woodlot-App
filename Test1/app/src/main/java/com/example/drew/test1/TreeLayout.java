@@ -37,8 +37,6 @@ public class TreeLayout extends AppCompatActivity
     protected Spinner aspmSpinner;
     protected Button doneButton;
 
-    protected Species species1, species2, species3, species4, species5;
-
     //variables to hold the inputed values
     protected String currSpecies;
     protected String currFactor;
@@ -75,33 +73,31 @@ public class TreeLayout extends AppCompatActivity
         factorSpinner.setOnItemSelectedListener(this);
         aspmSpinner.setOnItemSelectedListener(this);
 
-        Stand currStand = WCCCProgram.getCurrStand();
-        species1 = currStand.getSpecies(1);
-        species2 = currStand.getSpecies(2);
-        species3 = currStand.getSpecies(3);
-        species4 = currStand.getSpecies(4);
-        species5 = currStand.getSpecies(5);
-
         List<String> speciesCategories = new ArrayList<String>();
-
-        speciesCategories.add(species1.getName());
-        if(species2 != null)
-            speciesCategories.add(species2.getName());
-        if(species3 != null)
-            speciesCategories.add(species3.getName());
-        if(species4 != null)
-            speciesCategories.add(species4.getName());
-        if(species5 != null)
-            speciesCategories.add(species5.getName());
-
-        for(Species currSpecies : Species.values()) {
-            if(!currSpecies.equals(species1) &&
-                    !currSpecies.equals(species2) &&
-                    !currSpecies.equals(species3) &&
-                    !currSpecies.equals(species4) &&
-                    !currSpecies.equals(species5))
-                speciesCategories.add(currSpecies.getName());
-        }
+        speciesCategories.add(Species.AMERICAN_BEECH.getName());
+        speciesCategories.add(Species.BALSAM_FIR.getName());
+        speciesCategories.add(Species.BLACK_CHERRY.getName());
+        speciesCategories.add(Species.BLACK_SPRUCE.getName());
+        speciesCategories.add(Species.EASTERN_HEMLOCK.getName());
+        speciesCategories.add(Species.EASTERN_LARCH.getName());
+        speciesCategories.add(Species.EASTERN_WHITE_CEDAR.getName());
+        speciesCategories.add(Species.GENERIC_HARD_WOOD.getName());
+        speciesCategories.add(Species.GENERIC_SOFT_WOOD.getName());
+        speciesCategories.add(Species.GREY_BIRCH.getName());
+        speciesCategories.add(Species.IRON_WOOD.getName());
+        speciesCategories.add(Species.JACK_PINE.getName());
+        speciesCategories.add(Species.LARGE_TOOTHED_ASPEN.getName());
+        speciesCategories.add(Species.RED_MAPLE.getName());
+        speciesCategories.add(Species.RED_OAK.getName());
+        speciesCategories.add(Species.RED_PINE.getName());
+        speciesCategories.add(Species.RED_SPRUCE.getName());
+        speciesCategories.add(Species.SUGAR_MAPLE.getName());
+        speciesCategories.add(Species.TREMBLING_ASPEN.getName());
+        speciesCategories.add(Species.WHITE_ASH.getName());
+        speciesCategories.add(Species.WHITE_BIRCH.getName());
+        speciesCategories.add(Species.WHITE_PINE.getName());
+        speciesCategories.add(Species.WHITE_SPRUCE.getName());
+        speciesCategories.add(Species.YELLOW_BIRCH.getName());
 
         ArrayAdapter<String> dataAdapter1 = new ArrayAdapter<String>(this,
                 R.layout.spinner_layout, speciesCategories);
@@ -130,8 +126,6 @@ public class TreeLayout extends AppCompatActivity
                 R.layout.spinner_layout, aspmCategories);
         dataAdapter3.setDropDownViewResource(R.layout.spinner_layout);
         aspmSpinner.setAdapter(dataAdapter3);
-
-        doneButton.setEnabled(false);
 
         dbhEdit.addTextChangedListener(new TextWatcher()
         {
