@@ -1,7 +1,6 @@
 package com.example.drew.test1;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
