@@ -1,9 +1,19 @@
 package com.example.drew.test1;
 
 /**
- * Created by Jen on 01/03/2017.
+ * Created by Mathieu Belzile-Ha on 01/03/2017.
  */
 
 public enum StorageFactor {
-    STORAGE_FACTOR_ONE, STORAGE_FACTOR_TWO, STORAGE_FACTOR_THREE;
+    STORAGE_FACTOR_ONE("1"), STORAGE_FACTOR_TWO("2"), STORAGE_FACTOR_THREE("3");
+
+    private String name;
+
+    private StorageFactor(String name){
+        this.name = name;
+    }
+
+    public String getName(){
+        return this.name;
+    }
 }
