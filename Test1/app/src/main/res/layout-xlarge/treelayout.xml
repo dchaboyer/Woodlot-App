@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--XML file for the tree input screen. Uses android libraries to declare widgets-->
+<!--layout that holds all of the objects-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:weightSum="1">
+
+        <!--displays a prompt for the tree's species-->
+        <TextView
+            android:text="Species:"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textSize="45sp"
+            android:gravity="right|center_vertical"
+            android:layout_weight="0.4"
+            android:id="@+id/speciesView" />
+
+        <!--dropdown menu for the species-->
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.6"
+            android:id="@+id/speciesSpinner2"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:weightSum="1">
+
+        <!--displays a prompt for the tree's dbh-->
+        <TextView
+            android:text="DBH:"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textSize="45sp"
+            android:gravity="right|center_vertical"
+            android:layout_weight="0.4"
+            android:id="@+id/dbhView"/>
+
+        <!--space to enter dbh-->
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.6"
+            android:inputType="numberDecimal"
+            android:textSize="45sp"
+            android:gravity="center"
+            android:ems="10"
+            android:id="@+id/dbhEdit" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:weightSum="1">
+
+        <!--displays a prompt for the tree's storage factor-->
+        <TextView
+            android:text="Storage Factor:"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textSize="45sp"
+            android:gravity="right|center_vertical"
+            android:layout_weight="0.4"
+            android:id="@+id/factorView" />
+
+        <!--dropdown menu for storage factor-->
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.6"
+            android:id="@+id/factorSpinner"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:weightSum="1">
+
+        <!--displays a prompt for the tree's aspm-->
+        <TextView
+            android:text="(U)ASPM:"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textSize="45sp"
+            android:gravity="right|center_vertical"
+            android:layout_weight="0.4"
+            android:id="@+id/aspmView" />
+
+        <!--dropdown menu for aspm-->
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.6"
+            android:id="@+id/aspmSpinner"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:weightSum="1">
+
+        <!--cancel button that restore's the tree's old data-->
+        <Button
+            android:text="Cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:textSize="40sp"
+            android:gravity="center"
+            android:onClick="sendMessage2"
+            android:id="@+id/deleteButton" />
+
+        <!--saves the tree's data and return's the user to the quadrat overview-->
+        <Button
+            android:text="Done"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:textSize="40sp"
+            android:gravity="center"
+            android:onClick="sendMessage"
+            android:id="@+id/doneButton" />
+    </LinearLayout>
+</LinearLayout>

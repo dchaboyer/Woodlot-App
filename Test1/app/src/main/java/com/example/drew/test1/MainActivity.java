@@ -3,17 +3,17 @@
  * COMP 4721
  * 5/3/17
  *
- * This is the Java code for the data entry screen for stands. It is
+ * This is the Java code for the list of woodlots screen. It is
  * called MainActivity because Android requires one file to have this name.
  * The MainActivity file is the one that begins when someone opens the app.
  *
- * This code adds the desired functionality to the widgets, allowing someone
- * to specify a stand's average age, height, and species. From here when a user
- * clicks either the cancel or accept button they are taken to the summary screen
- * for that same stand.
+ * This code adds the desired functionality to the widgets declared in the
+ * XML file. It has a scrolling list of all the woodlots, and also a button
+ * to create a new woodlot
  */
 package com.example.drew.test1;
 
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.LinearLayout;
@@ -24,15 +24,15 @@ import android.content.Intent;
 public class MainActivity extends AppCompatActivity
 {
 
-    //widget objects
-
+    //button widget
     protected Button addButton;
 
+    //ArrayList to store buttons
     protected ArrayList<Button> buttonList = new ArrayList<Button>();
 
     /**
      * Begins automatically anytime a user pulls up the stand data entry
-     * screen. It specifies the starting text for all widgets.
+     * screen. It creates the buttons and adds the functionality.
      * @param savedInstanceState (a class that is part of the android library)
      */
     @Override
@@ -54,7 +54,13 @@ public class MainActivity extends AppCompatActivity
             String name = woodlot.getName();
 
             currButton.setText(name);
-            currButton.setTextSize(40);
+            if((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_XLARGE) {
+                currButton.setTextSize(45);
+            }
+            else
+            {
+                currButton.setTextSize(25);
+            }
 
             currButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -70,8 +76,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
-     * Called when a user presses accept. Starts the stand summary screen,
-     * and saves the inputed values.
+     * Called when a user presses add woodlot. Starts the woodlot input screen.
      * @param view (for method requirement purposes)
      */
     public void sendMessage(View view)

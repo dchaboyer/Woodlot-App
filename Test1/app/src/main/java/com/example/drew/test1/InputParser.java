@@ -13,6 +13,9 @@ package com.example.drew.test1;
 
 public class InputParser {
 
+    public static final boolean HARDWOOD = true;
+    public static final boolean SOFTWOOD = false;
+
     /**
      * @param storageFactor
      * @return a StorageFactor object with the appropriate type.
@@ -54,6 +57,7 @@ public class InputParser {
      * @return a Species object with the appropriate type.
      */
     public static Species parseSpecies(String species) {
+<<<<<<< HEAD
         if (species == null){
             return null;
         }
@@ -110,5 +114,11 @@ public class InputParser {
             default:
                 throw new InvalidSpeciesException("Unrecognized Species: " + species);
         }
+=======
+        for(Species currSpecies : Species.values())
+            if(currSpecies.getName().equals(species))
+                return currSpecies;
+        return null;
+>>>>>>> refs/remotes/origin/master
     }
 }

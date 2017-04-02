@@ -1,5 +1,4 @@
 package com.example.drew.test1;
-import java.util.List;
 
 /**
  * DRY WEIGHT MASS CALCULATOR
@@ -10,6 +9,9 @@ import java.util.List;
 
 public class DwmCalculator {
 
+    public static final double QUADRAT_AREA = 400;
+    public static final int METERS_IN_HECTARE = 10000;
+
     //CALCULATIONS//--------------------------------------
 
     /**
@@ -17,23 +19,37 @@ public class DwmCalculator {
      * @param quadrat
      * @return
      */
-    public static double calculateDwm(Quadrat quadrat){
-        double dwm = 0.0;
-
+    public static double calculateQuadratCarbon(Quadrat quadrat){
+        double totalCarbon = 0.0;
+        double aboveABP, rootsABP, totalABP, currCarbon;
         for (Tree tree: quadrat.getTrees()){
-            dwm += calculateAbp(tree);
+            aboveABP = calculateAbp(tree);
+            if(tree.getSpecies().isHardwood())
+            {
+                rootsABP = 1.576 * (Math.pow(aboveABP, 0.615));
+            }
+            else
+            {
+                rootsABP = aboveABP * 0.22;
+            }
+            totalABP = aboveABP + rootsABP;
+            currCarbon = totalABP * 0.47;
+            totalCarbon += currCarbon;
         }
 
-        return dwm;
+        return totalCarbon;
     }
 
-    public static double calculateDwmStand(Stand stand) {
-        double dwm = 0.0;
-
+    public static double calculateCarbonStand(Stand stand) {
+        double carbon = 0.0;
         for (Quadrat quadrat: stand.getQuadrats()) {
-            dwm += calculateDwm(quadrat);
+            carbon += calculateQuadratCarbon(quadrat);
         }
-        return dwm;
+        int quadratsCompleted = stand.getCompletedQuadrats();
+        double sampledSize = quadratsCompleted * QUADRAT_AREA;
+        double standSize = stand.getArea() * METERS_IN_HECTARE;
+        carbon = carbon * (standSize/sampledSize);
+        return carbon;
     }
 
     //HELPERS//-------------------------------------------
@@ -49,4 +65,6 @@ public class DwmCalculator {
 
         return abpEquation.calculate(dbh);
     }
+
+
 }

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--XML file for the stand info input screen. Uses android libraries to declare widgets-->
+<!--layout that holds all of the objects-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <!--displays the title-->
+    <TextView
+        android:text="Enter The Other Stand Info"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:textSize="40sp"
+        android:id="@+id/textView"
+        android:gravity="center"
+        android:layout_weight="0.10" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.15"
+        android:weightSum="1">
+
+    <!--displays a prompt for the average age-->
+        <TextView
+            android:text="Average Age:"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textSize="40sp"
+            android:layout_weight="0.4"
+            android:gravity="right|center_vertical"
+            android:id="@+id/textView2" />
+
+        <!--space to enter the average age-->
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/editAge"
+            android:gravity="center"
+            android:textSize="45sp"
+            android:layout_weight="0.6" />
+
+    </LinearLayout>
+
+    <LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="0.15"
+    android:weightSum="1">
+
+        <!--displays a prompt for the average height-->
+        <TextView
+            android:text="Average Height:"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textSize="40sp"
+            android:gravity="right|center_vertical"
+            android:id="@+id/textView3"
+            android:layout_weight="0.4" />
+
+        <!--space to enter the average height-->
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/editHeight"
+            android:textSize="45sp"
+            android:gravity="center"
+            android:layout_weight="0.6" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.15"
+        android:weightSum="1">
+
+        <!--displays a prompt for the number of quadrats-->
+        <TextView
+            android:text="# of Quadrats:"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textSize="40sp"
+            android:gravity="right|center_vertical"
+            android:id="@+id/numQuadratsView"
+            android:layout_weight="0.4" />
+
+        <!--space to enter the number of quadrats-->
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/numQuadratsEdit"
+            android:textSize="45sp"
+            android:gravity="center"
+            android:layout_weight="0.6" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.15"
+        android:weightSum="1">
+
+        <!--displays a prompt for the stand size-->
+        <TextView
+            android:text="Size (Hectares):"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textSize="40sp"
+            android:gravity="right|center_vertical"
+            android:id="@+id/standSize"
+            android:layout_weight="0.4" />
+
+        <!--space to enter the stand size-->
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/standSizeEdit"
+            android:textSize="45sp"
+            android:gravity="center"
+            android:layout_weight="0.6" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        android:weightSum="1">
+
+        <!-- a button that cancels the data entry, restoring old values-->
+        <Button
+            android:text="Cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/cancelButton"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:onClick="sendOldValues"
+            android:layout_weight="0.5" />
+
+        <!-- a button that saves the inputed values-->
+        <Button
+            android:text="Accept"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/acceptButton"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:onClick="sendMessage"
+            android:layout_weight="0.5" />
+    </LinearLayout>
+
+</LinearLayout>
+

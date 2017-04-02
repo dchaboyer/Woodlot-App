@@ -11,6 +11,7 @@ package com.example.drew.test1;
  * user to add a tree.
  */
 
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
@@ -18,12 +19,16 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Button;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.CheckBox;
 import java.util.ArrayList;
 
 public class QuadratScreen extends AppCompatActivity
 {
     //constant that is used when passing information to different screens
     public final static String EXTRA_ISEDIT = "com.example.drew.test1.IS_EDIT";
+
+    CheckBox checkBox;
+    Quadrat currQuadrat;
 
     //the total number of trees
     int currTreeNum;
@@ -55,8 +60,11 @@ public class QuadratScreen extends AppCompatActivity
         }//DEBUG
 
         setContentView(R.layout.quadratscreen);
-        Quadrat currQuadrat = WCCCProgram.getCurrQuadrat();
+        currQuadrat = WCCCProgram.getCurrQuadrat();
         currTreeNum = currQuadrat.getTrees().size();
+
+        checkBox = (CheckBox) findViewById(R.id.checkbox_completed);
+        checkBox.setChecked(currQuadrat.getCompletionStatus());
 
         //This next block dynamically creates the tree buttons.
         LinearLayout layout = (LinearLayout) findViewById(R.id.scrollLayout2);
@@ -72,7 +80,13 @@ public class QuadratScreen extends AppCompatActivity
             final int index = i;
 
             currButton.setText("Tree " + i + "   DBH: " + height + "   Species: " + species);
-            currButton.setTextSize(40);
+            if((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_XLARGE) {
+                currButton.setTextSize(30);
+            }
+            else
+            {
+                currButton.setTextSize(15);
+            }
             currButton.setLayoutParams(param);
 
             currButton.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +104,24 @@ public class QuadratScreen extends AppCompatActivity
     }
 
     /**
-     * Called when the user hits the Done button. Starts the stand overview screen.
+     * Method called whenever the user checks or unchecks the checkbox.
+     * @param view
+     */
+    public void onCheckboxClicked(View view) {
+        boolean checked = checkBox.isChecked();
+        currQuadrat = WCCCProgram.getCurrQuadrat();
+        if(checked)
+        {
+            currQuadrat.setComplete();
+        }
+        else
+        {
+            currQuadrat.setIncomplete();
+        }
+    }
+
+    /**
+     * Called when the user hits the Back button. Starts the stand overview screen.
      * @param view (for method requirement purposes)
      */
     public void sendMessage(View view)
@@ -105,8 +136,13 @@ public class QuadratScreen extends AppCompatActivity
      */
     public void sendMessage2(View view)
     {
-        Intent intent = new Intent(this, StandOverview.class);
-        intent.putExtra(EXTRA_ISEDIT, false);
+        Intent intent;
+        if(currQuadrat.getCompletionStatus()) {
+            intent = new Intent(this, StandSummary.class);
+        }
+        else {
+            intent = new Intent(this, StandOverview.class);
+        }
         startActivity(intent);
     }
 }

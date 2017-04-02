@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.05"
+        android:textSize="30sp"
+        android:text="Stand Summary"
+        android:gravity="center"
+        android:id="@+id/standSummaryTitle" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:weightSum="1">
+
+        <!-- displays the current dwm estimate-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:textSize="30sp"
+            android:gravity="left|center_vertical"
+            android:id="@+id/dwmView" />
+
+        <!-- displays the current dwm confidence interval-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:textSize="30sp"
+            android:gravity="left|center_vertical"
+            android:id="@+id/dwmRange" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:weightSum="1">
+
+        <!-- displays the current error estimate-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:textSize="30sp"
+            android:gravity="left|center_vertical"
+            android:id="@+id/errorEstimate" />
+
+        <!-- displays the current error status-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:textSize="30sp"
+            android:gravity="left|center_vertical"
+            android:id="@+id/errorStatus" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:weightSum="1">
+
+        <!--displays the inputed age-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:textSize="30sp"
+            android:gravity="left|center_vertical"
+            android:id="@+id/age" />
+
+        <!--displays the selected species-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:textSize="25sp"
+            android:gravity="left|center_vertical"
+            android:id="@+id/species" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:weightSum="1">
+
+        <!--displays the inputed height-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:textSize="30sp"
+            android:gravity="left|center_vertical"
+            android:id="@+id/height" />
+
+        <!--displays the inputed size-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:textSize="30sp"
+            android:gravity="left|center_vertical"
+            android:id="@+id/standSummarySize" />
+
+    </LinearLayout>
+
+    <!--a space to write notes-->
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:inputType="textMultiLine"
+        android:text="Type Notes Here"
+        android:textSize="30sp"
+        android:ems="10"
+        android:id="@+id/editNotes"
+        android:layout_weight="0.15" />
+
+    <!--a button that returns to the stand input screen-->
+    <Button
+        android:text="Edit Stand Info"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:textSize="45sp"
+        android:gravity="center"
+        android:onClick="sendEdit"
+        android:id="@+id/standSummaryEdit"
+        android:layout_weight="0.2" />
+
+    <!--a button that takes you to the list of quadrats-->
+    <Button
+        android:text="Quadrat List"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:textSize="45sp"
+        android:gravity="center"
+        android:onClick="sendList"
+        android:id="@+id/standSummaryQuadratList"
+        android:layout_weight="0.2" />
+
+
+</LinearLayout>
