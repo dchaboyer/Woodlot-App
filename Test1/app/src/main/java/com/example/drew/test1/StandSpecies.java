@@ -1,4 +1,3 @@
-/*
 package com.example.drew.test1;
 
 import android.support.v7.app.AppCompatActivity;
@@ -66,7 +65,6 @@ public class StandSpecies extends AppCompatActivity
         species5.setAdapter(dataAdapter2);
     }
 
-    */
 /**
      * Called when a user selects an option from any of the drop down menus. First figures
      * out which drop down menu was used, then saves the value in the appropriate variable
@@ -75,8 +73,7 @@ public class StandSpecies extends AppCompatActivity
      * @param view
      * @param position
      * @param id
-     *//*
-
+     */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
     {
@@ -106,23 +103,20 @@ public class StandSpecies extends AppCompatActivity
         }
     }
 
-    */
 /**
      * Required method for interface purposes. when a user selects nothing from
      * the drop down menu, nothing happens.
      * @param arg0
-     *//*
-
+     */
     public void onNothingSelected(AdapterView<?> arg0)
     {
     }
 
-    */
-/**
+    /**
      * Called when a user presses accept. Starts the stand summary screen,
      * and saves the inputed values.
      * @param view (for method requirement purposes)
-     *//*
+     */
 
     public void sendMessage(View view)
     {
@@ -152,12 +146,11 @@ public class StandSpecies extends AppCompatActivity
         startActivity(intent);
     }
 
-    */
-/**
+    /**
      * Called when a user presses cancel. Starts the stand summary
      * screen and does not alter the old values
      * @param view (for method requirement purposes)
-     *//*
+     */
 
     public void sendOldValues(View view)
     {
@@ -169,4 +162,3 @@ public class StandSpecies extends AppCompatActivity
         startActivity(intent);
     }
 }
-*/

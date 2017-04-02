@@ -1,7 +1,5 @@
-/*
 package com.example.drew.test1;
 
-*/
 /**
  * @author Jonathan Whitaker, Mathieu Belzile-Ha, Drew Chaboyer
  * COMP 4721
@@ -10,7 +8,7 @@ package com.example.drew.test1;
  * This is the java code for the stand summary screen. It provides
  * lists all the information for the stand, and has buttons to allow
  * the user to edit the info, or to proceed to the quadrat list screen.
- *//*
+ */
 
 
 import android.support.v7.app.AppCompatActivity;
@@ -47,14 +45,12 @@ public class StandSummary extends AppCompatActivity
     protected String notes;
     protected String size;
 
-    */
-/**
+    /**
      * Begins automatically when this screen is opened. It adds the
      * functionality to the widgets declared in the xml code. It loads
      * the stand's current values to display them.
      * @param savedInstanceState (a class that is part of the android library)
-     *//*
-
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -168,12 +164,10 @@ public class StandSummary extends AppCompatActivity
 
     }
 
-    */
-/**
+    /**
      * Called when the user hits the edit info button. Starts the stand input screen.
      * @param view (only to satisfy method requirements)
-     *//*
-
+     */
     public void sendEdit(View view)
     {
         saveNotes();
@@ -182,11 +176,10 @@ public class StandSummary extends AppCompatActivity
         startActivity(intent);
     }
 
-    */
-/**
+    /**
      * Called when the user hits the quadrat list button. Starts the quadrat list screen.
      * @param view (only to satisfy method requirements)
-     *//*
+     */
 
     public void sendList(View view)
     {
@@ -194,10 +187,10 @@ public class StandSummary extends AppCompatActivity
         Intent intent = new Intent(this, StandOverview.class);
         startActivity(intent);
     }
-    */
-/**
+
+    /**
      * Saves the notes to the application.
-     *//*
+     */
 
     private void saveNotes()
     {
@@ -206,4 +199,3 @@ public class StandSummary extends AppCompatActivity
     }
 
 }
-*/

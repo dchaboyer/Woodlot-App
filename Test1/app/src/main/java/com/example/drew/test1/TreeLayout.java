@@ -1,7 +1,5 @@
-/*
 package com.example.drew.test1;
 
-*/
 /**
  * @author Jonathan Whitaker, Mathieu Belzile-Ha, Drew Chaboyer
  * COMP 4721
@@ -12,8 +10,7 @@ package com.example.drew.test1;
  * to specify a tree's species, height, storage factor, and aspm height.
  * From here when a user clicks either the Cancel or the Done button they return
  * to the quadrat overview screen.
- *//*
-
+ */
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -53,14 +50,12 @@ public class TreeLayout extends AppCompatActivity
     //specifies whether this is editing or adding a tree
     protected boolean isEdit;
 
-    */
-/**
+    /**
      * Begins automatically anytime a user pulls up the tree input screen.
      * It loads the proper values for the class member variables, then specifies
      * the default text for all the widgets.
      * @param savedInstanceState (a class that is part of the android library)
-     *//*
-
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -154,8 +149,7 @@ public class TreeLayout extends AppCompatActivity
         });
     }
 
-    */
-/**
+    /**
      * Called when a user selects an option from any of the drop down menus. First figures
      * out which drop down menu was used, then saves the value in the appropriate variable
      * value
@@ -163,8 +157,7 @@ public class TreeLayout extends AppCompatActivity
      * @param view
      * @param position
      * @param id
-     *//*
-
+     */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
     {
@@ -186,25 +179,21 @@ public class TreeLayout extends AppCompatActivity
         }
     }
 
-    */
-/**
+    /**
      * Required method for interface purposes. when a user selects nothing from
      * the drop down menu, nothing happens.
      * @param arg0
-     *//*
-
+     */
     public void onNothingSelected(AdapterView<?> arg0)
     {
     }
 
-    */
-/**
+    /**
      * Called when a user hits the Done button. If the user was editing the tree,
      * the method overwrites the old values in the database. Otherwise it adds
      * a new tree to the database.
      * @param view
-     *//*
-
+     */
     public void sendMessage(View view)
     {
         Tree tree;
@@ -235,11 +224,10 @@ public class TreeLayout extends AppCompatActivity
         startActivity(intent);
     }
 
-    */
-/**
+    /**
      * Called when a user presses the Cancel button.
      * @param view
-     *//*
+     */
 
     public void sendMessage2(View view)
     {
@@ -247,4 +235,3 @@ public class TreeLayout extends AppCompatActivity
         startActivity(intent);
     }
 }
-*/
