@@ -186,6 +186,7 @@ public class TestDataBaseOpenHelper {
 
     private boolean imageMatch(QuadratImage quadratImage1, QuadratImage quadratImage2){
         return quadratImage1.getCoordinate().equals(quadratImage2.getCoordinate())
+                && quadratImage1.isComplete() == quadratImage2.isComplete()
                 && treesImageMatch(quadratImage1.getTrees(), quadratImage2.getTrees());
     }
 
@@ -1112,6 +1113,140 @@ public class TestDataBaseOpenHelper {
         openHelper.removeWoodlotFromDataBase(1);
         assertTrue(openHelper.getWoodlotImagesFromDataBase().size() == 1);
         assertTrue(openHelper.getNumWoodlotsInDataBase() == 1);
+    }
+
+    @Test
+    public void testGetStandId(){
+        openHelper.reset();
+        populateDataForTreeTesting();// Note: in populateDataForStandTesting():
+        // woodlot1 is added first to correspond to woodlot1Id
+        // and woodlot2 is added second to correspond to woodlot2Id
+        // Same with stand1 and stand2.
+        // Same with quadrats
+        // used this populator because it allows for cascade testing since there is data at
+        // every level from Woodlot to Tree
+
+        int myStandId = openHelper.getStandIdFromWoodlot(1, woodlot1Id);
+
+        assertTrue("ID = " + myStandId, fullMatch(openHelper.getStandImageFromWoodlot(1, woodlot1Id),
+                openHelper.dumpStandTable().get(myStandId - 1)));
+
+        myStandId = openHelper.getStandIdFromWoodlot(0, woodlot1Id);
+
+        assertTrue("ID = " + myStandId, fullMatch(openHelper.getStandImageFromWoodlot(0, woodlot1Id),
+                openHelper.dumpStandTable().get(myStandId - 1)));
+    }
+
+    @Test
+    public void testGetQuadratId(){
+        openHelper.reset();
+        populateDataForTreeTesting();// Note: in populateDataForStandTesting():
+        // woodlot1 is added first to correspond to woodlot1Id
+        // and woodlot2 is added second to correspond to woodlot2Id
+        // Same with stand1 and stand2.
+        // Same with quadrats
+        // used this populator because it allows for cascade testing since there is data at
+        // every level from Woodlot to Tree
+
+        int myQuadratId = openHelper.getQuadratIdFromStand(0, stand1Id);
+
+        assertTrue("ID = " + myQuadratId, fullMatch(openHelper.getQuadratImageFromStand(0, stand1Id),
+                openHelper.dumpQuadratTable().get(myQuadratId - 1)));
+
+        myQuadratId = openHelper.getQuadratIdFromStand(0, stand2Id);
+
+        openHelper.setQuadratCoordinates(coord5, myQuadratId);
+        assertTrue("AH " + openHelper.getQuadratImageFromStand(0, stand2Id).getId(),
+                openHelper.getQuadratImageFromStand(0, stand2Id).getCoordinate().equals(coord5));
+
+        assertTrue("ID = " + myQuadratId, fullMatch(openHelper.getQuadratImageFromStand(0, stand2Id),
+                openHelper.dumpQuadratTable().get(myQuadratId - 1)));
+    }
+
+    @Test
+    public void testGetTreeId(){
+        openHelper.reset();
+        populateDataForTreeTesting();// Note: in populateDataForStandTesting():
+        // woodlot1 is added first to correspond to woodlot1Id
+        // and woodlot2 is added second to correspond to woodlot2Id
+        // Same with stand1 and stand2.
+        // Same with quadrats
+        // used this populator because it allows for cascade testing since there is data at
+        // every level from Woodlot to Tree
+
+        int myTreeId = openHelper.getTreeIdFromQuadrat(1, quadrat1Id);
+
+        assertTrue("ID = " + myTreeId, fullMatch(openHelper.getTreeImageFromQuadrat(1, quadrat1Id),
+                openHelper.dumpTreeTable().get(myTreeId - 1)));
+
+        myTreeId = openHelper.getTreeIdFromQuadrat(0, quadrat2Id);
+
+        assertTrue("ID = " + myTreeId, fullMatch(openHelper.getTreeImageFromQuadrat(0, quadrat2Id),
+                openHelper.dumpTreeTable().get(myTreeId - 1)));
+    }
+
+    @Test
+    public void testGetComplete(){
+        openHelper.reset();
+        populateDataForTreeTesting();// Note: in populateDataForStandTesting():
+        // woodlot1 is added first to correspond to woodlot1Id
+        // and woodlot2 is added second to correspond to woodlot2Id
+        // Same with stand1 and stand2.
+        // Same with quadrats
+        // used this populator because it allows for cascade testing since there is data at
+        // every level from Woodlot to Tree
+
+        assertFalse(openHelper.getQuadratCompletionStatus(quadrat1Id));
+        assertFalse(openHelper.getQuadratCompletionStatus(quadrat2Id));
+
+        QuadratImage testQuadrat1 = openHelper.getQuadratImageFromStand(0, stand1Id);
+        QuadratImage testQuadrat2 = openHelper.getQuadratImageFromStand(0, stand2Id);
+
+        testQuadrat2.setComplete(true);
+        openHelper.addQuadratToStand(testQuadrat2, stand2Id);
+        openHelper.addQuadratToStand(testQuadrat1, stand1Id);
+        assertFalse(openHelper.getQuadratCompletionStatus(quadrat1Id));
+        assertTrue(openHelper.getQuadratCompletionStatus(quadrat2Id));
+
+        testQuadrat1.setComplete(true);
+        testQuadrat2.setComplete(false);
+        openHelper.addQuadratToStand(testQuadrat2, stand2Id);
+        openHelper.addQuadratToStand(testQuadrat1, stand1Id);
+        assertTrue(openHelper.getQuadratCompletionStatus(quadrat1Id));
+        assertFalse(openHelper.getQuadratCompletionStatus(quadrat2Id));
+
+        testQuadrat1.setComplete(false);
+        testQuadrat2.setComplete(true);
+        openHelper.addQuadratToStand(testQuadrat2, stand2Id);
+        openHelper.addQuadratToStand(testQuadrat1, stand1Id);
+        assertFalse(openHelper.getQuadratCompletionStatus(quadrat1Id));
+        assertTrue(openHelper.getQuadratCompletionStatus(quadrat2Id));
+    }
+
+    @Test
+    public void testSetComplete(){
+        openHelper.reset();
+        populateDataForTreeTesting();// Note: in populateDataForStandTesting():
+        // woodlot1 is added first to correspond to woodlot1Id
+        // and woodlot2 is added second to correspond to woodlot2Id
+        // Same with stand1 and stand2.
+        // Same with quadrats
+        // used this populator because it allows for cascade testing since there is data at
+        // every level from Woodlot to Tree
+
+        openHelper.setQuadratCompletionStatus(true, quadrat1Id);
+        assertTrue(openHelper.dumpQuadratTable().get(quadrat1Id - 1).isComplete());
+        assertFalse(openHelper.dumpQuadratTable().get(quadrat2Id - 1).isComplete());
+
+        openHelper.setQuadratCompletionStatus(false, quadrat1Id);
+        openHelper.setQuadratCompletionStatus(true, quadrat2Id);
+        assertFalse(openHelper.dumpQuadratTable().get(quadrat1Id - 1).isComplete());
+        assertTrue(openHelper.dumpQuadratTable().get(quadrat2Id - 1).isComplete());
+
+        openHelper.setQuadratCompletionStatus(true, quadrat1Id);
+        openHelper.setQuadratCompletionStatus(false, quadrat2Id);
+        assertTrue(openHelper.dumpQuadratTable().get(quadrat1Id - 1).isComplete());
+        assertFalse(openHelper.dumpQuadratTable().get(quadrat2Id - 1).isComplete());
     }
 
         //TEST DEBUG//----------------------------------------------------------------------------------

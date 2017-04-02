@@ -58,9 +58,8 @@ public class WoodlotInput extends AppCompatActivity
 
         if(isEdit)
         {
-            Woodlot currWoodlot = WCCCProgram.getCurrWoodlot();
-            nameEdit.setText(currWoodlot.getName());
-            Integer oldNumStands = currWoodlot.getStands().size();
+            nameEdit.setText(WCCCProgram.CurrWoodlot.getName());
+            Integer oldNumStands = WCCCProgram.CurrWoodlot.getNumStands();
             numStandsEdit.setText(oldNumStands.toString());
         }
         acceptButton.setEnabled(false);

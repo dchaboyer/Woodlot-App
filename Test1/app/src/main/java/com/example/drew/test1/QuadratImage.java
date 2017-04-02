@@ -14,6 +14,8 @@ public class QuadratImage {
     private List<TreeImage> trees;
     private Integer parentId;
 
+    private boolean complete = false; //TODO: add to constructor
+
     public QuadratImage(Coordinate coordinate) {
         this.id = null;
         this.coordinate = coordinate;
@@ -63,5 +65,13 @@ public class QuadratImage {
 
     public void setParentId(int parentId) {
         this.parentId = parentId;
+    }
+
+    public boolean isComplete() {
+        return complete;
+    }
+
+    public void setComplete(boolean complete) {
+        this.complete = complete;
     }
 }

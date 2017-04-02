@@ -6,7 +6,8 @@
  * This is the java code for the list of quadrats screen. It displays a button
  * to go to the stand summary, and a scroll menu for buttons that will
  * link to all the quadrats in a particular stand.
- */
+ *//*
+
 package com.example.drew.test1;
 
 import android.support.v7.app.AppCompatActivity;
@@ -26,11 +27,13 @@ public class StandOverview extends AppCompatActivity
     // variables to store current information
     protected int numQuadrats;
 
-    /**
+    */
+/**
      * Begins automatically when this screen is opened. It
      * adds the functionality to the widgets declared in the xml code.
      * @param savedInstanceState (a class that is part of the android library)
-     */
+     *//*
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -61,20 +64,24 @@ public class StandOverview extends AppCompatActivity
         }
     }
 
-    /**
+    */
+/**
      * Called when the user hits the edit info button. Starts the stand summary screen.
      * @param view (only to satisfy method requirements)
-     */
+     *//*
+
     public void sendSummary(View view)
     {
         Intent intent = new Intent(this, StandSummary.class);
         startActivity(intent);
     }
 
-    /**
+    */
+/**
      * Called when the user hits the back button. Starts the stand list screen.
      * @param view (only to satisfy method requirements)
-     */
+     *//*
+
     public void sendList(View view)
     {
         Intent intent = new Intent(this, StandList.class);
@@ -83,3 +90,4 @@ public class StandOverview extends AppCompatActivity
 
 
 }
+*/

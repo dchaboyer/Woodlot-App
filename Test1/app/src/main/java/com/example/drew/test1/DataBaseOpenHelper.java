@@ -19,11 +19,15 @@ import java.util.List;
  *
  */
 
-//TODO: fix places where item info is not accessible by id, this will help clean WCCCProgram code
+//TODO: put items in order before returning them in a list (in methods like getTreeImagesInQuadrat)
+//TODO: fix places where item info is not accessible by id, this will help clean rest of code
+    //TODO: either add mutators/accessors for COMPLETE in Quadrat or remove all of them for other things
 
 public class DataBaseOpenHelper extends SQLiteOpenHelper{
 
     private static final long INVALID_ID = -1; //Value to pass when an id is not valid
+    private static final int TRUE_INTEGER_VALUE = 1;
+    private static final int FALSE_INTEGER_VALUE = 0;
 
     //COMMANDS// -------------------------------------------------------------
     private static final String ACTIVATE_FOREIGN_KEY_SUPPORT = "PRAGMA foreign_keys = ON;";
@@ -89,16 +93,19 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
     private static final String QUADRAT_TABLE_NAME = "QUADRATS";
     private static final String QUADRAT_X_COORDINATE_KEY= "X_COORDINATE";
     private static final String QUADRAT_Y_COORDINATE_KEY= "Y_COORDINATE";
+    private static final String QUADRAT_COMPLETE_KEY = "COMPLETE";
     private static final String QUADRAT_STAND_ID_KEY = "STAND_ID";
-    private static final int QUADRAT_NUM_COLUMNS = 4;
+    private static final int QUADRAT_NUM_COLUMNS = 5;
     private static final int QUADRAT_PRIMARY_KEY_COLUMN = 0;
     private static final int QUADRAT_X_COORDINATE_COLUMN = 1;
     private static final int QUADRAT_Y_COORDINATE_COLUMN = 2;
-    private static final int QUADRAT_STAND_ID_COLUMN = 3;
+    private static final int QUADRAT_COMPLETE_COLUMN = 3;
+    private static final int QUADRAT_STAND_ID_COLUMN = 4;
 
     private static final int QUADRAT_PRIMARY_KEY_TYPE = FIELD_TYPE_INTEGER;
     private static final int QUADRAT_X_COORDINATE_TYPE = FIELD_TYPE_FLOAT;
     private static final int QUADRAT_Y_COORDINATE_TYPE = FIELD_TYPE_FLOAT;
+    private static final int QUADRAT_COMPLETE_COLUMN_TYPE = FIELD_TYPE_INTEGER;
 
     //TREE DATA NAMES// ------------------------------------------------------
     private static final String TREE_TABLE_NAME = "TREES";
@@ -165,7 +172,8 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
                     KEY_PRIMARY + " INTEGER PRIMARY KEY, " +
                     QUADRAT_X_COORDINATE_KEY + " DOUBLE, " +
                     QUADRAT_Y_COORDINATE_KEY + " DOUBLE, " +
-                    QUADRAT_STAND_ID_KEY + " INTEGER, " +
+                    QUADRAT_COMPLETE_KEY + " INTEGER DEFAULT 0, " +
+                    QUADRAT_STAND_ID_KEY + " INTEGER, " + //TODO: not tested either
                     "FOREIGN KEY(" + QUADRAT_STAND_ID_KEY + ") REFERENCES " +
                     STAND_TABLE_NAME + "(" + KEY_PRIMARY + "));";
 
@@ -349,6 +357,16 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
                 QUADRAT_Y_COORDINATE_KEY, coordinates.getY());
     }
 
+    public void setQuadratCompletionStatus(boolean complete, int quadratId){
+        if (complete){
+            execUpdate(QUADRAT_TABLE_NAME, quadratId,
+                    QUADRAT_COMPLETE_KEY, TRUE_INTEGER_VALUE);
+        } else {
+            execUpdate(QUADRAT_TABLE_NAME, quadratId,
+                    QUADRAT_COMPLETE_KEY, FALSE_INTEGER_VALUE);
+        }
+    }
+
     public void addQuadratToStand(QuadratImage quadratImage, long standId){
         SQLiteDatabase database = this.getWritableDatabase();
 
@@ -357,6 +375,13 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
 
         values.put(QUADRAT_X_COORDINATE_KEY, coordinate.getX());
         values.put(QUADRAT_Y_COORDINATE_KEY, coordinate.getY());
+
+        if (quadratImage.isComplete()) {
+            values.put(QUADRAT_COMPLETE_KEY, TRUE_INTEGER_VALUE);
+        } else {
+            values.put(QUADRAT_COMPLETE_KEY, FALSE_INTEGER_VALUE);
+        }
+
         values.put(QUADRAT_STAND_ID_KEY, standId);
 
         long quadratId = INVALID_ID;
@@ -524,10 +549,10 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
         return execGetNumChildren(TREE_TABLE_NAME, TREE_QUADRAT_ID_KEY, quadratId);
     }
 
-    public QuadratImage getQuadratImageFromStand(int relativeID, int standId) {
+    public QuadratImage getQuadratImageFromStand(int relativeId, int standId) {
         Cursor cursor = compileRelativeSelectionCursor(QUADRAT_TABLE_NAME,
                 QUADRAT_STAND_ID_KEY,
-                standId, relativeID);
+                standId, relativeId);
 
         cursor.moveToFirst();
         QuadratImage quadratImage = extractQuadratImage(cursor);
@@ -564,6 +589,17 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
         cursor.close();
         return new Coordinate(x,y);
     }
+
+    public boolean getQuadratCompletionStatus(int quadratId){
+        Cursor cursor = compileSelectionCursor(QUADRAT_TABLE_NAME,
+                KEY_PRIMARY, quadratId);
+
+        cursor.moveToFirst();
+        int intVal = cursor.getInt(QUADRAT_COMPLETE_COLUMN);
+
+        cursor.close();
+        return intVal == 1;
+    } //TODO: testing required
 
     public int getQuadratIdFromStand(int relativeId, int standId){
         Cursor cursor = compileRelativeSelectionCursor(QUADRAT_TABLE_NAME,
@@ -756,9 +792,11 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
         int quadratId = quadratCursor.getInt(QUADRAT_PRIMARY_KEY_COLUMN);
         double xCoord = quadratCursor.getDouble(QUADRAT_X_COORDINATE_COLUMN);
         double yCoord = quadratCursor.getDouble(QUADRAT_Y_COORDINATE_COLUMN);
+        boolean complete = (quadratCursor.getInt(QUADRAT_COMPLETE_COLUMN) == 1);
         int standID = quadratCursor.getInt(QUADRAT_STAND_ID_COLUMN);
 
         QuadratImage quadratImage = new QuadratImage(quadratId, new Coordinate(xCoord, yCoord), standID);
+        quadratImage.setComplete(complete); //TODO: fix potential code smell
 
         for (TreeImage treeImage: getTreeImagesFromQuadrat(quadratImage.getId())){
             quadratImage.addTree(treeImage);
@@ -808,7 +846,7 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
     }
 
     private Cursor compileTableDumpCursor(String tableName){
-        String selectQuery = "SELECT * FROM " + tableName + ";";
+        String selectQuery = "SELECT * FROM " + tableName + " ORDER BY " + KEY_PRIMARY +" ;";
 
         SQLiteDatabase database = getReadableDatabase();
         return database.rawQuery(selectQuery, null);

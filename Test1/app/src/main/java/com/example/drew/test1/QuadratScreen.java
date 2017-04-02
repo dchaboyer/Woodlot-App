@@ -1,5 +1,7 @@
+/*
 package com.example.drew.test1;
 
+*/
 /**
  * @author Jonathan Whitaker, Mathieu Belzile-Ha, Drew Chaboyer
  * COMP 4721
@@ -9,7 +11,8 @@ package com.example.drew.test1;
  * The code displays a list of all currently entered trees that are buttons so
  * that the user can return and edit the information. It also allows the
  * user to add a tree.
- */
+ *//*
+
 
 import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
@@ -39,14 +42,16 @@ public class QuadratScreen extends AppCompatActivity
     //list of the tree buttons
     protected ArrayList<Button> buttonList = new ArrayList<Button>();
 
-    /**
+    */
+/**
      * Begins automatically anytime a user pulls up the quadrat overview screen
      * It displays a list of trees, with some basic information about them.
      *
      * The method loads the proper values for the member variables, then creates
      * the tree buttons.
      * @param savedInstanceState (a class that is part of the android library)
-     */
+     *//*
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -95,10 +100,12 @@ public class QuadratScreen extends AppCompatActivity
         }
     }
 
-    /**
+    */
+/**
      * Method called whenever the user checks or unchecks the checkbox.
      * @param view
-     */
+     *//*
+
     public void onCheckboxClicked(View view) {
         boolean checked = checkBox.isChecked();
         currQuadrat = WCCCProgram.getCurrQuadrat();
@@ -112,20 +119,24 @@ public class QuadratScreen extends AppCompatActivity
         }
     }
 
-    /**
+    */
+/**
      * Called when the user hits the Back button. Starts the stand overview screen.
      * @param view (for method requirement purposes)
-     */
+     *//*
+
     public void sendMessage(View view)
     {
         Intent intent = new Intent(this, TreeLayout.class);
         startActivity(intent);
     }
 
-    /**
+    */
+/**
      * Called when the user hits the Add Tree button. Starts the tree entry screen.
      * @param view (for method requirement purposes)
-     */
+     *//*
+
     public void sendMessage2(View view)
     {
         Intent intent;
@@ -138,3 +149,4 @@ public class QuadratScreen extends AppCompatActivity
         startActivity(intent);
     }
 }
+*/

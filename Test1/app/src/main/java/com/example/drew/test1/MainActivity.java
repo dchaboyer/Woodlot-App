@@ -18,6 +18,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 import java.util.ArrayList;
+import java.util.List;
+
 import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
@@ -50,15 +52,16 @@ public class MainActivity extends AppCompatActivity
 
         addButton = (Button) findViewById(R.id.addWoodlot);
 
-        int numWoodlots = WCCCProgram.getRoot().getNumWoodlots();
+        List<WoodlotImage> woodlotImages = WCCCProgram.Root.getWoodlotImages();
+        /*int numWoodlots = WCCCProgram.Root.getNumWoodlots();*/
         LinearLayout layout = (LinearLayout) findViewById(R.id.woodlotList);
-        for(int i = 0; i < numWoodlots; i++)
+        for(WoodlotImage woodlotImage: woodlotImages)
         {
             final Button currButton = new Button(this);
-            final int index = i;
+            /*final int index = i;*/
 
-            Woodlot woodlot = WCCCProgram.getRoot().getWoodlot(i); //TODO: replace WCCProgram.getOpenHelper.getWoodlotName()
-            String name = woodlot.getName();
+            String name = woodlotImage.getName();
+            final int woodlotId = woodlotImage.getId();
 
             currButton.setText(name);
             if((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_XLARGE) {
@@ -72,7 +75,7 @@ public class MainActivity extends AppCompatActivity
             currButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    WCCCProgram.setCurrWoodlot(index);
+                    WCCCProgram.moveToWoodlot(woodlotId);
                     Intent intent = new Intent(MainActivity.this, StandList.class);
                     startActivity(intent);
                 }

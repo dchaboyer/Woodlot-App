@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Button;
 import java.util.ArrayList;
+import java.util.List;
 
 public class StandList extends AppCompatActivity
 {
@@ -37,22 +38,24 @@ public class StandList extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.stand_list);
 
-        final Woodlot currWoodlot =  WCCCProgram.getCurrWoodlot();
+        /*final Woodlot currWoodlot =  WCCCProgram.getCurrWoodlot();*/
 
         //This next block dynamically creates the stand buttons.
+        List<StandImage> standImages = WCCCProgram.CurrWoodlot.getStandImages();
         LinearLayout layout = (LinearLayout) findViewById(R.id.standList);
-        int numStands = currWoodlot.getNumStands();
+        int numStands = standImages.size();
 
-        for(int i = 1; i <= numStands; i++)
+        for(int i = 0; i < numStands; i++)
         {
             final Button currButton = new Button(this);
             final int index = i;
-            currButton.setText("Stand " + i);
+
+            currButton.setText("Stand " + index);
             currButton.setTextSize(40);
             currButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    WCCCProgram.setCurrStand(index-1);
-                    Double area = currWoodlot.getStand(index-1).getArea();
+                    WCCCProgram.moveToStand(index);
+                    Double area = WCCCProgram.CurrStand.getArea();
                     if(area == null) {
                         Intent intent = new Intent(StandList.this, StandSpecies.class);
                         intent.putExtra(QuadratScreen.EXTRA_ISEDIT, false);

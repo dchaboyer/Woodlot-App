@@ -62,7 +62,7 @@ public class WCCCProgram {
     }
 
     public static class Root{
-        public int getNumWoodlots(){
+        public static int getNumWoodlots(){
             return openHelper.getNumWoodlotsInDataBase();
         }
 
@@ -84,7 +84,7 @@ public class WCCCProgram {
             return openHelper.getWoodlotName(woodlotId);
         }
 
-        public int getNumStands(){
+        public static int getNumStands(){
             return openHelper.getNumStandsInWoodlot(woodlotId);
         }
 
@@ -99,7 +99,7 @@ public class WCCCProgram {
 
     public static class CurrStand{
         public static StandImage getImage(){
-            return openHelper.getStandImageFromWoodlot(woodlotId, standIndex);
+            return openHelper.getStandImageFromWoodlot(standIndex, woodlotId);
         }
 
         public static double getArea(){
@@ -137,11 +137,27 @@ public class WCCCProgram {
 
     public static class CurrQuadrat{
         public static QuadratImage getImage(){
-            return openHelper.getQuadratImageFromStand(standId, quadratIndex);
+            return openHelper.getQuadratImageFromStand(quadratIndex, standId);
         }
 
         public static Coordinate getCoordinates(){
             return openHelper.getQuadratCoordinates(quadratId);
+        }
+
+        public static boolean isComplete(){
+            return openHelper.getQuadratCompletionStatus(quadratId);
+        }
+
+        public static void setCoordinates(Coordinate coordinates){
+            openHelper.setQuadratCoordinates(coordinates, quadratId);
+        }
+
+        public static void setComplete(){
+            openHelper.setQuadratCompletionStatus(true, quadratId);
+        }
+
+        public static void setInComplete(){
+            openHelper.setQuadratCompletionStatus(false, quadratId);
         }
 
         public static int getNumTrees(){
@@ -152,8 +168,16 @@ public class WCCCProgram {
             return openHelper.getTreeImagesFromQuadrat(quadratId);
         }
 
+        public static TreeImage getTreeImage(int index){
+            return openHelper.getTreeImageFromQuadrat(index, quadratId);
+        }
+
         public static void addTree(TreeImage treeImage){
             openHelper.addTreeToQuadrat(treeImage, quadratId);
+        }
+
+        public static void removeTree(int index){
+            openHelper.removeTreeFromQuadrat(index, quadratId);
         }
     }
 
