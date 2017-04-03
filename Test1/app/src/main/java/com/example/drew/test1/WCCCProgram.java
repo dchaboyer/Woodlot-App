@@ -38,7 +38,7 @@ public class WCCCProgram {
     }
 
     public static void moveToStand(int index){
-        standId = openHelper.getStandIdFromWoodlot(woodlotId, index);
+        standId = openHelper.getStandIdFromWoodlot(index, woodlotId);
         quadratId = UNDEFINED_ID;
         treeId = UNDEFINED_ID;
 
@@ -48,15 +48,15 @@ public class WCCCProgram {
     }
 
     public static void moveToQuadrat(int index){
-        quadratId = openHelper.getQuadratIdFromStand(standId, index);
+        quadratId = openHelper.getQuadratIdFromStand(index, standId);
         treeId = UNDEFINED_ID;
 
         quadratIndex = index;
         treeIndex = UNDEFINED_ID;
     }
 
-    public static void setCurrTree(int index){
-        treeId = openHelper.getTreeIdFromQuadrat(quadratId, index);
+    public static void moveToTree(int index){
+        treeId = openHelper.getTreeIdFromQuadrat(index, quadratId);
 
         treeIndex = index;
     }
@@ -88,12 +88,24 @@ public class WCCCProgram {
             return openHelper.getNumStandsInWoodlot(woodlotId);
         }
 
+        public static void setName(String name){
+            openHelper.setWoodlotName(name, woodlotId);
+        }
+
         public static List<StandImage> getStandImages(){
             return openHelper.getStandImagesFromWoodlot(woodlotId);
         }
 
+        public static StandImage getStandImage(int index){
+            return openHelper.getStandImageFromWoodlot(index, woodlotId);
+        }
+
         public static void addStand(StandImage standImage){
             openHelper.addStandToWoodlot(standImage, woodlotId);
+        }
+
+        public static void removeStand(int index){
+            openHelper.removeStandFromWoodlot(index, woodlotId);
         }
     }
 
@@ -106,7 +118,7 @@ public class WCCCProgram {
             return openHelper.getStandArea(standId);
         }
 
-        public static double getAge(){
+        public static int getAge(){
             return openHelper.getStandAge(standId);
         }
 
@@ -122,7 +134,27 @@ public class WCCCProgram {
             return openHelper.getStandCommonSpecies(standId);
         }
 
-        public int getNumQuadrats(){
+        public static void setArea(double area){
+            openHelper.setStandArea(area, standId);
+        }
+
+        public static void setAge(int age){
+            openHelper.setStandAge(age, standId);
+        }
+
+        public static void setHeight(double height){
+            openHelper.setStandHeight(height, standId);
+        }
+
+        public static void setNotes(String notes){
+            openHelper.setStandNotes(notes, standId);
+        }
+
+        public static void setSpecie(Species specie, int rank){
+            openHelper.setStandSpecies(specie, rank, standId);
+        }
+
+        public static int getNumQuadrats(){
             return openHelper.getNumQuadratsInStand(standId);
         }
 
@@ -156,7 +188,7 @@ public class WCCCProgram {
             openHelper.setQuadratCompletionStatus(true, quadratId);
         }
 
-        public static void setInComplete(){
+        public static void setIncomplete(){
             openHelper.setQuadratCompletionStatus(false, quadratId);
         }
 
@@ -183,7 +215,7 @@ public class WCCCProgram {
 
     public static class CurrTree{
         public static TreeImage getImage(){
-            return openHelper.getTreeImageFromQuadrat(quadratId, treeIndex);
+            return openHelper.getTreeImageFromQuadrat(treeIndex, quadratId);
         }
     }
 
@@ -196,7 +228,4 @@ public class WCCCProgram {
         openHelper = new DataBaseOpenHelper(context);
     }
 
-    public static DataBaseOpenHelper getOpenHelper(){
-
-    }
 }

@@ -39,21 +39,19 @@ public class StandOverview extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stand_overview);
 
-        final Stand currStand = WCCCProgram.getCurrStand();
-
         //This next block dynamically creates the quadrat buttons.
         LinearLayout layout = (LinearLayout) findViewById(R.id.scrollLayout);
-        numQuadrats = currStand.getQuadrats().size();
+        numQuadrats = WCCCProgram.CurrStand.getNumQuadrats();
 
-        for(int i = 1; i <= numQuadrats; i++)
+        for(int i = 0; i < numQuadrats; i++)
         {
             final Button currButton = new Button(this);
             final int index = i;
-            currButton.setText("Quadrat " + i);
+            currButton.setText("Quadrat " + (index + 1));
             currButton.setTextSize(40);
             currButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    WCCCProgram.setCurrQuadrat(index-1);
+                    WCCCProgram.moveToQuadrat(index);
                     Intent intent = new Intent(StandOverview.this, QuadratScreen.class);
                     startActivity(intent);
                 }
