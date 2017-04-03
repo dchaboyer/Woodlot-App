@@ -121,27 +121,26 @@ public class StandSpecies extends AppCompatActivity
     public void sendMessage(View view)
     {
         Intent intent = new Intent(this, StandInput.class);
-        Stand currStand = WCCCProgram.getCurrStand();
 
         Species tempSpecies1 = InputParser.parseSpecies(speciesSelection1);
         if(speciesSelection2 != null && !speciesSelection2.equals("")) {
             Species tempSpecies2 = InputParser.parseSpecies(speciesSelection2);
-            currStand.setSpecies(tempSpecies2, 2);
+            WCCCProgram.CurrStand.setSpecie(tempSpecies2, 2);
         }
         if(speciesSelection3 != null && !speciesSelection3.equals("")) {
             Species tempSpecies3 = InputParser.parseSpecies(speciesSelection3);
-            currStand.setSpecies(tempSpecies3, 3);
+            WCCCProgram.CurrStand.setSpecie(tempSpecies3, 3);
         }
         if(speciesSelection4 != null && !speciesSelection4.equals("")) {
             Species tempSpecies4 = InputParser.parseSpecies(speciesSelection4);
-            currStand.setSpecies(tempSpecies4, 4);
+            WCCCProgram.CurrStand.setSpecie(tempSpecies4, 4);
         }
         if(speciesSelection5 != null && !speciesSelection5.equals("")) {
             Species tempSpecies5 = InputParser.parseSpecies(speciesSelection5);
-            currStand.setSpecies(tempSpecies5, 5);
+            WCCCProgram.CurrStand.setSpecie(tempSpecies5, 5);
         }
 
-        currStand.setSpecies(tempSpecies1, 1);
+        WCCCProgram.CurrStand.setSpecie(tempSpecies1, 1);
         intent.putExtra(QuadratScreen.EXTRA_ISEDIT, isEdit);
         startActivity(intent);
     }

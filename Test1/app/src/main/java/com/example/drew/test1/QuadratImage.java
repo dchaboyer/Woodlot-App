@@ -16,6 +16,13 @@ public class QuadratImage {
 
     private boolean complete = false; //TODO: add to constructor
 
+    public QuadratImage() {
+        this.id = null;
+        this.coordinate = null;
+        this.trees = new LinkedList<TreeImage>();
+        this.parentId = null;
+    }
+
     public QuadratImage(Coordinate coordinate) {
         this.id = null;
         this.coordinate = coordinate;

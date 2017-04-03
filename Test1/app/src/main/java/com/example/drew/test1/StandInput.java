@@ -64,15 +64,15 @@ public class StandInput extends AppCompatActivity
         quadratEdit = (EditText) findViewById(R.id.numQuadratsEdit);
         sizeEdit = (EditText) findViewById(R.id.standSizeEdit);
 
-        Stand currStand = WCCCProgram.getCurrStand();
+        //Stand currStand = WCCCProgram.getCurrStand();
         if(isEdit) {
-            Integer oldAge = currStand.getAge();
+            Integer oldAge = WCCCProgram.CurrStand.getAge();
             ageEdit.setText(oldAge.toString());
-            Double oldHeight = currStand.getHeight();
+            Double oldHeight = WCCCProgram.CurrStand.getHeight();
             heightEdit.setText(oldHeight.toString());
-            Integer numQuadrats = currStand.getNumQuadrats();
+            Integer numQuadrats = WCCCProgram.CurrStand.getNumQuadrats();
             quadratEdit.setText(numQuadrats.toString());
-            Double oldSize = currStand.getArea();
+            Double oldSize = WCCCProgram.CurrStand.getArea();
             sizeEdit.setText(oldSize.toString());
         }
         else
@@ -161,11 +161,14 @@ public class StandInput extends AppCompatActivity
         String sizeString = sizeEdit.getText().toString();
         currSize = Double.parseDouble(sizeString);
 
-        Stand currStand = WCCCProgram.getCurrStand();
-        currStand.setAge(currAge);
-        currStand.setHeight(currHeight);
-        currStand.setNumQuadrats(currNumQuadrats);
-        currStand.setArea(currSize);
+        WCCCProgram.CurrStand.setAge(currAge);
+        WCCCProgram.CurrStand.setHeight(currHeight);
+        /*WCCCProgram.CurrStand.setNumQuadrats(currNumQuadrats);*/
+        WCCCProgram.CurrStand.setArea(currSize);
+
+        StandImage standImage = WCCCProgram.CurrStand.getImage();
+        standImage.setNumQuadrats(currNumQuadrats);
+        WCCCProgram.CurrWoodlot.addStand(standImage);
         startActivity(intent);
     }
 

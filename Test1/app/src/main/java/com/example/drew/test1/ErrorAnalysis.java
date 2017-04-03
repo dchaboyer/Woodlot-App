@@ -27,11 +27,11 @@ public class ErrorAnalysis {
         }
     }
 
-    public static Double[] getInfo(Stand stand) {
+    public static Double[] getInfo(StandImage stand) {
         ArrayList<Double> dwmList = new ArrayList<Double>();
-        for(Quadrat quadrat : stand.getQuadrats())
+        for(QuadratImage quadrat : stand.getQuadratImages())
         {
-            if(quadrat.getCompletionStatus())
+            if(quadrat.isComplete())
             {
                 Double dwm = DwmCalculator.calculateQuadratCarbon(quadrat);
                 dwmList.add(dwm);

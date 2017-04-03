@@ -117,12 +117,14 @@ public class WoodlotInput extends AppCompatActivity
         int numStands = Integer.parseInt(numStandsString);
 
         if (isEdit) {
-            Woodlot currWoodlot = WCCCProgram.getCurrWoodlot();
-            currWoodlot.setName(name);
-            currWoodlot.setNumStands(numStands);
+            WoodlotImage woodlotImage = WCCCProgram.CurrWoodlot.getImage();
+            woodlotImage.setName(name);
+            woodlotImage.setNumStands(numStands);
+            WCCCProgram.Root.addWoodlot(woodlotImage);
         } else {
-            DataBase database = WCCCProgram.getRoot();
-            database.addWoodlot(new Woodlot(name, numStands));
+            WoodlotImage woodlotImage = new WoodlotImage(name);
+            woodlotImage.setNumStands(numStands);
+            WCCCProgram.Root.addWoodlot(woodlotImage);
         }
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

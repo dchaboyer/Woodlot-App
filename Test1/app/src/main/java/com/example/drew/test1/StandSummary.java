@@ -71,7 +71,7 @@ public class StandSummary extends AppCompatActivity
         speciesWidget3 = (TextView) findViewById(R.id.summarySpecies3);
         speciesWidget4 = (TextView) findViewById(R.id.summarySpecies4);
         speciesWidget5 = (TextView) findViewById(R.id.summarySpecies5);
-        final Stand currStand = WCCCProgram.getCurrStand();
+        final StandImage currStand = WCCCProgram.CurrStand.getImage();
 
         Integer currAge = currStand.getAge();
         age = currAge.toString();
@@ -79,24 +79,24 @@ public class StandSummary extends AppCompatActivity
         height = currHeight.toString();
         Double currSize = currStand.getArea();
         size = currSize.toString();
-        Species currSpecies = currStand.getSpecies(1);
+        Species currSpecies = currStand.getCommonSpecies(1);
         species1 = currSpecies.getName();
-        currSpecies = currStand.getSpecies(2);
+        currSpecies = currStand.getCommonSpecies(2);
         if(currSpecies != null)
             species2 = currSpecies.getName();
         else
             species2 = NOT_APPLICABLE;
-        currSpecies = currStand.getSpecies(3);
+        currSpecies = currStand.getCommonSpecies(3);
         if(currSpecies != null)
             species3 = currSpecies.getName();
         else
             species3 = NOT_APPLICABLE;
-        currSpecies = currStand.getSpecies(4);
+        currSpecies = currStand.getCommonSpecies(4);
         if(currSpecies != null)
             species4 = currSpecies.getName();
         else
             species4 = NOT_APPLICABLE;
-        currSpecies = currStand.getSpecies(5);
+        currSpecies = currStand.getCommonSpecies(5);
         if(currSpecies != null)
             species5 = currSpecies.getName();
         else
@@ -105,7 +105,7 @@ public class StandSummary extends AppCompatActivity
         Double carbon = DwmCalculator.calculateCarbonStand(currStand);
         String rangeDisplay, errorDisplay, statusDisplay;
         Double[] carbonSamples = ErrorAnalysis.getInfo(currStand);
-        if(currStand.getQuadrats().size() == carbonSamples.length) {
+        if(currStand.getQuadratImages().size() == carbonSamples.length) {
             rangeDisplay = "Range: Estimate is Exact";
             statusDisplay = "Status: Stand Complete";
             errorDisplay = "Error: No Error";
@@ -194,8 +194,7 @@ public class StandSummary extends AppCompatActivity
 
     private void saveNotes()
     {
-        Stand currStand = WCCCProgram.getCurrStand();
-        currStand.setNotes(notesWidget.getText().toString());
+        WCCCProgram.CurrStand.setNotes("\"" + notesWidget.getText().toString() + "\"");
     }
 
 }

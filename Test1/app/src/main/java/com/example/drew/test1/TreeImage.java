@@ -10,6 +10,7 @@ package com.example.drew.test1;
  */
 
 public class TreeImage {
+
     private double dbh;
     private Species species;
     private StorageFactor storageFactor;
@@ -63,5 +64,30 @@ public class TreeImage {
 
     public Integer getParentId() {
         return parentId;
+    }
+
+
+    public void setDbh(double dbh) {
+        this.dbh = dbh;
+    }
+
+    public void setSpecies(Species species) {
+        this.species = species;
+    }
+
+    public void setStorageFactor(StorageFactor storageFactor) {
+        this.storageFactor = storageFactor;
+    }
+
+    public void setMaterialType(MaterialType materialType) {
+        this.materialType = materialType;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
     }
 }

@@ -5,4 +5,11 @@ package com.example.drew.test1;
  */
 
 public class StandInsertFailureException extends RuntimeException {
+    public StandInsertFailureException(){
+        super();
+    }
+
+    public StandInsertFailureException(String message){
+        super(message);
+    }
 }

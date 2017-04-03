@@ -50,12 +50,12 @@ public class StandList extends AppCompatActivity
             final Button currButton = new Button(this);
             final int index = i;
 
-            currButton.setText("Stand " + index);
+            currButton.setText("Stand " + (index + 1));
             currButton.setTextSize(40);
             currButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     WCCCProgram.moveToStand(index);
-                    Double area = WCCCProgram.CurrStand.getArea();
+                    Double area = WCCCProgram.CurrWoodlot.getStandImage(index).getArea();
                     if(area == null) {
                         Intent intent = new Intent(StandList.this, StandSpecies.class);
                         intent.putExtra(QuadratScreen.EXTRA_ISEDIT, false);

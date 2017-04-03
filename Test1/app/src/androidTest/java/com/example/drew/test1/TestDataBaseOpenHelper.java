@@ -165,9 +165,9 @@ public class TestDataBaseOpenHelper {
     }
 
     private boolean imageMatch(StandImage standImage1, StandImage standImage2){
-        return standImage1.getAge() == standImage2.getAge()
-                && standImage1.getArea() == standImage2.getArea()
-                && standImage1.getHeight() == standImage2.getHeight()
+        return standImage1.getAge().intValue() == standImage2.getAge().intValue()
+                && standImage1.getArea().doubleValue() == standImage2.getArea().doubleValue()
+                && standImage1.getHeight().doubleValue() == standImage2.getHeight().doubleValue()
                 && standImage1.getCommonSpecies(1) == standImage2.getCommonSpecies(1)
                 && standImage1.getCommonSpecies(2) == standImage2.getCommonSpecies(2)
                 && standImage1.getCommonSpecies(3) == standImage2.getCommonSpecies(3)

@@ -1,5 +1,7 @@
+/*
 package com.example.drew.test1;
 
+*/
 /**
  * DATA BASE BUILDER
  *
@@ -7,7 +9,8 @@ package com.example.drew.test1;
  *
  * @author mbelzileha
  * Created by Jen on 25/02/2017.
- */
+ *//*
+
 
 public class DataBaseBuilder {
 
@@ -25,11 +28,14 @@ public class DataBaseBuilder {
     private final int DEBUG_STAND_DEFAULT_AGE = 10;
     private final double DEBUG_STAND_DEFAULT_HEIGHT = 12.5;
 
-    /**
+    */
+/**
      *
      * Constructs a DataBase for the sake of debuging until the UI is fully operational.
-     */
-   /** public void buildDebug(){
+     *//*
+
+   */
+/** public void buildDebug(){
         this.database = new DataBase();
         Woodlot woodlot1 = new Woodlot("Test", 5);
         Stand stand1 = new Stand(DEBUG_STAND_DEFAULT_SPECIES,
@@ -58,5 +64,7 @@ public class DataBaseBuilder {
         stand1.addQuadrat(quadrat10);
         woodlot1.addStand(stand1);
         this.database.addWoodlot(woodlot1);
-    } */
+    } *//*
+
 }
+*/

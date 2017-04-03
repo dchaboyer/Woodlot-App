@@ -272,11 +272,19 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
 
         ContentValues values = new ContentValues();
 
-        values.put(STAND_AREA_KEY, standImage.getArea());
-        values.put(STAND_AGE_KEY, standImage.getAge());
-        values.put(STAND_HEIGHT_KEY, standImage.getHeight());
+        if (standImage.getArea() != null) {
+            values.put(STAND_AREA_KEY, standImage.getArea());
+        }
+        if (standImage.getAge() != null) {
+            values.put(STAND_AGE_KEY, standImage.getAge());
+        }
+        if (standImage.getHeight() != null) {
+            values.put(STAND_HEIGHT_KEY, standImage.getHeight());
+        }
+
         values.put(STAND_NOTES_KEY, standImage.getNotes());
         values.put(STAND_WOODLOT_ID_KEY, woodlotId);
+
         for (int i = 1; i <= 5; i++){
             if (standImage.getCommonSpecies(i) == null){
                 values.putNull(standSpeciesKey(i));
@@ -286,7 +294,6 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
         }
 
         long standId = INVALID_ID;
-
         if (standImage.getId() == null) {
             standId = database.insert(STAND_TABLE_NAME, null, values);
         } else if (exists(STAND_TABLE_NAME, KEY_PRIMARY, Integer.toString(standImage.getId()),
@@ -301,7 +308,7 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
         }
 
         if (standId < 0){
-            throw new StandInsertFailureException();
+            throw new StandInsertFailureException("id = " + standId);
         }
 
         for (QuadratImage quadratImage : standImage.getQuadratImages()){
@@ -373,8 +380,10 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
         ContentValues values = new ContentValues();
         Coordinate coordinate = quadratImage.getCoordinate();
 
-        values.put(QUADRAT_X_COORDINATE_KEY, coordinate.getX());
-        values.put(QUADRAT_Y_COORDINATE_KEY, coordinate.getY());
+        if (coordinate != null) {
+            values.put(QUADRAT_X_COORDINATE_KEY, coordinate.getX());
+            values.put(QUADRAT_Y_COORDINATE_KEY, coordinate.getY());
+        }
 
         if (quadratImage.isComplete()) {
             values.put(QUADRAT_COMPLETE_KEY, TRUE_INTEGER_VALUE);
@@ -412,7 +421,7 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
 
     public void setStandSpecies(Species species, int rank, int standId){
         execUpdate(STAND_TABLE_NAME, standId,
-                standSpeciesKey(rank), species.getName());
+                standSpeciesKey(rank), "\""+ species.getName() + "\"");
     }
 
     public void setStandArea(double area, int standId){
@@ -433,6 +442,11 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
     public void setStandNotes(String notes, int standId){
         execUpdate(STAND_TABLE_NAME, standId,
                 STAND_NOTES_KEY, notes);
+    }
+
+    public void setWoodlotName(String name, int woodlotId){
+        execUpdate(WOODLOT_TABLE_NAME, woodlotId,
+                WOODLOT_NAME_KEY, name);
     }
 
     //ACCESSORS// ------------------------------------------------------
@@ -743,9 +757,21 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
      */
     private StandImage extractStandImage(Cursor standCursor){
         int standId = standCursor.getInt(STAND_PRIMARY_KEY_COLUMN);
-        double area = standCursor.getDouble(STAND_AREA_COLUMN);
-        int age= standCursor.getInt(STAND_AGE_COLUMN);
-        double height = standCursor.getDouble(STAND_HEIGHT_COLUMN);
+
+        Double area = null;
+        Integer age = null;
+        Double height = null;
+
+        if(!standCursor.isNull(STAND_AREA_COLUMN)){
+            area = standCursor.getDouble(STAND_AREA_COLUMN);
+        }
+        if(!standCursor.isNull(STAND_AGE_COLUMN)) {
+            age = standCursor.getInt(STAND_AGE_COLUMN);
+        }
+        if(!standCursor.isNull(STAND_HEIGHT_COLUMN)) {
+            height = standCursor.getDouble(STAND_HEIGHT_COLUMN);
+        }
+
         int parentId = standCursor.getInt(STAND_WOODLOT_ID_KEY_COLUMN);
         String notes = standCursor.getString(STAND_NOTES_COLUMN);
 
@@ -790,12 +816,20 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
      */
     private QuadratImage extractQuadratImage(Cursor quadratCursor){
         int quadratId = quadratCursor.getInt(QUADRAT_PRIMARY_KEY_COLUMN);
-        double xCoord = quadratCursor.getDouble(QUADRAT_X_COORDINATE_COLUMN);
-        double yCoord = quadratCursor.getDouble(QUADRAT_Y_COORDINATE_COLUMN);
+
+        Coordinate coordinate = null;
+
+        if (!quadratCursor.isNull(QUADRAT_X_COORDINATE_COLUMN) &&
+                !quadratCursor.isNull(QUADRAT_Y_COORDINATE_COLUMN)){
+            double xCoord = quadratCursor.getDouble(QUADRAT_X_COORDINATE_COLUMN);
+            double yCoord = quadratCursor.getDouble(QUADRAT_Y_COORDINATE_COLUMN);
+            coordinate = new Coordinate(xCoord, yCoord);
+        }
+
         boolean complete = (quadratCursor.getInt(QUADRAT_COMPLETE_COLUMN) == 1);
         int standID = quadratCursor.getInt(QUADRAT_STAND_ID_COLUMN);
 
-        QuadratImage quadratImage = new QuadratImage(quadratId, new Coordinate(xCoord, yCoord), standID);
+        QuadratImage quadratImage = new QuadratImage(quadratId, coordinate, standID);
         quadratImage.setComplete(complete); //TODO: fix potential code smell
 
         for (TreeImage treeImage: getTreeImagesFromQuadrat(quadratImage.getId())){

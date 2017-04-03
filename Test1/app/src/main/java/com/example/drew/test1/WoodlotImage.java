@@ -43,6 +43,10 @@ public class WoodlotImage {
         this.standImages.add(standImage);
     }
 
+    public void removeStandImage(int index){
+        this.standImages.remove(index);
+    }
+
     public List<StandImage> getStandImages(){
         LinkedList<StandImage> myStandImages = new LinkedList<StandImage>();
 
@@ -51,5 +55,22 @@ public class WoodlotImage {
         }
 
         return myStandImages;
+    }
+
+    public int setNumStands(int numStands) {
+        if(numStands < 1)
+            throw new InvalidParameterValueException();
+
+        if(numStands > this.standImages.size()) {
+            for(int i = this.standImages.size(); i < numStands; i++) {
+                this.addStandImage(new StandImage());
+            }
+        }
+        else if(numStands < this.standImages.size()) {
+            while(numStands < this.standImages.size()) {
+                this.removeStandImage(this.standImages.size() - 1);
+            }
+        }
+        return 1;
     }
 }

@@ -16,15 +16,15 @@ public class DwmCalculator {
 
     /**
      * Calculate DWM for a given quadrat
-     * @param quadrat
+     * @param quadratImage
      * @return
      */
-    public static double calculateQuadratCarbon(Quadrat quadrat){
+    public static double calculateQuadratCarbon(QuadratImage quadratImage){
         double totalCarbon = 0.0;
         double aboveABP, rootsABP, totalABP, currCarbon;
-        for (Tree tree: quadrat.getTrees()){
-            aboveABP = calculateAbp(tree);
-            if(tree.getSpecies().isHardwood())
+        for (TreeImage treeImage: quadratImage.getTrees()){
+            aboveABP = calculateAbp(treeImage);
+            if(treeImage.getSpecies().isHardwood())
             {
                 rootsABP = 1.576 * (Math.pow(aboveABP, 0.615));
             }
@@ -40,12 +40,12 @@ public class DwmCalculator {
         return totalCarbon;
     }
 
-    public static double calculateCarbonStand(Stand stand) {
+    public static double calculateCarbonStand(StandImage stand) {
         double carbon = 0.0;
-        for (Quadrat quadrat: stand.getQuadrats()) {
+        for (QuadratImage quadrat: stand.getQuadratImages()) {
             carbon += calculateQuadratCarbon(quadrat);
         }
-        int quadratsCompleted = stand.getCompletedQuadrats();
+        int quadratsCompleted = getNumberOfCompletedQuadrats(stand);
         double sampledSize = quadratsCompleted * QUADRAT_AREA;
         double standSize = stand.getArea() * METERS_IN_HECTARE;
         carbon = carbon * (standSize/sampledSize);
@@ -56,14 +56,29 @@ public class DwmCalculator {
 
     /**
      * Calculates the Allometric Biomass Prediction for a given tree
-     * @param tree
+     * @param treeImage
      * @return abp
      */
-    private static double calculateAbp(Tree tree) {
-        AbpEquation abpEquation = tree.getSpecies().getAbpEquation();
-        double dbh = tree.getDbh();
+    private static double calculateAbp(TreeImage treeImage) {
+        AbpEquation abpEquation = treeImage.getSpecies().getAbpEquation();
+        double dbh = treeImage.getDbh();
 
         return abpEquation.calculate(dbh);
+    }
+
+    /**
+     * Returns number of compelted quadrats
+     * @return numCompleted
+     */
+    private static int getNumberOfCompletedQuadrats(StandImage standImage){
+        int count = 0;
+        for (QuadratImage quadratImage : standImage.getQuadratImages()){
+            if (quadratImage.isComplete()){
+                count ++;
+            }
+        }
+
+        return count;
     }
 
 

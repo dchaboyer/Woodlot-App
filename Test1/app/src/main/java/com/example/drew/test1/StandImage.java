@@ -8,19 +8,29 @@ import java.util.List;
  */
 
 public class StandImage {
-
     private final String EMPTY_STRING = "";
     private final int NUM_SPECIES = 5;
 
     private Integer id;
-    private double area;
+    private Double area;
     private Integer age;
-    private double height;
+    private Double height;
     private Species[] commonSpecies;
     private Integer parentId;
     private String notes;
 
     private List<QuadratImage> quadratImages;
+
+    public StandImage() {
+        this.id = null;
+        this.area = null;
+        this.age = null;
+        this.height = null;
+        this.quadratImages = new LinkedList<QuadratImage>();
+        this.commonSpecies = new Species[NUM_SPECIES];
+        this.notes = EMPTY_STRING;
+        this.parentId = null;
+    }
 
     public StandImage(double area, Integer age, double height) {
         this.id = null;
@@ -33,7 +43,7 @@ public class StandImage {
         this.parentId = null;
     }
 
-    public StandImage(Integer id, double area, Integer age, double height, Integer parentId) {
+    public StandImage(Integer id, Double area, Integer age, Double height, Integer parentId) {
         this.id = id;
         this.area = area;
         this.age = age;
@@ -52,7 +62,7 @@ public class StandImage {
         this.id = id;
     }
 
-    public double getArea() {
+    public Double getArea() {
         return area;
     }
 
@@ -60,7 +70,7 @@ public class StandImage {
         this.area = area;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
@@ -68,7 +78,7 @@ public class StandImage {
         this.age = age;
     }
 
-    public double getHeight() {
+    public Double getHeight() {
         return height;
     }
 
@@ -129,6 +139,10 @@ public class StandImage {
         this.quadratImages.add(quadratImage);
     }
 
+    public void removeQuadratImage(int index){
+        this.quadratImages.remove(index);
+    }
+
     public List<QuadratImage> getQuadratImages(){
         LinkedList<QuadratImage> myQuadratImages = new LinkedList<QuadratImage>();
 
@@ -137,6 +151,24 @@ public class StandImage {
         }
 
         return myQuadratImages;
+    }
+
+    public int setNumQuadrats(int numQuadrats)
+    {
+        if(numQuadrats < 1)
+            throw new InvalidParameterValueException();
+        if(numQuadrats > this.quadratImages.size()) {
+            for(int i = this.quadratImages.size(); i < numQuadrats; i++) {
+                this.addQuadratImage(new QuadratImage());
+            }
+        }
+        else if(numQuadrats < this.quadratImages.size())
+        {
+            while (numQuadrats < this.quadratImages.size()) {
+                this.removeQuadratImage(this.quadratImages.size() - 1);
+            }
+        }
+        return 1;
     }
 
     @Override

@@ -75,12 +75,12 @@ public class TreeLayout extends AppCompatActivity
         factorSpinner.setOnItemSelectedListener(this);
         aspmSpinner.setOnItemSelectedListener(this);
 
-        Stand currStand = WCCCProgram.getCurrStand();
-        species1 = currStand.getSpecies(1);
-        species2 = currStand.getSpecies(2);
-        species3 = currStand.getSpecies(3);
-        species4 = currStand.getSpecies(4);
-        species5 = currStand.getSpecies(5);
+        List<Species> species = WCCCProgram.CurrStand.getCommonSpecies();
+        species1 = species.get(0);
+        species2 = species.get(1);
+        species3 = species.get(2);
+        species4 = species.get(3);
+        species5 = species.get(4);
 
         List<String> speciesCategories = new ArrayList<String>();
 
@@ -196,7 +196,7 @@ public class TreeLayout extends AppCompatActivity
      */
     public void sendMessage(View view)
     {
-        Tree tree;
+        TreeImage treeImage;
         Species tempSpecies = InputParser.parseSpecies(currSpecies);
         StorageFactor tempFactor = InputParser.parseStorageFactor(currFactor);
         MaterialType tempMaterial = InputParser.parseMaterialType(currAspm);
@@ -204,20 +204,19 @@ public class TreeLayout extends AppCompatActivity
         String heightString = dbhEdit.getText().toString();
         double tempHeight = Double.parseDouble(heightString);
 
-        Quadrat currQuadrat = WCCCProgram.getCurrQuadrat();
-
         if(isEdit)
         {
-            tree = WCCCProgram.getCurrTree();
-            tree.setSpecies(tempSpecies);
-            tree.setDbh(tempHeight);
-            tree.setStorageFactor(tempFactor);
-            tree.setMaterialType(tempMaterial);
+            treeImage = WCCCProgram.CurrTree.getImage();
+            treeImage.setSpecies(tempSpecies);
+            treeImage.setDbh(tempHeight);
+            treeImage.setStorageFactor(tempFactor);
+            treeImage.setMaterialType(tempMaterial);
+            WCCCProgram.CurrQuadrat.addTree(treeImage);
         }
         else
         {
-            tree = new Tree(tempHeight, tempSpecies, tempFactor, tempMaterial);
-            currQuadrat.addTree(tree);
+            treeImage = new TreeImage(tempHeight, tempSpecies, tempFactor, tempMaterial);
+            WCCCProgram.CurrQuadrat.addTree(treeImage);
         }
 
         Intent intent = new Intent(this, QuadratScreen.class);

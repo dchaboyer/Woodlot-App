@@ -1,13 +1,16 @@
+/*
 package com.example.drew.test1;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
+*/
 /**
  * DATABASE
  * @author mbelzileha
  *
- */
+ *//*
+
 
 public class DataBase {
 
@@ -69,8 +72,8 @@ public class DataBase {
         return currTree;
     }
 
-    public void setCurrTree(int newTree) {
+    public void moveToTree(int newTree) {
         currTree = newTree;
     }
 
-}
+}*/
