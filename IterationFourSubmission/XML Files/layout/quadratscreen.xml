@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--XML file for the quadrat overview screen. Uses android libraries to declare widgets-->
+<!--layout that holds all of the objects-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:orientation="vertical">
+
+    <!--displays the title-->
+    <TextView
+        android:text="Quadrat Overview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:textSize="40sp"
+        android:gravity="center"
+        android:id="@+id/title"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:paddingLeft="20dp"
+        android:weightSum="1">
+
+        <!--Checkbox for user to mark whether they have completed quadrat measurement-->
+        <CheckBox android:id="@+id/checkbox_completed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="30sp"
+            android:text="  Quadrat Completed"
+            android:onClick="onCheckboxClicked"/>
+    </LinearLayout>
+
+    <!--a list of all the trees in the quadrat-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight = "0.6">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollLayout2"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.2"
+        android:weightSum="1">
+
+        <!--a button to enter data for a tree-->
+        <Button
+            android:text="Add Tree"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:onClick="sendMessage"
+            android:id="@+id/button"
+            android:layout_weight="0.5"/>
+
+        <!--a button to return to the stand screen-->
+        <Button
+            android:text="Back"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:onClick="sendMessage2"
+            android:id="@+id/quadratDoneButton"
+            android:layout_weight="0.5"/>
+
+        </LinearLayout>
+
+</LinearLayout>
