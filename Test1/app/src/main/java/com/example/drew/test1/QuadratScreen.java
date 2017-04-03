@@ -61,7 +61,7 @@ public class QuadratScreen extends AppCompatActivity
 
         for(int i = 0; i < numTrees; i++)
         {
-            TreeImage treeImage = WCCCProgram.CurrQuadrat.getTreeImage(i - 1);
+            TreeImage treeImage = WCCCProgram.CurrQuadrat.getTreeImage(i);
             double height = treeImage.getDbh();
             String species = treeImage.getSpecies().getName();
             final Button currButton = new Button(this);
