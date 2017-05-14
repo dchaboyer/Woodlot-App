@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by Jen on 30/03/2017.
+ * Created by Mathieu       on 30/03/2017.
  */
 
 public class QuadratImage {

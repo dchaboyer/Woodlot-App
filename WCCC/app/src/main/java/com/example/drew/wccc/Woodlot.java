@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author mbelzileha
+ * @author Mathieu Belzile-Ha
  *
  */
 

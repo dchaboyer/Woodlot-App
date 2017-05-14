@@ -5,7 +5,7 @@ import java.util.LinkedList;
 /**
  * TREE
  * 
- * @author mbelzileha
+ * @author Mathieu Belzile-Ha
  *
  *NOTES:
  *

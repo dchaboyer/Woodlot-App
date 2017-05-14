@@ -7,7 +7,7 @@ import java.util.ArrayList;
  *
  * Holds all data from a Stand.
  *
- * @author mbelzileha
+ * @author Mathieu
  *
  */
 

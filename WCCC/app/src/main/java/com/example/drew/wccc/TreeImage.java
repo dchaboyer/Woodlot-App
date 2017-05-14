@@ -1,7 +1,7 @@
 package com.example.drew.wccc;
 
 /**
- * Created by Jen on 15/03/2017.
+ * Created by Mathieu Belzile-Ha on 15/03/2017.
  *
  * TREE INFO
  *

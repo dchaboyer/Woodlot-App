@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Observable by QuadratObservers
  * Holds data for a Quadrat.
  * 
- * @author mbelzileha
+ * @author Mathieu
  *
  */
 
