@@ -257,7 +257,7 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
         }
 
         if (woodlotId < 0){
-            throw new WoodlotInsertFailure();
+            throw new WoodlotInsertFailureException();
         }
 
         for (StandImage standImage : woodlotImage.getStandImages()){
