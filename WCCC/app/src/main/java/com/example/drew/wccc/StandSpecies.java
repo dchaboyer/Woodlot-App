@@ -15,7 +15,10 @@ public class StandSpecies extends AppCompatActivity
 {
     protected boolean isEdit;
 
-    ArrayAdapter<String> dataAdapter, dataAdapter2;
+    ArrayAdapter<String> dataAdapter, dataAdapter2; //dataAdapter is for the first species entry
+                                                    //which is mandatory.
+                                                    //dataAdapter2 is for the four other species
+                                                    //entries which are optional.
 
     protected Spinner species1, species2, species3, species4, species5;
     protected String speciesSelection1;
@@ -43,11 +46,11 @@ public class StandSpecies extends AppCompatActivity
         species5.setOnItemSelectedListener(this);
 
         List<String> categories = new ArrayList<String>();
-        for(Species currSpecies : Species.values())
+        for(Species currSpecies : Species.values()) {
             categories.add(currSpecies.getName());
+        }
 
-        dataAdapter = new ArrayAdapter<String>(this,
-                R.layout.spinner_layout, categories);
+        dataAdapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, categories);
         dataAdapter.setDropDownViewResource(R.layout.spinner_layout);
         species1.setAdapter(dataAdapter);
 
@@ -56,8 +59,7 @@ public class StandSpecies extends AppCompatActivity
             categories2.add(categories.get(i));
         categories2.add(0, "");
 
-        dataAdapter2 = new ArrayAdapter<String>(this,
-                R.layout.spinner_layout, categories2);
+        dataAdapter2 = new ArrayAdapter<String>(this, R.layout.spinner_layout, categories2);
         dataAdapter.setDropDownViewResource(R.layout.spinner_layout);
         species2.setAdapter(dataAdapter2);
         species3.setAdapter(dataAdapter2);
@@ -117,7 +119,6 @@ public class StandSpecies extends AppCompatActivity
      * and saves the inputed values.
      * @param view (for method requirement purposes)
      */
-
     public void sendMessage(View view)
     {
         Intent intent = new Intent(this, StandInput.class);
@@ -146,18 +147,23 @@ public class StandSpecies extends AppCompatActivity
     }
 
     /**
-     * Called when a user presses cancel. Starts the stand summary
-     * screen and does not alter the old values
+     * Called when a user presses cancel.
+     *
+     * If the user accessed this screen from the Stand
+     * Overview, returns to this screen. If the user
+     * accessed this screen from creation of a new
+     * Stand in the Woodlot Overview, returns to
+     * Woodlot overview.
+     *
      * @param view (for method requirement purposes)
      */
-
     public void sendOldValues(View view)
     {
         Intent intent;
         if(isEdit)
             intent = new Intent(this, StandOverview.class);
         else
-            intent = new Intent(this, StandList.class);
+            intent = new Intent(this, WoodlotOverview.class);
         startActivity(intent);
     }
 }

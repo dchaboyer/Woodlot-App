@@ -3,9 +3,10 @@
  * COMP 4721
  * 5/3/17
  *
- * This is the java code for the list of quadrats screen. It displays a button
- * to go to the stand summary, and a scroll menu for buttons that will
- * link to all the quadrats in a particular stand.
+ * This is the java code for the stand overview screen. It displays a
+ * list of quadrats in the stand, with a button to access each, and
+ * a button to go to the StandSummary where one can view/edit all
+ * other stand data.
  */
 
 package com.example.drew.wccc;
@@ -27,19 +28,18 @@ public class StandOverview extends AppCompatActivity
     // variables to store current information
     protected int numQuadrats;
 
-/**
+    /**
      * Begins automatically when this screen is opened. It
      * adds the functionality to the widgets declared in the xml code.
      * @param savedInstanceState (a class that is part of the android library)
      */
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stand_overview);
 
-        //This next block dynamically creates the quadrat buttons.
+        //This next block creates all the quadrat buttons.
         LinearLayout layout = (LinearLayout) findViewById(R.id.scrollLayout);
         numQuadrats = WCCCProgram.CurrStand.getNumQuadrats();
 
@@ -65,7 +65,6 @@ public class StandOverview extends AppCompatActivity
      * Called when the user hits the edit info button. Starts the stand summary screen.
      * @param view (only to satisfy method requirements)
      */
-
     public void sendSummary(View view)
     {
         Intent intent = new Intent(this, StandSummary.class);
@@ -76,12 +75,10 @@ public class StandOverview extends AppCompatActivity
      * Called when the user hits the back button. Starts the stand list screen.
      * @param view (only to satisfy method requirements)
      */
-
     public void sendList(View view)
     {
-        Intent intent = new Intent(this, StandList.class);
+        Intent intent = new Intent(this, WoodlotOverview.class);
         startActivity(intent);
     }
-
 
 }
