@@ -6,6 +6,7 @@ package com.example.drew.wccc;
  *
  * This is the Java code that calculates both standard deviations
  * and the relative standard error.
+ *
  */
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class ErrorAnalysis {
                 dwmList.add(dwm);
             }
         }
+
         Double[] dwmSamples = new Double[dwmList.size()];
         for(int i = 0; i < dwmSamples.length; i++)
         {

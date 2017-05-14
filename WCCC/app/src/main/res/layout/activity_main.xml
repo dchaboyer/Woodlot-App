@@ -9,7 +9,7 @@
 
     <!--displays the title-->
     <TextView
-        android:text="Woodlot List"
+        android:text="Home"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.1"

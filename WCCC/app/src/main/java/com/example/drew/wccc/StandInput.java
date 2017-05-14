@@ -64,7 +64,6 @@ public class StandInput extends AppCompatActivity
         quadratEdit = (EditText) findViewById(R.id.numQuadratsEdit);
         sizeEdit = (EditText) findViewById(R.id.standSizeEdit);
 
-        //Stand currStand = WCCCProgram.getCurrStand();
         if(isEdit) {
             Integer oldAge = WCCCProgram.CurrStand.getAge();
             ageEdit.setText(oldAge.toString());
@@ -183,7 +182,7 @@ public class StandInput extends AppCompatActivity
         if(isEdit)
             intent = new Intent(this, StandOverview.class);
         else
-            intent = new Intent(this, StandList.class);
+            intent = new Intent(this, WoodlotOverview.class);
         startActivity(intent);
     }
 

@@ -6,8 +6,8 @@ package com.example.drew.wccc;
  * 5/3/17
  *
  * This is the java code for the stand summary screen. It provides
- * lists all the information for the stand, and has buttons to allow
- * the user to edit the info, or to proceed to the quadrat list screen.
+ * all of the information for the stand, and has buttons to allow
+ * the user to edit the info, or to proceed to the Stand Overview.
  */
 
 
@@ -180,7 +180,6 @@ public class StandSummary extends AppCompatActivity
      * Called when the user hits the quadrat list button. Starts the quadrat list screen.
      * @param view (only to satisfy method requirements)
      */
-
     public void sendList(View view)
     {
         saveNotes();
@@ -191,7 +190,6 @@ public class StandSummary extends AppCompatActivity
     /**
      * Saves the notes to the application.
      */
-
     private void saveNotes()
     {
         WCCCProgram.CurrStand.setNotes("\"" + notesWidget.getText().toString() + "\"");

@@ -7,7 +7,7 @@ package com.example.drew.wccc;
  *
  * This is the Java code for the data entry screen for trees.
  * This code adds the desired functionality to the widgets, allowing someone
- * to specify a tree's species, height, storage factor, and aspm height.
+ * to specify a tree's species, diameter at breast height (dbh), storage factor, and material type.
  * From here when a user clicks either the Cancel or the Done button they return
  * to the quadrat overview screen.
  */
@@ -43,9 +43,6 @@ public class TreeLayout extends AppCompatActivity
     protected String currSpecies;
     protected String currFactor;
     protected String currAspm;
-
-    //the number of the tree's quadrat
-    protected int quadratNum;
 
     //specifies whether this is editing or adding a tree
     protected boolean isEdit;
@@ -201,21 +198,21 @@ public class TreeLayout extends AppCompatActivity
         StorageFactor tempFactor = InputParser.parseStorageFactor(currFactor);
         MaterialType tempMaterial = InputParser.parseMaterialType(currAspm);
 
-        String heightString = dbhEdit.getText().toString();
-        double tempHeight = Double.parseDouble(heightString);
+        String dbhString = dbhEdit.getText().toString();
+        double tempDbh = Double.parseDouble(dbhString);
 
         if(isEdit)
         {
             treeImage = WCCCProgram.CurrTree.getImage();
             treeImage.setSpecies(tempSpecies);
-            treeImage.setDbh(tempHeight);
+            treeImage.setDbh(tempDbh);
             treeImage.setStorageFactor(tempFactor);
             treeImage.setMaterialType(tempMaterial);
             WCCCProgram.CurrQuadrat.addTree(treeImage);
         }
         else
         {
-            treeImage = new TreeImage(tempHeight, tempSpecies, tempFactor, tempMaterial);
+            treeImage = new TreeImage(tempDbh, tempSpecies, tempFactor, tempMaterial);
             WCCCProgram.CurrQuadrat.addTree(treeImage);
         }
 
@@ -227,7 +224,6 @@ public class TreeLayout extends AppCompatActivity
      * Called when a user presses the Cancel button.
      * @param view
      */
-
     public void sendMessage2(View view)
     {
         Intent intent = new Intent(this, QuadratScreen.class);

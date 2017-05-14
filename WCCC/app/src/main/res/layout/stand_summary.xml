@@ -204,7 +204,7 @@
 
         <!--a button that takes you to the list of quadrats-->
         <Button
-            android:text="Quadrat List"
+            android:text="Back"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:textSize="20sp"

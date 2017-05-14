@@ -9,7 +9,7 @@
 
     <!-- displays the title-->
     <TextView
-        android:text="Quadrat List"
+        android:text="Stand Overview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.1"
@@ -42,7 +42,7 @@
 
     <!--a button that returns the user to the list of stands-->
     <Button
-        android:text="Return to List of Stands"
+        android:text="Back"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:textSize="20sp"

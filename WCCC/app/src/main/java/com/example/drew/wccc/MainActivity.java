@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity
     protected ArrayList<Button> buttonList = new ArrayList<Button>();
 
     /**
-     * Begins automatically anytime a user pulls up the stand data entry
-     * screen. It creates the buttons and adds the functionality.
+     * Begins automatically anytime a user pulls up the home screen.
+     * It creates a button for each woodlot in the database.
      * @param savedInstanceState (a class that is part of the android library)
      */
     @Override
@@ -53,12 +53,10 @@ public class MainActivity extends AppCompatActivity
         addButton = (Button) findViewById(R.id.addWoodlot);
 
         List<WoodlotImage> woodlotImages = WCCCProgram.Root.getWoodlotImages();
-        /*int numWoodlots = WCCCProgram.Root.getNumWoodlots();*/
         LinearLayout layout = (LinearLayout) findViewById(R.id.woodlotList);
         for(WoodlotImage woodlotImage: woodlotImages)
         {
             final Button currButton = new Button(this);
-            /*final int index = i;*/
 
             String name = woodlotImage.getName();
             final int woodlotId = woodlotImage.getId();
@@ -76,7 +74,7 @@ public class MainActivity extends AppCompatActivity
                 @Override
                 public void onClick(View v) {
                     WCCCProgram.moveToWoodlot(woodlotId);
-                    Intent intent = new Intent(MainActivity.this, StandList.class);
+                    Intent intent = new Intent(MainActivity.this, WoodlotOverview.class);
                     startActivity(intent);
                 }
             });
