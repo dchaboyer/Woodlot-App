@@ -14,8 +14,8 @@
                                           - Project backlog: Self-explanatory. The backlog currently only
                                                              contains previous project submissions.
                                                              
-                                          - GUI Prototype: A pdf depicting the GUI the project is aiming
-                                                           aiming for.
+                                          - GUI Prototype: A pdf depicting the guiding design for the project's
+                                                           Graphical User Interface.
                                                            
                                           - wccc.apk: An apk file for anyone who wants to try the app.
 
