@@ -1,7 +1,7 @@
-# Woodlot Carbon Content Calculator (WCCC)
+# Woodlot Carbon Content Calculator (WCCC) - 1st Release
 ## Jonathan Whitaker, Mathieu Belzile-Ha, Drew Chaboyer
 
-      The following is a prototype release for an application designed to facilitate tree data collection for a woodlot 
+      The following is an application designed to facilitate tree data collection for a woodlot 
       and approximate the carbon content in it.
 
       REPO:
